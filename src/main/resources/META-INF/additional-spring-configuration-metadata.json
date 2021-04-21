@@ -21,6 +21,11 @@
       "description": "Application port."
     },
     {
+      "name": "app.time-zone",
+      "type": "java.lang.String",
+      "description": "Server time zone."
+    },
+    {
       "name": "app.context-path",
       "type": "java.lang.String",
       "description": "Application context path."

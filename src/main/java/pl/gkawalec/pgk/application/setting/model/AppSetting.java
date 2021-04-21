@@ -13,6 +13,7 @@ public class AppSetting {
     private String author = "";
 
     private int port = 1003;
+    private String timeZone = "UTC";
 
     private String contextPath = "";
     private String apiPrefix = "/api";

@@ -3,6 +3,7 @@ app:
   version: '@project.version@'
   author: Grzegorz Kawalec
   port: 10003
+  time-zone: UTC
   context-path:
   api-prefix: /api
   database:
