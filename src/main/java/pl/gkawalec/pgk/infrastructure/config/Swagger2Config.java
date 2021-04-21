@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import pl.gkawalec.pgk.application.setting.model.AppSetting;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -11,6 +12,7 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import pl.gkawalec.pgk.PGKApplication;
 
 
 @Configuration
@@ -20,24 +22,29 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Swagger2Config {
 
     /**
+     * http://localhost:${appSetting.getPort}/ ${appSetting.getContextPath} / ${appSetting.getApiPrefix} /swagger-ui/
      * e.g. http://localhost:10003/swagger-ui/
      */
+
+    private final AppSetting appSetting;
+
+    private static final String BASE_PACKAGE = PGKApplication.class.getPackageName();
 
     @Bean
     Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("pl.gkawalec.pgk.web.controller"))
-                .paths(PathSelectors.regex(  "/api/.*"))
+                .apis(RequestHandlerSelectors.basePackage(BASE_PACKAGE))
+                .paths(PathSelectors.regex(appSetting.getContextPath() + appSetting.getApiPrefix() + "/.*"))
                 .build()
                 .apiInfo(apiInfo());
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("PGK")
-                .description( "PGK REST API")
-                .version("1.0.0")
-                .description("Author: Grzegorz Kawalec")
+        return new ApiInfoBuilder().title(appSetting.getName())
+                .description(appSetting.getName() + " REST API")
+                .version(appSetting.getVersion())
+                .description("Author: " + appSetting.getAuthor())
                 .build();
     }
 

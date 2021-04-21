@@ -5,6 +5,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.stereotype.Component;
+import pl.gkawalec.pgk.application.setting.model.AppSetting;
 
 import javax.sql.DataSource;
 
@@ -12,20 +13,21 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 class DataSourceBuilder {
 
+    private final AppSetting appSetting;
     private final DataSourceProperties dataSourceProperties;
 
     private static final String P6SPY_IN_URL = "p6spy:";
 
     DataSource build() {
         HikariDataSource dataSource = (HikariDataSource) dataSourceProperties.initializeDataSourceBuilder().build();
-        dataSource.setMaximumPoolSize(10);
+        dataSource.setMaximumPoolSize(appSetting.getDatabase().getMaxPoolSize());
         addP6Spy(dataSource);
         return dataSource;
     }
 
     private void addP6Spy(HikariDataSource dataSource) {
         String jdbcUrl = dataSource.getJdbcUrl();
-        if (jdbcUrl.contains(P6SPY_IN_URL)) {
+        if (!appSetting.getDatabase().isP6spy() && jdbcUrl.contains(P6SPY_IN_URL)) {
             jdbcUrl = jdbcUrl.replace(P6SPY_IN_URL, "");
             dataSource.setJdbcUrl(jdbcUrl);
         }
