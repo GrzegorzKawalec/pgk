@@ -3,7 +3,7 @@ package pl.gkawalec.pgk.web.dto.info;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Value;
-import pl.gkawalec.pgk.application.setting.model.AppSetting;
+import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 
 import java.util.Objects;
 

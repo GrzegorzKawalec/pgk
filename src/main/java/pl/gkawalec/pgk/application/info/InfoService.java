@@ -2,7 +2,7 @@ package pl.gkawalec.pgk.application.info;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.gkawalec.pgk.application.setting.model.AppSetting;
+import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 import pl.gkawalec.pgk.web.dto.info.InfoBasicDto;
 
 @Service

@@ -5,7 +5,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.stereotype.Component;
-import pl.gkawalec.pgk.application.setting.model.AppSetting;
+import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 
 import javax.sql.DataSource;
 

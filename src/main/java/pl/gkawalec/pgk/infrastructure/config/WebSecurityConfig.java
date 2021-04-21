@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
-import pl.gkawalec.pgk.application.setting.model.AppSetting;
+import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 
 @Configuration
 @EnableWebSecurity

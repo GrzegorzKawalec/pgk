@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.application.setting.model;
+package pl.gkawalec.pgk.infrastructure.setting.model;
 
 import lombok.AccessLevel;
 import lombok.Getter;
