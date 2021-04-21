@@ -10,7 +10,7 @@ app:
     p6spy: false
     max-pool-size: 10
   security:
-    unauthorized-requests:
+    unauthorized-requests: ${app.api-prefix}/info/basic
   mail:
     host: smtp.gmail.com
     port: 587
