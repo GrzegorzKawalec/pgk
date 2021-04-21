@@ -8,6 +8,11 @@ app:
   database:
     p6spy: false
     max-pool-size: 10
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    login: gkawalecPGK@gmail.com
+    password: pgk_gk91
 
 # --------------------------------------------------------------
 
@@ -42,3 +47,14 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+  mail:
+    host: ${app.mail.host}
+    port: ${app.mail.port}
+    username: ${app.mail.login}
+    password: ${app.mail.password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

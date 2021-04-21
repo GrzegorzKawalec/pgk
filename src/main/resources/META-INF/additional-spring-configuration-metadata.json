@@ -39,6 +39,26 @@
       "name": "app.database.max-pool-size",
       "type": "java.lang.String",
       "description": "Description for app.database.max-pool-size."
+    },
+    {
+      "name": "app.mail.host",
+      "type": "java.lang.String",
+      "description": "E-mail host from which messages will be sent."
+    },
+    {
+      "name": "app.mail.port",
+      "type": "java.lang.String",
+      "description": "E-mail port from which messages will be sent."
+    },
+    {
+      "name": "app.mail.login",
+      "type": "java.lang.String",
+      "description": "E-mail login from which messages will be sent."
+    },
+    {
+      "name": "app.mail.password",
+      "type": "java.lang.String",
+      "description": "E-mail password from which messages will be sent."
     }
   ]
 }
