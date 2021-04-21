@@ -1,5 +1,20 @@
-server:
+app:
+  name: PGK
+  version: '@project.version@'
+  author: Grzegorz Kawalec
   port: 10003
+  context-path:
+  api-prefix: /api
+  database:
+    p6spy: false
+    max-pool-size: 10
+
+# --------------------------------------------------------------
+
+server:
+  port: ${app.port}
+  servlet:
+    context-path: ${app.context-path}
 
 spring:
   profiles:
