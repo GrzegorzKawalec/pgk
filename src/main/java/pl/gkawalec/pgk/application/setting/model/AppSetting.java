@@ -19,6 +19,7 @@ public class AppSetting {
     private String apiPrefix = "/api";
 
     private AppDatabaseSetting database = new AppDatabaseSetting();
+    private AppSecuritySetting security = new AppSecuritySetting();
     private AppMailSetting mail = new AppMailSetting();
 
 }

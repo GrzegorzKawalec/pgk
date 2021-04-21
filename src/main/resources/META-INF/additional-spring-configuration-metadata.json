@@ -46,6 +46,11 @@
       "description": "Description for app.database.max-pool-size."
     },
     {
+      "name": "app.security.unauthorized-requests",
+      "type": "java.lang.String",
+      "description": "List of unauthorized requests."
+    },
+    {
       "name": "app.mail.host",
       "type": "java.lang.String",
       "description": "E-mail host from which messages will be sent."

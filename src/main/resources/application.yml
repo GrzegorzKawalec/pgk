@@ -9,6 +9,8 @@ app:
   database:
     p6spy: false
     max-pool-size: 10
+  security:
+    unauthorized-requests:
   mail:
     host: smtp.gmail.com
     port: 587
