@@ -15,7 +15,7 @@ public class InfoController {
     private final InfoService infoService;
 
     @GetMapping("/basic")
-    public InfoBasicDto test() {
+    public InfoBasicDto getBasicInfo() {
         return infoService.getBasicInfo();
     }
 

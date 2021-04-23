@@ -1,14 +1,14 @@
 package pl.gkawalec.pgk;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import pl.gkawalec.pgk.testconfig.annotation.PGKSpringBootTest;
 
-@SpringBootTest
-@ActiveProfiles("test")
+@PGKSpringBootTest
 class PGKApplicationTest {
 
     @Test
+    @DisplayName("Test Spring Boot context loads")
     void contextLoads() {
     }
 
