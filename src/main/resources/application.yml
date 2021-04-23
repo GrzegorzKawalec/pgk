@@ -1,6 +1,7 @@
 app:
   name: PGK
   version: '@project.version@'
+  profile: @activatedProfile@
   author: Grzegorz Kawalec
   port: 10003
   time-zone: UTC
