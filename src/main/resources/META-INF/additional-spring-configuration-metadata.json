@@ -1,0 +1,79 @@
+{
+  "properties": [
+    {
+      "name": "app.name",
+      "type": "java.lang.String",
+      "description": "Application name."
+    },
+    {
+      "name": "app.version",
+      "type": "java.lang.String",
+      "description": "Application version."
+    },
+    {
+      "name": "app.profile",
+      "type": "java.lang.String",
+      "description": "Profile on which the application is running."
+    },
+    {
+      "name": "app.author",
+      "type": "java.lang.String",
+      "description": "Application author."
+    },
+    {
+      "name": "app.port",
+      "type": "java.lang.String",
+      "description": "Application port."
+    },
+    {
+      "name": "app.time-zone",
+      "type": "java.lang.String",
+      "description": "Server time zone."
+    },
+    {
+      "name": "app.context-path",
+      "type": "java.lang.String",
+      "description": "Application context path."
+    },
+    {
+      "name": "app.api-prefix",
+      "type": "java.lang.String",
+      "description": "API prefix."
+    },
+    {
+      "name": "app.database.p6spy",
+      "type": "java.lang.String",
+      "description": "P6Spy is a framework that enables database data to be seamlessly intercepted and logged with no code changes to existing application."
+    },
+    {
+      "name": "app.database.max-pool-size",
+      "type": "java.lang.String",
+      "description": "Description for app.database.max-pool-size."
+    },
+    {
+      "name": "app.security.unauthorized-requests",
+      "type": "java.lang.String",
+      "description": "List of unauthorized requests."
+    },
+    {
+      "name": "app.mail.host",
+      "type": "java.lang.String",
+      "description": "E-mail host from which messages will be sent."
+    },
+    {
+      "name": "app.mail.port",
+      "type": "java.lang.String",
+      "description": "E-mail port from which messages will be sent."
+    },
+    {
+      "name": "app.mail.login",
+      "type": "java.lang.String",
+      "description": "E-mail login from which messages will be sent."
+    },
+    {
+      "name": "app.mail.password",
+      "type": "java.lang.String",
+      "description": "E-mail password from which messages will be sent."
+    }
+  ]
+}
