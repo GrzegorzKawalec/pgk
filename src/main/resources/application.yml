@@ -20,6 +20,10 @@ app:
 
 # --------------------------------------------------------------
 
+java:
+  runtime:
+    version: @java.version@
+
 server:
   port: ${app.port}
   servlet:
