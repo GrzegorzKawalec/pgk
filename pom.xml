@@ -11,7 +11,6 @@
     <properties>
         <activatedProfile>dev</activatedProfile>
         <java.version>16</java.version>
-        <java.runtime.version>${java.version}</java.runtime.version>
     </properties>
 
     <parent>
