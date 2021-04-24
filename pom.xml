@@ -154,6 +154,7 @@
                             <outputFile>${front-source-dir}/src/app/api/api-models.ts</outputFile>
                             <outputFileType>implementationFile</outputFileType>
                             <optionalProperties>all</optionalProperties>
+                            <noFileComment>true</noFileComment>
                             <mapEnum>asEnum</mapEnum>
                         </configuration>
                     </execution>
