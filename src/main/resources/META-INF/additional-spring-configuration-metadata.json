@@ -31,11 +31,6 @@
       "description": "Server time zone."
     },
     {
-      "name": "app.context-path",
-      "type": "java.lang.String",
-      "description": "Application context path."
-    },
-    {
       "name": "app.api-prefix",
       "type": "java.lang.String",
       "description": "API prefix."

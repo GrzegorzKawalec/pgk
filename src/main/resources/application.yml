@@ -5,7 +5,6 @@ app:
   author: Grzegorz Kawalec
   port: ${PORT:10003}
   time-zone: UTC
-  context-path:
   api-prefix: /api
   database:
     p6spy: false
@@ -22,8 +21,6 @@ app:
 
 server:
   port: ${app.port}
-  servlet:
-    context-path: ${app.context-path}
 
 spring:
   profiles:
