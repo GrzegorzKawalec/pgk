@@ -11,6 +11,7 @@
     <properties>
         <activatedProfile>dev</activatedProfile>
         <java.version>16</java.version>
+        <front-source-dir>${basedir}/src/main/webapp</front-source-dir>
     </properties>
 
     <parent>
@@ -129,6 +130,31 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>cz.habarta.typescript-generator</groupId>
+                <artifactId>typescript-generator-maven-plugin</artifactId>
+                <version>2.30.840</version>
+                <executions>
+                    <execution>
+                        <id>generate</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <jsonLibrary>jackson2</jsonLibrary>
+                            <outputKind>module</outputKind>
+                            <classPatterns>
+                                <pattern>pl.gkawalec.pgk.**DTO</pattern>
+                            </classPatterns>
+                            <outputFile>${front-source-dir}/src/app/api/api-models.ts</outputFile>
+                            <outputFileType>implementationFile</outputFileType>
+                            <optionalProperties>all</optionalProperties>
+                            <mapEnum>asEnum</mapEnum>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
