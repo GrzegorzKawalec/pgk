@@ -3,7 +3,7 @@ app:
   version: '@project.version@'
   profile: @activatedProfile@
   author: Grzegorz Kawalec
-  port: 10003
+  port: ${PORT:10003}
   time-zone: UTC
   context-path:
   api-prefix: /api
