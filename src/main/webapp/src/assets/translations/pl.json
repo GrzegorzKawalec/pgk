@@ -1,3 +1,5 @@
 {
-  "pgk-full-name": "PGK - Projekty Geodezyjne i Kartograficzne"
+  "info": {
+    "app-info": "Informacje o aplikacji"
+  }
 }
