@@ -1,5 +1,8 @@
 {
-  "info": {
-    "app-info": "Informacje o aplikacji"
+  "app-info": {
+    "app-info": "Informacje o aplikacji",
+    "author": "Autor",
+    "name": "Nazwa",
+    "version": "Wersja"
   }
 }

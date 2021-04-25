@@ -7,11 +7,12 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {AppRoutingModule} from './app-routing.module';
+import {AppRouting} from './app.routing';
 
 import {AppComponent} from './app.component';
 import {COMMON_MODULES} from './core/const/common-modules';
 import {NavbarComponent} from './layouts/navbar/navbar.component';
+import {AppInfoModule} from './modules/app-info/app-info.module';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   const timestamp = Date.now();
@@ -27,7 +28,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     BrowserModule,
     BrowserAnimationsModule,
     COMMON_MODULES,
-    AppRoutingModule,
+    AppRouting,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -35,6 +36,9 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient]
       }
     }),
+
+    AppInfoModule,
+
     MatButtonModule,
     MatToolbarModule,
     MatTooltipModule

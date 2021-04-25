@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 export interface InfoBasicDTO {
+    author?: string;
     name?: string;
     version?: string;
-    author?: string;
 }

@@ -151,12 +151,14 @@
                             <classPatterns>
                                 <pattern>pl.gkawalec.pgk.**DTO</pattern>
                             </classPatterns>
-                            <outputFile>${front-source-dir}/src/app/api/api-models.ts</outputFile>
+                            <outputFile>${front-source-dir}/src/app/core/api/api-models.ts</outputFile>
                             <outputFileType>implementationFile</outputFileType>
                             <optionalProperties>all</optionalProperties>
                             <noFileComment>true</noFileComment>
                             <mapEnum>asEnum</mapEnum>
                             <nonConstEnums>true</nonConstEnums>
+                            <sortDeclarations>true</sortDeclarations>
+                            <sortTypeDeclarations>true</sortTypeDeclarations>
                         </configuration>
                     </execution>
                 </executions>
@@ -214,7 +216,7 @@
                             <resources>
                                 <resource>
                                     <directory>${front-dist-dir}</directory>
-                                    <filtering>true</filtering>
+                                    <filtering>false</filtering>
                                 </resource>
                             </resources>
                         </configuration>
