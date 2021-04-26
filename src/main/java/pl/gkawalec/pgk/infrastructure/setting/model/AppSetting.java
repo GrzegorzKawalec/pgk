@@ -15,8 +15,6 @@ public class AppSetting {
 
     private int port = 1003;
     private String timeZone = "UTC";
-
-    private String contextPath = "";
     private String apiPrefix = "/api";
 
     private AppDatabaseSetting database = new AppDatabaseSetting();

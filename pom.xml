@@ -11,6 +11,10 @@
     <properties>
         <activatedProfile>dev</activatedProfile>
         <java.version>16</java.version>
+        <base-href>/</base-href>
+        <front-source-dir>${basedir}/src/main/webapp</front-source-dir>
+        <front-dist-dir>${front-source-dir}/dist</front-dist-dir>
+        <front-static-copy-dir>${basedir}/target/classes/static</front-static-copy-dir>
     </properties>
 
     <parent>
@@ -129,6 +133,95 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>cz.habarta.typescript-generator</groupId>
+                <artifactId>typescript-generator-maven-plugin</artifactId>
+                <version>2.30.840</version>
+                <executions>
+                    <execution>
+                        <id>generate api-models.ts</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <jsonLibrary>jackson2</jsonLibrary>
+                            <outputKind>module</outputKind>
+                            <classPatterns>
+                                <pattern>pl.gkawalec.pgk.**DTO</pattern>
+                            </classPatterns>
+                            <outputFile>${front-source-dir}/src/app/core/api/api-models.ts</outputFile>
+                            <outputFileType>implementationFile</outputFileType>
+                            <optionalProperties>all</optionalProperties>
+                            <noFileComment>true</noFileComment>
+                            <mapEnum>asEnum</mapEnum>
+                            <nonConstEnums>true</nonConstEnums>
+                            <sortDeclarations>true</sortDeclarations>
+                            <sortTypeDeclarations>true</sortTypeDeclarations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <configuration>
+                            <workingDirectory>${front-source-dir}</workingDirectory>
+                            <executable>npm</executable>
+                            <arguments>
+                                <argument>install</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>lint and build frontend</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <workingDirectory>${front-source-dir}</workingDirectory>
+                            <executable>npm</executable>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>build</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>copy frontend</id>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <outputDirectory>${front-static-copy-dir}</outputDirectory>
+                            <overwrite>true</overwrite>
+                            <resources>
+                                <resource>
+                                    <directory>${front-dist-dir}</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

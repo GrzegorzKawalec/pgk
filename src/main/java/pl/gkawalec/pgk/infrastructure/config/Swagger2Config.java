@@ -22,7 +22,7 @@ import pl.gkawalec.pgk.PGKApplication;
 public class Swagger2Config {
 
     /**
-     * http://localhost:${appSetting.getPort}/ ${appSetting.getContextPath} / ${appSetting.getApiPrefix} /swagger-ui/
+     * http://localhost:${appSetting.getPort} / ${appSetting.getApiPrefix} /swagger-ui/
      * e.g. http://localhost:10003/swagger-ui/
      */
 
@@ -35,7 +35,7 @@ public class Swagger2Config {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(BASE_PACKAGE))
-                .paths(PathSelectors.regex(appSetting.getContextPath() + appSetting.getApiPrefix() + "/.*"))
+                .paths(PathSelectors.regex(appSetting.getApiPrefix() + "/.*"))
                 .build()
                 .apiInfo(apiInfo());
     }

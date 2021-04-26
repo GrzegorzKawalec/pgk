@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -27,7 +30,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers(
+        String[] ignoringWebAppPatterns = ignoringWebAppPatterns().toArray(new String[0]);
+        web.ignoring().antMatchers(ignoringWebAppPatterns);
+    }
+
+    private List<String> ignoringWebAppPatterns() {
+        List<String> ignoringWebAppPatterns = new ArrayList<>(List.of(
+                "/",
+                "/**/*.html",
+                "/**/*.js",
+                "/**/*.css",
+                "/**/*.scss",
+                "/assets/**"
+        ));
+        if (appSetting.getProfile().equals("dev")) {
+            ignoringWebAppPatterns.addAll(ignoringWebSwaggerPatterns());
+        }
+        return ignoringWebAppPatterns;
+    }
+
+    private List<String> ignoringWebSwaggerPatterns() {
+        return List.of(
                 "/swagger-ui/**",
                 "/v2/api-docs",
                 "/swagger-resources/**",

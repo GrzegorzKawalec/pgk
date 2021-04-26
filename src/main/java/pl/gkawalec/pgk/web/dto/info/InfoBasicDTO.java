@@ -9,15 +9,15 @@ import java.util.Objects;
 
 @Value
 @Builder(access = AccessLevel.PRIVATE)
-public class InfoBasicDto {
+public class InfoBasicDTO {
 
     String name;
     String version;
     String author;
 
-    public static InfoBasicDto of(AppSetting appSetting) {
+    public static InfoBasicDTO of(AppSetting appSetting) {
         Objects.requireNonNull(appSetting, AppSetting.class.getSimpleName() + " cannot be null");
-        return InfoBasicDto.builder()
+        return InfoBasicDTO.builder()
                 .name(appSetting.getName())
                 .version(appSetting.getVersion())
                 .author(appSetting.getAuthor())
