@@ -1,10 +1,6 @@
 spring:
   datasource:
-    url: jdbc:p6spy:postgresql://ec2-54-155-226-153.eu-west-1.compute.amazonaws.com:5432/d587mfjuau0vd0?currentSchema=pgk
-    username: zibxznylbnqzhd
-    password: 1486aab055871587c3a7c6b672908b87c5aade39c83c12f7a8d79d53fc4ba2d5
-  jpa:
-    hibernate:
-      ddl-auto: create
-  flyway:
-    schemas: pgk
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver

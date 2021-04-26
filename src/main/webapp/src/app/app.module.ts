@@ -1,3 +1,4 @@
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
@@ -7,9 +8,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {AppRouting} from './app.routing';
 
 import {AppComponent} from './app.component';
+import {AppRouting} from './app.routing';
 import {COMMON_MODULES} from './core/const/common-modules';
 import {NavbarComponent} from './layouts/navbar/navbar.component';
 import {AppInfoModule} from './modules/app-info/app-info.module';
@@ -28,7 +29,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     BrowserModule,
     BrowserAnimationsModule,
     COMMON_MODULES,
-    AppRouting,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -37,13 +37,16 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
       }
     }),
 
+    AppRouting,
     AppInfoModule,
 
     MatButtonModule,
     MatToolbarModule,
     MatTooltipModule
   ],
-  providers: [],
+  providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -11,7 +11,6 @@
     <properties>
         <activatedProfile>dev</activatedProfile>
         <java.version>16</java.version>
-        <base-href>/</base-href>
         <front-source-dir>${basedir}/src/main/webapp</front-source-dir>
         <front-dist-dir>${front-source-dir}/dist</front-dist-dir>
         <front-static-copy-dir>${basedir}/target/classes/static</front-static-copy-dir>
@@ -75,6 +74,10 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
@@ -214,7 +217,7 @@
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
-                                <phase>compile</phase>
+                                <phase>generate-resources</phase>
                                 <configuration>
                                     <workingDirectory>${front-source-dir}</workingDirectory>
                                     <executable>npm</executable>
@@ -260,7 +263,7 @@
                                 <goals>
                                     <goal>install-node-and-npm</goal>
                                 </goals>
-                                <phase>prepare-package</phase>
+                                <phase>generate-resources</phase>
                                 <configuration>
                                     <nodeVersion>v14.16.1</nodeVersion>
                                     <workingDirectory>${front-source-dir}</workingDirectory>
@@ -271,20 +274,20 @@
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
-                                <phase>prepare-package</phase>
+                                <phase>generate-resources</phase>
                                 <configuration>
                                     <arguments>install --no-optional</arguments>
                                     <workingDirectory>${front-source-dir}</workingDirectory>
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>npm run build</id>
+                                <id>lint and build frontend</id>
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
-                                <phase>prepare-package</phase>
+                                <phase>process-classes</phase>
                                 <configuration>
-                                    <arguments>run build --base-href=${base-href}/</arguments>
+                                    <arguments>run build</arguments>
                                     <workingDirectory>${front-source-dir}</workingDirectory>
                                 </configuration>
                             </execution>
@@ -310,7 +313,7 @@
                                 <goals>
                                     <goal>install-node-and-npm</goal>
                                 </goals>
-                                <phase>prepare-package</phase>
+                                <phase>generate-resources</phase>
                                 <configuration>
                                     <nodeVersion>v14.16.1</nodeVersion>
                                     <workingDirectory>${front-source-dir}</workingDirectory>
@@ -321,20 +324,20 @@
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
-                                <phase>prepare-package</phase>
+                                <phase>generate-resources</phase>
                                 <configuration>
                                     <arguments>install --no-optional</arguments>
                                     <workingDirectory>${front-source-dir}</workingDirectory>
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>npm run build</id>
+                                <id>lint and build frontend</id>
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
-                                <phase>prepare-package</phase>
+                                <phase>process-classes</phase>
                                 <configuration>
-                                    <arguments>run build --base-href=${base-href}/</arguments>
+                                    <arguments>run build</arguments>
                                     <workingDirectory>${front-source-dir}</workingDirectory>
                                 </configuration>
                             </execution>

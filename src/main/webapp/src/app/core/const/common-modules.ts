@@ -10,5 +10,5 @@ export const COMMON_MODULES = [
   FlexLayoutModule,
   FormsModule,
   ReactiveFormsModule,
-  TranslateModule
+  TranslateModule,
 ];
