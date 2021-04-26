@@ -1,10 +1,10 @@
 spring:
   datasource:
-    url: jdbc:p6spy:postgresql://ec2-54-155-87-214.eu-west-1.compute.amazonaws.com:5432/d58j6c3vmrut4j?currentSchema=test
-    username: gtwxyqjsnsfzwf
-    password: ad3f7c7fc8bef2572b4e84cde68d8b3b8cc3e5ac2b6fd835be0b5c649fa5a0ea
+    url: jdbc:p6spy:postgresql://ec2-54-155-226-153.eu-west-1.compute.amazonaws.com:5432/d587mfjuau0vd0?currentSchema=pgk
+    username: zibxznylbnqzhd
+    password: 1486aab055871587c3a7c6b672908b87c5aade39c83c12f7a8d79d53fc4ba2d5
   jpa:
     hibernate:
       ddl-auto: create
   flyway:
-    schemas: test
+    schemas: pgk
