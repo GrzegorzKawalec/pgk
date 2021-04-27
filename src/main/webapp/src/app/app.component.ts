@@ -4,9 +4,9 @@ import localePL from '@angular/common/locales/pl';
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DEFAULT_LANG} from './core/const/lang';
-import {LocalStorageKey} from './core/const/local-storage-key';
+import {LocalStorageKey} from './core/local-storage/local-storage-key';
 import {IconSvgService} from './core/icon/icon-svg.service';
-import {LocalStorageService} from './core/service/local-storage.service';
+import {LocalStorageService} from './core/local-storage/local-storage.service';
 
 @Component({
   selector: 'pgk-root',
