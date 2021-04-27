@@ -5,6 +5,7 @@ import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DEFAULT_LANG} from './core/const/lang';
 import {LocalStorageKey} from './core/const/local-storage-key';
+import {IconSvgService} from './core/icon/icon-svg.service';
 import {LocalStorageService} from './core/service/local-storage.service';
 
 @Component({
@@ -16,9 +17,11 @@ export class AppComponent {
 
   constructor(
     private translate: TranslateService,
+    private iconSvgService: IconSvgService,
     private localStorageService: LocalStorageService
   ) {
     this.initLang();
+    this.iconSvgService.registerIcons();
   }
 
   private initLang(): void {

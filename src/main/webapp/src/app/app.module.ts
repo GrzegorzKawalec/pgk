@@ -2,6 +2,7 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {BrowserModule} from '@angular/platform-browser';
@@ -41,6 +42,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     AppInfoModule,
 
     MatButtonModule,
+    MatIconModule,
     MatToolbarModule,
     MatTooltipModule
   ],
