@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import pl.gkawalec.pgk.infrastructure.constant.PGKProfiles;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -14,15 +15,14 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import pl.gkawalec.pgk.PGKApplication;
 
-
 @Configuration
-@Profile("dev")
 @EnableSwagger2
 @RequiredArgsConstructor
+@Profile(PGKProfiles.DEV)
 public class Swagger2Config {
 
     /**
-     * http://localhost:${appSetting.getPort} / ${appSetting.getApiPrefix} /swagger-ui/
+     * http://localhost:${appSetting.getPort}/swagger-ui/
      * e.g. http://localhost:10003/swagger-ui/
      */
 

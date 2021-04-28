@@ -10,10 +10,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
+import pl.gkawalec.pgk.utils.ProfileUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Configuration
 @EnableWebSecurity
@@ -21,6 +21,7 @@ import java.util.Objects;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AppSetting appSetting;
+    private final ProfileUtil profileUtil;
 
     @Override
     public void configure(WebSecurity web) {
@@ -40,15 +41,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint);
     }
 
-    private void configureAuthorizeRequests(HttpSecurity httpSecurity) throws Exception {
+    private void configureAuthorizeRequests(HttpSecurity http) throws Exception {
         String[] unauthorizedRequests = appSetting.getSecurity().getUnauthorizedRequests();
-        httpSecurity.authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers(unauthorizedRequests).permitAll()
                 .anyRequest().authenticated();
     }
 
     private void configureCSRF(HttpSecurity http) throws Exception {
-        if (isDevProfile()) {
+        if (profileUtil.isDevProfile()) {
             http.csrf().disable();
         } else {
             http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
@@ -68,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/**/*.ttf",
                 "/assets/**"
         ));
-        if (isDevProfile()) {
+        if (profileUtil.isDevProfile()) {
             ignoringWebAppPatterns.addAll(ignoringWebSwaggerPatterns());
         }
         return ignoringWebAppPatterns;
@@ -82,10 +83,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-ui.html",
                 "/webjars/**"
         );
-    }
-
-    private boolean isDevProfile() {
-        return "dev".equals(appSetting.getProfile());
     }
 
 }

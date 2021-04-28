@@ -17,7 +17,7 @@ export class LocalStorageService {
 
   write<T>(key: LocalStorageKey, data: T): void {
     const lsKey: string = Keys.get(key);
-    if (!data || !lsKey) {
+    if (!lsKey) {
       return;
     }
     const forSave: string = JSON.stringify(data);
@@ -31,7 +31,7 @@ class Keys {
   private static readonly PREFIX: string = 'pgk-';
 
   static get(key: LocalStorageKey): string {
-    let lsKey;
+    let lsKey: string;
     switch (key) {
       case LocalStorageKey.LS_LANG:
         lsKey = 'lang';

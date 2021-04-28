@@ -10,7 +10,6 @@ public class AppSetting {
 
     private String name = "PGK";
     private String version = "";
-    private String profile = "";
     private String author = "";
 
     private int port = 1003;

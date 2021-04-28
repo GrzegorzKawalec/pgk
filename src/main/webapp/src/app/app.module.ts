@@ -17,7 +17,7 @@ import {NavbarComponent} from './layouts/navbar/navbar.component';
 import {AppInfoModule} from './modules/app-info/app-info.module';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
-  const timestamp = Date.now();
+  const timestamp: number = Date.now();
   return new TranslateHttpLoader(http, './assets/translations/', '.json?t=' + timestamp);
 }
 

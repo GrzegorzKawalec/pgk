@@ -44,7 +44,9 @@
           "error",
           {
             "memberVariableDeclaration": true,
-            "parameter": true
+            "parameter": true,
+            "propertyDeclaration": true,
+            "variableDeclaration": true
           }
         ],
         "@angular-eslint/component-selector": [

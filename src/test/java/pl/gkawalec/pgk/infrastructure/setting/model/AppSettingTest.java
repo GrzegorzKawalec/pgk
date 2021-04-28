@@ -23,7 +23,6 @@ class AppSettingTest {
         //when
         String name = appSetting.getName();
         String version = appSetting.getVersion();
-        String profile = appSetting.getProfile();
         int port = appSetting.getPort();
         String timeZone = appSetting.getTimeZone();
         String apiPrefix = appSetting.getApiPrefix();
@@ -34,7 +33,6 @@ class AppSettingTest {
         //then
         assertTrue(StringUtils.isNotBlank(name), "App name is required");
         assertTrue(StringUtils.isNotBlank(version), "App version is required");
-        assertTrue(StringUtils.isNotBlank(profile), "Profile is required");
         assertTrue(port > 1_000, "App port must be grater than 1 000");
         assertNotNull(TimeZone.getTimeZone(timeZone), "Set time zone is not available");
         assertTrue(StringUtils.isNotBlank(apiPrefix), "Api prefix is required");

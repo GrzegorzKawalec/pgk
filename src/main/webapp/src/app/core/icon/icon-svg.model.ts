@@ -1,5 +1,5 @@
-const DIR = '../../../assets/icons/';
-const SUFFIX_FILE = '.svg';
+const DIR: string = '../../../assets/icons/';
+const SUFFIX_FILE: string = '.svg';
 
 export class IconSvgModel {
 

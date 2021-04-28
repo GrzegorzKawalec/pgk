@@ -11,11 +11,6 @@
       "description": "Application version."
     },
     {
-      "name": "app.profile",
-      "type": "java.lang.String",
-      "description": "Profile on which the application is running."
-    },
-    {
       "name": "app.author",
       "type": "java.lang.String",
       "description": "Application author."

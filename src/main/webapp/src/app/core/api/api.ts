@@ -1,4 +1,4 @@
-const PREFIX = "/api";
+const PREFIX: string = "/api";
 
 export class InfoAPI {
 
