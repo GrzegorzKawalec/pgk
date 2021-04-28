@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:p6spy:postgresql://ec2-54-155-87-214.eu-west-1.compute.amazonaws.com:5432/d6i0lf9ohqn33m?currentSchema=pgk
+    username: autoixgifoivjs
+    password: f83f8ac5d2eadeb944c299135935ba02036805a08ba9fe930642a34bd5118b3d

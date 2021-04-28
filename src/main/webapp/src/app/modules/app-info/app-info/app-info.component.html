@@ -1,0 +1,24 @@
+<div *ngIf="appInfo; else loader" class="cdk-overlay-container" fxLayout="column" fxLayoutAlign="center center">
+
+  <div class="info-container" fxLayout="column" fxLayoutAlign="center center">
+    <span class="info">{{appInfo.name}}</span>
+    <span class="description">{{'app-info.name' | translate}}</span>
+  </div>
+
+  <div class="info-container" fxLayout="column" fxLayoutAlign="center center">
+    <span class="info">{{appInfo.version}}</span>
+    <span class="description">{{'app-info.version' | translate}}</span>
+  </div>
+
+  <div class="info-container" fxLayout="column" fxLayoutAlign="center center">
+    <span class="info">{{appInfo.author}}</span>
+    <span class="description">{{'app-info.author' | translate}}</span>
+  </div>
+
+</div>
+
+<ng-template #loader>
+  <div class="cdk-overlay-container" fxLayout="column" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

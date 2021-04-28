@@ -1,0 +1,80 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json",
+          "e2e/tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@typescript-eslint/member-ordering": [
+          "error",
+          {
+            "default": [
+              "signature",
+              "field",
+              "constructor",
+              "method"
+            ]
+          }
+        ],
+        "@typescript-eslint/no-inferrable-types": [
+          "off"
+          // temporarily disabled because it is incompatible with the typedef setting (confict settings)
+        ],
+        "@typescript-eslint/explicit-function-return-type": [
+          "error", {
+            "allowExpressions": true
+          }
+        ],
+        "@typescript-eslint/typedef": [
+          "error",
+          {
+            "memberVariableDeclaration": true,
+            "parameter": true,
+            "propertyDeclaration": true,
+            "variableDeclaration": true
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "prefix": "pgk",
+            "style": "kebab-case",
+            "type": "element"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "prefix": "pgk",
+            "style": "camelCase",
+            "type": "attribute"
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {}
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+app:
+  database:
+    p6spy: true
+
+spring:
+  datasource:
+    url: jdbc:p6spy:postgresql://localhost:5432/pgk?currentSchema=pgk
+    username: pgk
+    password: pgk11
