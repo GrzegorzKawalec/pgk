@@ -37,9 +37,9 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
   flyway:
-    locations: classpath:db/migration
+    locations: classpath:db/migrations/flyway
     schemas: pgk
-    table: _flyway_schema_history
+    table: migrations_flyway
     validate-on-migrate: true
     baseline-on-migrate: true
     enabled: true
