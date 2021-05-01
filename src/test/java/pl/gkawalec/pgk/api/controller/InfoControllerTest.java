@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.web.controller;
+package pl.gkawalec.pgk.api.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

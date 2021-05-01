@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.utils;
+package pl.gkawalec.pgk.common.utils;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

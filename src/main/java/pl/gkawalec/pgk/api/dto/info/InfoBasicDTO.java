@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.web.dto.info;
+package pl.gkawalec.pgk.api.dto.info;
 
 import lombok.AccessLevel;
 import lombok.Builder;

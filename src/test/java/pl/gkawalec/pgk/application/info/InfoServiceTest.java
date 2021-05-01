@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.gkawalec.pgk.testconfig.annotation.PGKSpringBootTest;
-import pl.gkawalec.pgk.web.dto.info.InfoBasicDTO;
+import pl.gkawalec.pgk.api.dto.info.InfoBasicDTO;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
