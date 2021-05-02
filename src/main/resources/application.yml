@@ -8,6 +8,9 @@ app:
   database:
     p6spy: false
     max-pool-size: 10
+    migrations:
+      prefix: V
+      separator: __
   security:
     unauthorized-requests: ${app.api-prefix}/info/basic
   mail:
@@ -37,6 +40,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
   flyway:
+    sql-migration-prefix: ${app.database.migrations.prefix}
+    sql-migration-separator: ${app.database.migrations.separator}
     locations: classpath:db/migrations/flyway
     schemas: pgk
     table: migrations_flyway
