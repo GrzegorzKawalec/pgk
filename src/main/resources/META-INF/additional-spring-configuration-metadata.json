@@ -17,7 +17,7 @@
     },
     {
       "name": "app.port",
-      "type": "java.lang.String",
+      "type": "java.lang.Integer",
       "description": "Application port."
     },
     {
@@ -32,12 +32,12 @@
     },
     {
       "name": "app.database.p6spy",
-      "type": "java.lang.String",
+      "type": "java.lang.Boolean",
       "description": "P6Spy is a framework that enables database data to be seamlessly intercepted and logged with no code changes to existing application."
     },
     {
       "name": "app.database.max-pool-size",
-      "type": "java.lang.String",
+      "type": "java.lang.Integer",
       "description": "Description for app.database.max-pool-size."
     },
     {
@@ -52,7 +52,7 @@
     },
     {
       "name": "app.mail.port",
-      "type": "java.lang.String",
+      "type": "java.lang.Integer",
       "description": "E-mail port from which messages will be sent."
     },
     {
