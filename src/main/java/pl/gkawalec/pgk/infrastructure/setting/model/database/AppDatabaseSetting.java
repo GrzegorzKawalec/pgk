@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.infrastructure.setting.model;
+package pl.gkawalec.pgk.infrastructure.setting.model.database;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,5 +10,6 @@ public class AppDatabaseSetting {
 
     private boolean p6spy = true;
     private int maxPoolSize = 10;
+    private AppDatabaseMigrationsSetting migrations = new AppDatabaseMigrationsSetting();
 
 }

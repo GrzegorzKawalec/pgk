@@ -3,6 +3,7 @@ package pl.gkawalec.pgk.infrastructure.setting.model;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import pl.gkawalec.pgk.infrastructure.setting.model.database.AppDatabaseSetting;
 
 @Getter
 @Setter(AccessLevel.PACKAGE)
