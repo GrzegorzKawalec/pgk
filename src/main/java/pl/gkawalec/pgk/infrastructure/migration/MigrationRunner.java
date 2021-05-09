@@ -66,11 +66,11 @@ class MigrationRunner {
 
     private void runSingleMigration(PGKMigration migration) {
         MigrationException exceptionOccurred = executeOrGetException(migration);
-        saveHistoryMigration(migration);
         if (Objects.nonNull(exceptionOccurred)) {
-            log.info("Migration version '" + migration.getVersion() + "' has failed. Exception message: " + exceptionOccurred.getMessage());
+            log.error("Migration version '" + migration.getVersion() + "' has failed. Exception message: " + exceptionOccurred.getMessage());
             throw exceptionOccurred;
         }
+        saveHistoryMigration(migration);
     }
 
     private MigrationException executeOrGetException(PGKMigration migration) {
