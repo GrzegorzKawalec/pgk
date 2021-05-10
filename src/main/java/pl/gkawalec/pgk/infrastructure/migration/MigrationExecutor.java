@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import pl.gkawalec.pgk.database.migration.FlywayMigrationsRepository;
 import pl.gkawalec.pgk.database.migration.MigrationEntity;
 import pl.gkawalec.pgk.database.migration.MigrationRepository;
-import pl.gkawalec.pgk.infrastructure.exception.MigrationException;
+import pl.gkawalec.pgk.common.exception.MigrationException;
 
 import javax.transaction.Transactional;
 import java.util.Objects;
