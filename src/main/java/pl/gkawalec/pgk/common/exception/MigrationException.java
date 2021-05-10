@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.infrastructure.exception;
+package pl.gkawalec.pgk.common.exception;
 
 public class MigrationException extends RuntimeException {
 

@@ -13,7 +13,7 @@ import pl.gkawalec.pgk.common.utils.StringUtil;
 import pl.gkawalec.pgk.database.migration.MigrationEntity;
 import pl.gkawalec.pgk.database.migration.MigrationEntityMapper;
 import pl.gkawalec.pgk.database.migration.MigrationRepository;
-import pl.gkawalec.pgk.infrastructure.exception.MigrationException;
+import pl.gkawalec.pgk.common.exception.MigrationException;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;
