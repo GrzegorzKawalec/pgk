@@ -6,6 +6,7 @@ import java.util.Optional;
 
 public interface UserRepository extends BaseNumberIDRepository<UserEntity> {
 
+    boolean existsByEmail(String email);
     UserEntity findByEmail(String email);
 
 }
