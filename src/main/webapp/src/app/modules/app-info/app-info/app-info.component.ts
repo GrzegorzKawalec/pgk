@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {InfoBasicDTO} from '../../../core/api/api-models';
+import {InfoBasicDTO} from '../../../common/api/api-models';
 import {AppInfoService} from '../app-info.service';
 
 @Component({

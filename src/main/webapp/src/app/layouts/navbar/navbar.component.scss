@@ -1,0 +1,10 @@
+@import "../../common/styles/variables";
+
+.navbar {
+  height: $navbar-height;
+}
+
+.user-name {
+  font-weight: lighter;
+  font-size: 0.75em;
+}

@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.common.utils;
+package pl.gkawalec.pgk.common.util;
 
 import com.google.common.collect.ImmutableList;
 import lombok.Getter;

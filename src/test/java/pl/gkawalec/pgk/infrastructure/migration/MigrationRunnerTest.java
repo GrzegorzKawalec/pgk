@@ -1,7 +1,5 @@
 package pl.gkawalec.pgk.infrastructure.migration;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -29,12 +27,15 @@ class MigrationRunnerTest {
     @Autowired
     private MigrationRepository migrationRepository;
 
+    @Autowired
+    private MigrationVersionHelper migrationVersionHelper;
+
     @Test
     @Transactional
     @DisplayName("Migration run test")
     void runMigrations() {
         //given
-        int version = 1;
+        int version = migrationVersionHelper.getFirstAvailableVersion();
         PGKMigration migration_1 = mockMigration(TestPGKMigration_1.class, version++, true);
         PGKMigration migration_2 = mockMigration(TestPGKMigration_2.class, version++, true);
         PGKMigration migration_incorrect = mockMigration(TestPGKMigration_3.class, version, false);

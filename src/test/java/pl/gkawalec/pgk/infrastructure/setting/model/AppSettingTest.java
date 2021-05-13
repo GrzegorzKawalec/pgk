@@ -30,7 +30,7 @@ class AppSettingTest {
         String apiPrefix = appSetting.getApiPrefix();
         AppDatabaseSetting databaseSetting = appSetting.getDatabase();
         AppSecuritySetting securitySetting = appSetting.getSecurity();
-        AppMailSetting mailSetting = appSetting.getMail();
+        AppEmailSetting mailSetting = appSetting.getEmail();
 
         //then
         assertTrue(StringUtils.isNotBlank(name), "App name is required");
@@ -51,10 +51,12 @@ class AppSettingTest {
 
         //when
         int maxPoolSize = databaseSetting.getMaxPoolSize();
+        String schema = databaseSetting.getSchema();
         AppDatabaseMigrationsSetting migrations = databaseSetting.getMigrations();
 
         //then
         assertTrue(maxPoolSize > 0, "Database max pool size must be grater than 0");
+        assertTrue(StringUtils.isNotBlank(schema), "Database schema is required");
         assertNotNull(migrations, "Database migrations setting cannot be null");
     }
 
@@ -90,7 +92,7 @@ class AppSettingTest {
     @DisplayName("Check required email settings")
     void testRequiredMailSettings() {
         //given
-        AppMailSetting mailSetting = appSetting.getMail();
+        AppEmailSetting mailSetting = appSetting.getEmail();
 
         //when
         String host = mailSetting.getHost();
