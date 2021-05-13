@@ -8,6 +8,3 @@ spring:
     url: jdbc:p6spy:postgresql://rogue.db.elephantsql.com:5432/mempzxut?currentSchema=pgk
     username: mempzxut
     password: mPVcgkieLhpuy2t8TxVp0PAZUT46Tn8w
-  jpa:
-    hibernate:
-      ddl-auto: create
