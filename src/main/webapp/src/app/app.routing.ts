@@ -1,10 +1,16 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AuthGuard} from './core/auth/auth-guard';
+import {AuthGuard} from './core/auth/auth.guard';
+import {SignInComponent} from './core/auth/sign-in/sign-in.component';
+import {ROUTE_APP_INFO, ROUTE_SIGN_IN} from './core/const/routes';
 
 const routes: Routes = [
   {
-    path: 'app-info',
+    path: ROUTE_SIGN_IN,
+    component: SignInComponent
+  },
+  {
+    path: ROUTE_APP_INFO,
     loadChildren: () => import('./modules/app-info/app-info.module').then(m => m.AppInfoModule),
     canActivate: [AuthGuard]
   },

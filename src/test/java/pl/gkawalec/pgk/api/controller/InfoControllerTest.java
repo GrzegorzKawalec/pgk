@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 import pl.gkawalec.pgk.testconfig.annotation.PGKSpringMockMvcTest;
 
@@ -13,6 +14,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @PGKSpringMockMvcTest
 class InfoControllerTest {
+
+    private static final String URL = AppSetting.API_PREFIX + InfoController.URL;
 
     @Autowired
     private MockMvc mockMvc;
@@ -27,10 +30,14 @@ class InfoControllerTest {
         String name = appSetting.getName();
         String version = appSetting.getVersion();
         String author = appSetting.getAuthor();
+        String url = URL + InfoController.URL_BASIC;
+
+        //when
+        MockHttpServletRequestBuilder request = get(url);
 
         //then
         mockMvc
-                .perform(get(appSetting.getApiPrefix() + "/info/basic"))
+                .perform(request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(name))
                 .andExpect(jsonPath("$.version").value(version))

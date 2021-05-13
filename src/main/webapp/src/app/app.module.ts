@@ -2,7 +2,10 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {BrowserModule} from '@angular/platform-browser';
@@ -12,6 +15,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {AppComponent} from './app.component';
 import {AppRouting} from './app.routing';
+import {SignInComponent} from './core/auth/sign-in/sign-in.component';
 import {COMMON_MODULES} from './core/const/common-modules';
 import {NavbarComponent} from './layouts/navbar/navbar.component';
 import {AppInfoModule} from './modules/app-info/app-info.module';
@@ -24,7 +28,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,10 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     AppInfoModule,
 
     MatButtonModule,
+    MatFormFieldModule,
     MatIconModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
     MatToolbarModule,
     MatTooltipModule
   ],

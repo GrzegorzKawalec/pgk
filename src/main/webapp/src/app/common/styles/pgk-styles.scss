@@ -1,0 +1,10 @@
+@import "variables";
+
+.pgk-center-content-container {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $content-max-height;
+  position: relative;
+}
+

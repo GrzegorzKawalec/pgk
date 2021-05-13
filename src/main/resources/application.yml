@@ -4,7 +4,6 @@ app:
   author: Grzegorz Kawalec
   port: ${PORT:10003}
   time-zone: UTC
-  api-prefix: /api
   database:
     p6spy: false
     max-pool-size: 10
@@ -12,7 +11,7 @@ app:
       prefix: V
       separator: __
   security:
-    unauthorized-requests: ${app.api-prefix}/info/basic
+    unauthorized-requests: /api/info/basic
   mail:
     host: smtp.gmail.com
     port: 587
