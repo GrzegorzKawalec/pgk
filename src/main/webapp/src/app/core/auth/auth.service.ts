@@ -3,9 +3,9 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import {AuthAPI, UserAPI} from '../api/api';
-import {UserDTO} from '../api/api-models';
-import {ROUTE_SIGN_IN} from '../const/routes';
+import {AuthAPI, UserAPI} from '../../common/api/api';
+import {UserDTO} from '../../common/api/api-models';
+import {ROUTE_SIGN_IN} from '../../common/const/routes';
 
 @Injectable({
   providedIn: 'root'

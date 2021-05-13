@@ -4,6 +4,6 @@ app:
 
 spring:
   datasource:
-    url: jdbc:p6spy:postgresql://localhost:5432/pgk?currentSchema=pgk
+    url: jdbc:p6spy:postgresql://localhost:5432/pgk?currentSchema=${app.database.schema}
     username: pgk
     password: pgk11

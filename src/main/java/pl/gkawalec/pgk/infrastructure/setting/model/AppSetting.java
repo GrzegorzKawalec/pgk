@@ -20,7 +20,7 @@ public class AppSetting {
 
     private AppDatabaseSetting database = new AppDatabaseSetting();
     private AppSecuritySetting security = new AppSecuritySetting();
-    private AppMailSetting mail = new AppMailSetting();
+    private AppEmailSetting email = new AppEmailSetting();
 
     public String getApiPrefix() {
         return API_PREFIX;

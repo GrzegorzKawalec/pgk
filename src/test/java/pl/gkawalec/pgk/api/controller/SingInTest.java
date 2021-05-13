@@ -29,8 +29,8 @@ public class SingInTest {
     @DisplayName("Test sing-in with true credentials")
     void signIn_TrueCredentials() throws Exception {
         //given
-        String email = appSetting.getMail().getLogin();
-        String pass = appSetting.getMail().getPassword();
+        String email = appSetting.getEmail().getLogin();
+        String pass = appSetting.getEmail().getPassword();
 
         //when
         MockHttpServletRequestBuilder request = buildRequest(email, pass);
@@ -61,7 +61,7 @@ public class SingInTest {
     @DisplayName("Test sign-in with wrong password")
     void signIn_WrongPassword() throws Exception {
         //given
-        String email = appSetting.getMail().getLogin();
+        String email = appSetting.getEmail().getLogin();
         String pass = PGKWebSecurityConfig.UNIVERSAL_PASS + PGKWebSecurityConfig.UNIVERSAL_PASS;
 
         //when
@@ -78,8 +78,8 @@ public class SingInTest {
     @DisplayName("Test sign-in with not existing email address")
     void signIn_NotExistEmail() throws Exception {
         //given
-        String email = appSetting.getMail().getLogin() + appSetting.getMail().getLogin();
-        String pass = appSetting.getMail().getPassword();
+        String email = appSetting.getEmail().getLogin() + appSetting.getEmail().getLogin();
+        String pass = appSetting.getEmail().getPassword();
 
         //when
         MockHttpServletRequestBuilder request = buildRequest(email, pass);

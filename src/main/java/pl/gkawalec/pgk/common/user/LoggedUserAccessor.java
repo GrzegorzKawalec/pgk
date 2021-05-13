@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 import pl.gkawalec.pgk.api.dto.user.UserDTO;
 import pl.gkawalec.pgk.common.type.Authority;
-import pl.gkawalec.pgk.common.utils.CollectionUtil;
+import pl.gkawalec.pgk.common.util.CollectionUtil;
 import pl.gkawalec.pgk.database.account.UserEntity;
 import pl.gkawalec.pgk.database.account.UserRepository;
 

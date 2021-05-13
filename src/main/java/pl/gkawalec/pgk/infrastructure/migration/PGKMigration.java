@@ -2,7 +2,7 @@ package pl.gkawalec.pgk.infrastructure.migration;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.gkawalec.pgk.common.utils.StringUtil;
+import pl.gkawalec.pgk.common.util.StringUtil;
 import pl.gkawalec.pgk.common.exception.MigrationException;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 

@@ -16,7 +16,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppComponent} from './app.component';
 import {AppRouting} from './app.routing';
 import {SignInComponent} from './core/auth/sign-in/sign-in.component';
-import {COMMON_MODULES} from './core/const/common-modules';
+import {COMMON_MODULES} from './common/const/common-modules';
 import {NavbarComponent} from './layouts/navbar/navbar.component';
 import {AppInfoModule} from './modules/app-info/app-info.module';
 

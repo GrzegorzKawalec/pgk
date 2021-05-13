@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './core/auth/auth.guard';
 import {SignInComponent} from './core/auth/sign-in/sign-in.component';
-import {ROUTE_APP_INFO, ROUTE_SIGN_IN} from './core/const/routes';
+import {ROUTE_APP_INFO, ROUTE_SIGN_IN} from './common/const/routes';
 
 const routes: Routes = [
   {

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
 import {BaseComponent} from '../../common/components/base.component';
-import {UserDTO} from '../../core/api/api-models';
+import {UserDTO} from '../../common/api/api-models';
 import {AuthService} from '../../core/auth/auth.service';
 
 @Component({

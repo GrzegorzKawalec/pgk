@@ -7,12 +7,13 @@ app:
   database:
     p6spy: false
     max-pool-size: 10
+    schema: pgk
     migrations:
       prefix: V
       separator: __
   security:
     unauthorized-requests: /api/info/basic
-  mail:
+  email:
     host: smtp.gmail.com
     port: 587
     login: gkawalecPGK@gmail.com
@@ -42,7 +43,7 @@ spring:
     sql-migration-prefix: ${app.database.migrations.prefix}
     sql-migration-separator: ${app.database.migrations.separator}
     locations: classpath:db/migrations/flyway
-    schemas: pgk
+    schemas: ${app.database.schema}
     table: migrations_flyway
     validate-on-migrate: true
     baseline-on-migrate: true
@@ -52,10 +53,10 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
   mail:
-    host: ${app.mail.host}
-    port: ${app.mail.port}
-    username: ${app.mail.login}
-    password: ${app.mail.password}
+    host: ${app.email.host}
+    port: ${app.email.port}
+    username: ${app.email.login}
+    password: ${app.email.password}
     properties:
       mail:
         smtp:

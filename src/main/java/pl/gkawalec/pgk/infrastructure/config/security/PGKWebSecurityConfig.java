@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
-import pl.gkawalec.pgk.common.utils.ProfileUtil;
+import pl.gkawalec.pgk.common.util.ProfileUtil;
 
 import java.util.ArrayList;
 import java.util.List;

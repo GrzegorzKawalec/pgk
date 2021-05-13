@@ -10,6 +10,7 @@ public class AppDatabaseSetting {
 
     private boolean p6spy = true;
     private int maxPoolSize = 10;
+    private String schema;
     private AppDatabaseMigrationsSetting migrations = new AppDatabaseMigrationsSetting();
 
 }

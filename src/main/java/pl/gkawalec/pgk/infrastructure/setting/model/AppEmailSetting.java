@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter(AccessLevel.PACKAGE)
-public class AppMailSetting {
+public class AppEmailSetting {
 
     private String host = "";
     private int port = 0;

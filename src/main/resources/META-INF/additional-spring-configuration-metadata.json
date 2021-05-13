@@ -36,6 +36,11 @@
       "description": "Description for app.database.max-pool-size."
     },
     {
+      "name": "app.database.schema",
+      "type": "java.lang.String",
+      "description": "database schema."
+    },
+    {
       "name": "app.database.migrations.prefix",
       "type": "java.lang.String",
       "description": "File name prefix for SQL migrations."
@@ -51,22 +56,22 @@
       "description": "List of unauthorized requests."
     },
     {
-      "name": "app.mail.host",
+      "name": "app.email.host",
       "type": "java.lang.String",
       "description": "E-mail host from which messages will be sent."
     },
     {
-      "name": "app.mail.port",
+      "name": "app.email.port",
       "type": "java.lang.Integer",
       "description": "E-mail port from which messages will be sent."
     },
     {
-      "name": "app.mail.login",
+      "name": "app.email.login",
       "type": "java.lang.String",
       "description": "E-mail login from which messages will be sent."
     },
     {
-      "name": "app.mail.password",
+      "name": "app.email.password",
       "type": "java.lang.String",
       "description": "E-mail password from which messages will be sent."
     }

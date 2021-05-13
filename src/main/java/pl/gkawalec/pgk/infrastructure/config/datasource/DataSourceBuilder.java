@@ -21,6 +21,7 @@ class DataSourceBuilder {
     DataSource build() {
         HikariDataSource dataSource = (HikariDataSource) dataSourceProperties.initializeDataSourceBuilder().build();
         dataSource.setMaximumPoolSize(appSetting.getDatabase().getMaxPoolSize());
+        dataSource.setSchema(appSetting.getDatabase().getSchema());
         addP6Spy(dataSource);
         return dataSource;
     }
