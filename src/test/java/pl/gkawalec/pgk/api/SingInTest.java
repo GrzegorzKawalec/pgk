@@ -1,19 +1,16 @@
-package pl.gkawalec.pgk.api.controller;
+package pl.gkawalec.pgk.api;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import pl.gkawalec.pgk.infrastructure.config.security.PGKWebSecurityConfig;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
-import pl.gkawalec.pgk.testconfig.annotation.PGKSpringMockMvcTest;
+import pl.gkawalec.pgk.test.annotation.PGKSpringMockMvcTest;
+import pl.gkawalec.pgk.test.util.TestLoginUtil;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @PGKSpringMockMvcTest
@@ -25,6 +22,9 @@ public class SingInTest {
     @Autowired
     private AppSetting appSetting;
 
+    @Autowired
+    private TestLoginUtil testLoginUtil;
+
     @Test
     @DisplayName("Test sing-in with true credentials")
     void signIn_TrueCredentials() throws Exception {
@@ -33,7 +33,7 @@ public class SingInTest {
         String pass = appSetting.getEmail().getPassword();
 
         //when
-        MockHttpServletRequestBuilder request = buildRequest(email, pass);
+        MockHttpServletRequestBuilder request = testLoginUtil.buildRequest(email, pass);
 
         //then
         mockMvc
@@ -49,7 +49,7 @@ public class SingInTest {
         String pass = PGKWebSecurityConfig.UNIVERSAL_PASS;
 
         //when
-        MockHttpServletRequestBuilder request = buildRequest(email, pass);
+        MockHttpServletRequestBuilder request = testLoginUtil.buildRequest(email, pass);
 
         //then
         mockMvc
@@ -65,7 +65,7 @@ public class SingInTest {
         String pass = PGKWebSecurityConfig.UNIVERSAL_PASS + PGKWebSecurityConfig.UNIVERSAL_PASS;
 
         //when
-        MockHttpServletRequestBuilder request = buildRequest(email, pass);
+        MockHttpServletRequestBuilder request = testLoginUtil.buildRequest(email, pass);
 
         //then
         mockMvc
@@ -82,22 +82,13 @@ public class SingInTest {
         String pass = appSetting.getEmail().getPassword();
 
         //when
-        MockHttpServletRequestBuilder request = buildRequest(email, pass);
+        MockHttpServletRequestBuilder request = testLoginUtil.buildRequest(email, pass);
 
         //then
         mockMvc
                 .perform(request)
                 .andExpect(status().isUnauthorized())
                 .andExpect(status().reason("Bad credentials"));
-    }
-
-    private MockHttpServletRequestBuilder buildRequest(String email, String pass) {
-        String emailEncode = URLEncoder.encode(email, StandardCharsets.UTF_8);
-        String passEncode = URLEncoder.encode(pass, StandardCharsets.UTF_8);
-        String content = "email=" + emailEncode + "&password=" + passEncode;
-        return post(PGKWebSecurityConfig.URL_SIGN_IN)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .content(content);
     }
 
 }

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.ReflectionTestUtils;
 import pl.gkawalec.pgk.database.migration.MigrationRepository;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
-import pl.gkawalec.pgk.testconfig.annotation.PGKSpringBootTest;
+import pl.gkawalec.pgk.test.annotation.PGKSpringBootTest;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;

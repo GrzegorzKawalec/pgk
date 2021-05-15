@@ -6,7 +6,7 @@ import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.gkawalec.pgk.infrastructure.setting.model.database.AppDatabaseMigrationsSetting;
 import pl.gkawalec.pgk.infrastructure.setting.model.database.AppDatabaseSetting;
-import pl.gkawalec.pgk.testconfig.annotation.PGKSpringBootTest;
+import pl.gkawalec.pgk.test.annotation.PGKSpringBootTest;
 
 import java.util.TimeZone;
 

@@ -12,7 +12,7 @@ import pl.gkawalec.pgk.database.migration.FlywayMigrationsRepository;
 import pl.gkawalec.pgk.database.migration.MigrationEntity;
 import pl.gkawalec.pgk.database.migration.MigrationEntityMapper;
 import pl.gkawalec.pgk.database.migration.MigrationRepository;
-import pl.gkawalec.pgk.testconfig.annotation.PGKSpringBootTest;
+import pl.gkawalec.pgk.test.annotation.PGKSpringBootTest;
 
 import java.util.Set;
 

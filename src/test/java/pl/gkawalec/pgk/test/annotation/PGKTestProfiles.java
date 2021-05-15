@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.testconfig.annotation;
+package pl.gkawalec.pgk.test.annotation;
 
 import org.springframework.test.context.ActiveProfiles;
 import pl.gkawalec.pgk.infrastructure.constant.PGKProfiles;

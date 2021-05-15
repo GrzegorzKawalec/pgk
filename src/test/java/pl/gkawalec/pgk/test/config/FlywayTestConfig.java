@@ -1,9 +1,9 @@
-package pl.gkawalec.pgk.testconfig;
+package pl.gkawalec.pgk.test.config;
 
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.gkawalec.pgk.testconfig.annotation.PGKTestProfiles;
+import pl.gkawalec.pgk.test.annotation.PGKTestProfiles;
 
 @Configuration
 @PGKTestProfiles
