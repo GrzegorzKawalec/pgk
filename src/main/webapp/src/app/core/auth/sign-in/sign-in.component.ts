@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FormControl, ValidationErrors} from '@angular/forms';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {takeUntil} from 'rxjs/operators';
+import {finalize, takeUntil} from 'rxjs/operators';
 import {BaseComponent} from '../../../common/components/base.component';
 import {EmailValidator} from '../../../common/validators/email.validator';
 import {RequiredValidator} from '../../../common/validators/required.validator';
@@ -39,12 +39,15 @@ export class SignInComponent extends BaseComponent {
     if (this.emailControl.invalid || this.passwordControl.invalid) {
       return;
     }
+    this.showSpinner = true;
     const username: string = this.emailControl.value.trim();
     const password: string = this.passwordControl.value;
     this.authService.signIn(username, password).subscribe(() => {
       this.authService.loggedUser$
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(() => this.router.navigate(['/']))
+        .pipe(
+          takeUntil(this.destroy$),
+          finalize(() => this.showSpinner = false)
+        ).subscribe(() => this.router.navigate(['/']));
     });
   }
 
