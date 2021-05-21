@@ -6,6 +6,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {BrowserModule} from '@angular/platform-browser';
@@ -15,8 +16,10 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {AppComponent} from './app.component';
 import {AppRouting} from './app.routing';
-import {SignInComponent} from './core/auth/sign-in/sign-in.component';
 import {COMMON_MODULES} from './common/const/common-modules';
+import {SignInComponent} from './core/auth/sign-in/sign-in.component';
+import {ExceptionInfoBodyComponent} from './core/interceptors/exception/exception-info-body.component';
+import {INTERCEPTORS} from './core/interceptors/interceptors';
 import {NavbarComponent} from './layouts/navbar/navbar.component';
 import {AppInfoModule} from './modules/app-info/app-info.module';
 
@@ -28,6 +31,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   declarations: [
     AppComponent,
+    ExceptionInfoBodyComponent,
     NavbarComponent,
     SignInComponent
   ],
@@ -51,10 +55,12 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     MatIconModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
     MatToolbarModule,
     MatTooltipModule
   ],
   providers: [
+    INTERCEPTORS,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]

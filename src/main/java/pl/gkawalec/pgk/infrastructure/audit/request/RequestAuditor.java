@@ -35,9 +35,8 @@ class RequestAuditor {
         auditorModel.finalizeBuildRequestAuditModel();
         logRequest(auditorModel.getRequestAuditModel(), auditorModel.getDurationModel());
 
-        if (Objects.nonNull(auditorModel.getException())) {
-            throw (Throwable) auditorModel.getException();
-        }
+        throwExceptionIfNeed(auditorModel);
+
         return auditorModel.getReturnValue();
     }
 
@@ -64,6 +63,19 @@ class RequestAuditor {
         Integer userId = userHelper.getUserId();
         AuditLogModel auditLogModel = new AuditLogModel(requestAuditModel, userId, durationModel);
         saver.save(auditLogModel);
+    }
+
+    private void throwExceptionIfNeed(AuditorModel auditorModel) throws Throwable {
+        if (Objects.isNull(auditorModel) || Objects.isNull(auditorModel.getException())) {
+            return;
+        }
+        ExceptionForResponse exception = auditorModel.getException();
+        if (exception instanceof RuntimeException) {
+            throw (RuntimeException) exception;
+        }
+        if (Objects.nonNull(exception.getCauseException())) {
+            throw exception.getCauseException();
+        }
     }
 
     @Getter(AccessLevel.PRIVATE)

@@ -14,6 +14,8 @@ public class ResponseException extends RuntimeException implements ExceptionForR
     private HttpStatus httpStatus;
     @Getter
     private final ResponseExceptionType type;
+    @Getter
+    private final Throwable causeException;
 
     public ResponseException(ResponseExceptionType type) {
         this(type, null);
@@ -29,9 +31,10 @@ public class ResponseException extends RuntimeException implements ExceptionForR
 
     public ResponseException(Throwable throwable, ResponseExceptionType type, String message) {
         super(message, throwable);
+        this.type = type;
+        this.causeException = throwable;
         this.errorUUID = UUID.randomUUID().toString();
         this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        this.type = type;
     }
 
     public ResponseException httpStatus(HttpStatus httpStatus) {
