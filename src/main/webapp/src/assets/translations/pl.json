@@ -5,6 +5,9 @@
     "name": "Nazwa",
     "version": "Wersja"
   },
+  "exception": {
+    "UNEXPECTED": "Błąd serwera. Skontaktuj się z administratorem."
+  },
   "sign-in": {
     "email": "E-mail",
     "password": "Hasło",

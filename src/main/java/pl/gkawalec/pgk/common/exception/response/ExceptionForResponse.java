@@ -13,4 +13,6 @@ public interface ExceptionForResponse {
 
     ResponseExceptionType getType();
 
+    Throwable getCauseException();
+
 }

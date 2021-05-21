@@ -14,9 +14,12 @@ public class UnexpectedResponseException extends RuntimeException implements Exc
     private final HttpStatus httpStatus;
     @Getter
     private final ResponseExceptionType type;
+    @Getter
+    private final Throwable causeException;
 
     public UnexpectedResponseException(Throwable throwable) {
         super(throwable);
+        this.causeException = throwable;
         this.errorUUID = UUID.randomUUID().toString();
         this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         this.type = null;
