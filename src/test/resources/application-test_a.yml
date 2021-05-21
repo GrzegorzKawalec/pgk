@@ -1,6 +1,10 @@
+app:
+  database:
+    p6spy: true
+    max-pool-size: 1
+
 spring:
   datasource:
-    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
-    username: sa
-    password: sa
-    driver-class-name: org.h2.Driver
+    url: jdbc:p6spy:postgresql://rogue.db.elephantsql.com:5432/mempzxut?currentSchema=${app.database.schema}
+    username: mempzxut
+    password: mPVcgkieLhpuy2t8TxVp0PAZUT46Tn8w

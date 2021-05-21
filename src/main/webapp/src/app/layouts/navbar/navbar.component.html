@@ -1,7 +1,18 @@
-<mat-toolbar color="primary" fxLayoutAlign="end center">
+<mat-toolbar color="primary" class="navbar">
 
-  <button mat-icon-button>
-    <mat-icon svgIcon="info" (click)="clickInfo()" [matTooltip]="'app-info.app-info' | translate"></mat-icon>
+  <button mat-icon-button (click)="clickInfo()">
+    <mat-icon svgIcon="info" [matTooltip]="'app-info.app-info' | translate" matTooltipPosition="after"></mat-icon>
   </button>
+
+  <div fxFlex></div>
+
+  <div *ngIf="loggedUser" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+    <span class="user-name" [matTooltip]="loggedUser.email" matTooltipPosition="before">
+      {{loggedUser.firstName}} {{loggedUser.lastName}}
+    </span>
+    <button mat-icon-button (click)="clickSignOut()">
+      <mat-icon svgIcon="logout" [matTooltip]="'sign-in.sign-out' | translate"></mat-icon>
+    </button>
+  </div>
 
 </mat-toolbar>

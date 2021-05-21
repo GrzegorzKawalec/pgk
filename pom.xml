@@ -76,10 +76,6 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
@@ -120,6 +116,11 @@
             <artifactId>guava</artifactId>
             <version>30.1.1-jre</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.6</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -154,7 +155,7 @@
                             <classPatterns>
                                 <pattern>pl.gkawalec.pgk.**DTO</pattern>
                             </classPatterns>
-                            <outputFile>${front-source-dir}/src/app/core/api/api-models.ts</outputFile>
+                            <outputFile>src/main/webapp/src/app/common/api/api-models.ts</outputFile>
                             <outputFileType>implementationFile</outputFileType>
                             <optionalProperties>all</optionalProperties>
                             <noFileComment>true</noFileComment>

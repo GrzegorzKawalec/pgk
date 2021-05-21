@@ -4,5 +4,19 @@
     "author": "Autor",
     "name": "Nazwa",
     "version": "Wersja"
+  },
+  "exception": {
+    "UNEXPECTED": "Błąd serwera. Skontaktuj się z administratorem."
+  },
+  "sign-in": {
+    "email": "E-mail",
+    "password": "Hasło",
+    "sign-in": "Zaloguj",
+    "sign-out": "Wyloguj",
+    "invalid-form": {
+      "empty-email": "E-mail nie może być pusty",
+      "empty-password": "Hasło nie może być puste",
+      "incorrect-email": "Nieprawidłowy adres e-mail"
+    }
   }
 }

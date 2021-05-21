@@ -4,7 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.gkawalec.pgk.testconfig.annotation.PGKSpringBootTest;
+import pl.gkawalec.pgk.infrastructure.setting.model.database.AppDatabaseMigrationsSetting;
+import pl.gkawalec.pgk.infrastructure.setting.model.database.AppDatabaseSetting;
+import pl.gkawalec.pgk.test.annotation.PGKSpringBootTest;
 
 import java.util.TimeZone;
 
@@ -28,7 +30,7 @@ class AppSettingTest {
         String apiPrefix = appSetting.getApiPrefix();
         AppDatabaseSetting databaseSetting = appSetting.getDatabase();
         AppSecuritySetting securitySetting = appSetting.getSecurity();
-        AppMailSetting mailSetting = appSetting.getMail();
+        AppEmailSetting mailSetting = appSetting.getEmail();
 
         //then
         assertTrue(StringUtils.isNotBlank(name), "App name is required");
@@ -49,9 +51,28 @@ class AppSettingTest {
 
         //when
         int maxPoolSize = databaseSetting.getMaxPoolSize();
+        String schema = databaseSetting.getSchema();
+        AppDatabaseMigrationsSetting migrations = databaseSetting.getMigrations();
 
         //then
         assertTrue(maxPoolSize > 0, "Database max pool size must be grater than 0");
+        assertTrue(StringUtils.isNotBlank(schema), "Database schema is required");
+        assertNotNull(migrations, "Database migrations setting cannot be null");
+    }
+
+    @Test
+    @DisplayName("Check required database migrations settings")
+    void testRequiredDatabaseMigrationsSettings() {
+        //given
+        AppDatabaseMigrationsSetting migrations = appSetting.getDatabase().getMigrations();
+
+        //when
+        String prefix = migrations.getPrefix();
+        String separator = migrations.getSeparator();
+
+        //then
+        assertTrue(StringUtils.isNotBlank(prefix), "Migration prefix is required");
+        assertTrue(StringUtils.isNotBlank(separator), "Migration separator is required");
     }
 
     @Test
@@ -71,7 +92,7 @@ class AppSettingTest {
     @DisplayName("Check required email settings")
     void testRequiredMailSettings() {
         //given
-        AppMailSetting mailSetting = appSetting.getMail();
+        AppEmailSetting mailSetting = appSetting.getEmail();
 
         //when
         String host = mailSetting.getHost();

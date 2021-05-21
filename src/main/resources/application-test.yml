@@ -1,5 +1,5 @@
 spring:
   datasource:
-    url: jdbc:p6spy:postgresql://ec2-54-155-87-214.eu-west-1.compute.amazonaws.com:5432/d58j6c3vmrut4j?currentSchema=pgk
+    url: jdbc:p6spy:postgresql://ec2-54-155-87-214.eu-west-1.compute.amazonaws.com:5432/d58j6c3vmrut4j?currentSchema=${app.database.schema}
     username: gtwxyqjsnsfzwf
     password: ad3f7c7fc8bef2572b4e84cde68d8b3b8cc3e5ac2b6fd835be0b5c649fa5a0ea

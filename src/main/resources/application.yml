@@ -4,13 +4,16 @@ app:
   author: Grzegorz Kawalec
   port: ${PORT:10003}
   time-zone: UTC
-  api-prefix: /api
   database:
     p6spy: false
     max-pool-size: 10
+    schema: pgk
+    migrations:
+      prefix: V
+      separator: __
   security:
-    unauthorized-requests: ${app.api-prefix}/info/basic
-  mail:
+    unauthorized-requests: /api/info/basic
+  email:
     host: smtp.gmail.com
     port: 587
     login: gkawalecPGK@gmail.com
@@ -37,9 +40,11 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
   flyway:
-    locations: classpath:db/migration
-    schemas: pgk
-    table: _flyway_schema_history
+    sql-migration-prefix: ${app.database.migrations.prefix}
+    sql-migration-separator: ${app.database.migrations.separator}
+    locations: classpath:db/migrations/flyway
+    schemas: ${app.database.schema}
+    table: migrations_flyway
     validate-on-migrate: true
     baseline-on-migrate: true
     enabled: true
@@ -48,10 +53,10 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
   mail:
-    host: ${app.mail.host}
-    port: ${app.mail.port}
-    username: ${app.mail.login}
-    password: ${app.mail.password}
+    host: ${app.email.host}
+    port: ${app.email.port}
+    username: ${app.email.login}
+    password: ${app.email.password}
     properties:
       mail:
         smtp:

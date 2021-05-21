@@ -17,7 +17,7 @@
     },
     {
       "name": "app.port",
-      "type": "java.lang.String",
+      "type": "java.lang.Integer",
       "description": "Application port."
     },
     {
@@ -26,19 +26,29 @@
       "description": "Server time zone."
     },
     {
-      "name": "app.api-prefix",
-      "type": "java.lang.String",
-      "description": "API prefix."
-    },
-    {
       "name": "app.database.p6spy",
-      "type": "java.lang.String",
+      "type": "java.lang.Boolean",
       "description": "P6Spy is a framework that enables database data to be seamlessly intercepted and logged with no code changes to existing application."
     },
     {
       "name": "app.database.max-pool-size",
-      "type": "java.lang.String",
+      "type": "java.lang.Integer",
       "description": "Description for app.database.max-pool-size."
+    },
+    {
+      "name": "app.database.schema",
+      "type": "java.lang.String",
+      "description": "database schema."
+    },
+    {
+      "name": "app.database.migrations.prefix",
+      "type": "java.lang.String",
+      "description": "File name prefix for SQL migrations."
+    },
+    {
+      "name": "app.database.migrations.separator",
+      "type": "java.lang.String",
+      "description": "File name separator for SQL migrations."
     },
     {
       "name": "app.security.unauthorized-requests",
@@ -46,22 +56,22 @@
       "description": "List of unauthorized requests."
     },
     {
-      "name": "app.mail.host",
+      "name": "app.email.host",
       "type": "java.lang.String",
       "description": "E-mail host from which messages will be sent."
     },
     {
-      "name": "app.mail.port",
-      "type": "java.lang.String",
+      "name": "app.email.port",
+      "type": "java.lang.Integer",
       "description": "E-mail port from which messages will be sent."
     },
     {
-      "name": "app.mail.login",
+      "name": "app.email.login",
       "type": "java.lang.String",
       "description": "E-mail login from which messages will be sent."
     },
     {
-      "name": "app.mail.password",
+      "name": "app.email.password",
       "type": "java.lang.String",
       "description": "E-mail password from which messages will be sent."
     }
