@@ -11,6 +11,8 @@
     <properties>
         <activatedProfile>dev</activatedProfile>
         <java.version>16</java.version>
+        <node.version>v14.17.0</node.version>
+        <frontend-maven-plugin.version>1.12.0</frontend-maven-plugin.version>
         <front-source-dir>${basedir}/src/main/webapp</front-source-dir>
         <front-dist-dir>${front-source-dir}/dist</front-dist-dir>
         <front-static-copy-dir>${basedir}/target/classes/static</front-static-copy-dir>
@@ -141,7 +143,7 @@
             <plugin>
                 <groupId>cz.habarta.typescript-generator</groupId>
                 <artifactId>typescript-generator-maven-plugin</artifactId>
-                <version>2.30.840</version>
+                <version>2.31.861</version>
                 <executions>
                     <execution>
                         <id>generate api-models.ts</id>
@@ -257,7 +259,7 @@
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
-                        <version>1.11.3</version>
+                        <version>${frontend-maven-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>install node and npm</id>
@@ -266,7 +268,7 @@
                                 </goals>
                                 <phase>generate-resources</phase>
                                 <configuration>
-                                    <nodeVersion>v14.16.1</nodeVersion>
+                                    <nodeVersion>${node.version}</nodeVersion>
                                     <workingDirectory>${front-source-dir}</workingDirectory>
                                 </configuration>
                             </execution>
@@ -307,7 +309,7 @@
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
-                        <version>1.11.3</version>
+                        <version>${frontend-maven-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>install node and npm</id>
@@ -316,7 +318,7 @@
                                 </goals>
                                 <phase>generate-resources</phase>
                                 <configuration>
-                                    <nodeVersion>v14.16.1</nodeVersion>
+                                    <nodeVersion>${node.version}</nodeVersion>
                                     <workingDirectory>${front-source-dir}</workingDirectory>
                                 </configuration>
                             </execution>
