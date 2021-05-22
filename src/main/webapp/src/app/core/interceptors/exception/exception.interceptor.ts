@@ -25,8 +25,8 @@ export class ExceptionInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError(ex => {
       const errorModel: ExceptionInfoModel = ExceptionInterceptor.getErrorModel(ex);
-      this.showInfo(errorModel);
-      return throwError({...ex, handled: true});
+      const handled: boolean = this.showInfo(errorModel);
+      return throwError({...ex, handled: handled});
     }));
   }
 
@@ -35,8 +35,12 @@ export class ExceptionInterceptor implements HttpInterceptor {
     return new ExceptionInfoModel(httpErrorResponse);
   }
 
-  private showInfo(errorModel: ExceptionInfoModel): void {
-    this.snackBar.openFromComponent(ExceptionInfoBodyComponent, {data: errorModel, duration: 5000});
+  private showInfo(errorModel: ExceptionInfoModel): boolean {
+    if (errorModel) {
+      this.snackBar.openFromComponent(ExceptionInfoBodyComponent, {data: errorModel, duration: 5000});
+      return true;
+    }
+    return false;
   }
 
 }
