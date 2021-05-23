@@ -1,17 +1,22 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {RouteAppInfo, RouteSignIn, RouteUserManagement} from './common/const/routes';
 import {AuthGuard} from './core/auth/auth.guard';
 import {SignInComponent} from './core/auth/sign-in/sign-in.component';
-import {ROUTE_APP_INFO, ROUTE_SIGN_IN} from './common/const/routes';
 
 const routes: Routes = [
   {
-    path: ROUTE_SIGN_IN,
+    path: RouteSignIn.ROUTE,
     component: SignInComponent
   },
   {
-    path: ROUTE_APP_INFO,
+    path: RouteAppInfo.ROUTE,
     loadChildren: () => import('./modules/app-info/app-info.module').then(m => m.AppInfoModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: RouteUserManagement.ROUTE,
+    loadChildren: () => import('./modules/user-management/user-management.module').then(m => m.UserManagementModule),
     canActivate: [AuthGuard]
   },
   {

@@ -1,2 +1,20 @@
-export const ROUTE_APP_INFO: string = 'app-info';
-export const ROUTE_SIGN_IN: string = 'sign-in';
+export class RouteAppInfo {
+  static readonly ROUTE: string = 'app-info';
+  static readonly ROUTE_COMMANDS: string[] = [RouteAppInfo.ROUTE];
+}
+
+export class RouteSignIn {
+  static readonly ROUTE: string = 'sign-in';
+  static readonly ROUTE_COMMANDS: string[] = [RouteSignIn.ROUTE];
+}
+
+export class RouteUserManagement {
+  static readonly ROUTE: string = 'user-management';
+  static readonly ROUTE_COMMANDS: string[] = [RouteUserManagement.ROUTE];
+
+  static readonly USERS: string = 'users';
+  static readonly USERS_COMMANDS: string[] = [RouteUserManagement.ROUTE, RouteUserManagement.USERS];
+
+  static readonly ROLES: string = 'roles';
+  static readonly ROLES_COMMANDS: string[] = [RouteUserManagement.ROUTE, RouteUserManagement.ROLES];
+}

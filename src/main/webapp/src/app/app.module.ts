@@ -22,6 +22,7 @@ import {ExceptionInfoBodyComponent} from './core/interceptors/exception/exceptio
 import {INTERCEPTORS} from './core/interceptors/interceptors';
 import {NavbarComponent} from './layouts/navbar/navbar.component';
 import {AppInfoModule} from './modules/app-info/app-info.module';
+import {UserManagementModule} from './modules/user-management/user-management.module';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   const timestamp: number = Date.now();
@@ -49,6 +50,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 
     AppRouting,
     AppInfoModule,
+    UserManagementModule,
 
     MatButtonModule,
     MatFormFieldModule,
