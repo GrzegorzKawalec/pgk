@@ -43,12 +43,19 @@ export class SignInComponent extends BaseComponent {
     const username: string = this.emailControl.value.trim();
     const password: string = this.passwordControl.value;
     this.authService.signIn(username, password).subscribe(() => {
+      const urlToRedirect: string = this.prepareUrlToRedirect();
       this.authService.loggedUser$
         .pipe(
           takeUntil(this.destroy$),
           finalize(() => this.showSpinner = false)
-        ).subscribe(() => this.router.navigate(['/']));
+        ).subscribe(() => this.router.navigateByUrl(urlToRedirect));
     });
+  }
+
+  private prepareUrlToRedirect(): string {
+    const urlToRedirect: string = this.authService.urlBeforeRedirectToSignIn;
+    this.authService.urlBeforeRedirectToSignIn = null;
+    return urlToRedirect ? '/' + urlToRedirect : '/';
   }
 
   getErrorMessage(formControl: FormControl): string {

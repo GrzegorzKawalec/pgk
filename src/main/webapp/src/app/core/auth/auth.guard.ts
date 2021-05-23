@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
     if (AuthGuard.guardIsNotRequired(url)) {
       return true;
     }
-    return this.isLoggedIn() && this.hasPermission(url);
+    return this.isLoggedIn(url) && this.hasPermission(url);
   }
 
   private static getUrl(state: RouterStateSnapshot): string {
@@ -35,8 +35,9 @@ export class AuthGuard implements CanActivate {
     return url.startsWith(ROUTE_SIGN_IN);
   }
 
-  private isLoggedIn(): boolean {
+  private isLoggedIn(url: string): boolean {
     if (!this.authService.loggedUser) {
+      this.authService.urlBeforeRedirectToSignIn = url;
       this.router.navigate([ROUTE_SIGN_IN]);
       return false;
     }

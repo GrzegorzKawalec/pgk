@@ -12,6 +12,7 @@ import {ROUTE_SIGN_IN} from '../../common/const/routes';
 })
 export class AuthService {
 
+  urlBeforeRedirectToSignIn: string;
   private _loggedUser: BehaviorSubject<UserDTO> = new BehaviorSubject(null);
 
   get loggedUser(): UserDTO {
