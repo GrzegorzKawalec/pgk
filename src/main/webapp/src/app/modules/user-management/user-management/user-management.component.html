@@ -1,0 +1,9 @@
+<mat-tab-group mat-align-tabs="center"
+               [(selectedIndex)]="activeTabIndex"
+               (selectedTabChange)="onTabChange($event)">
+
+  <mat-tab *ngFor="let tab of tabs"
+           label="{{tab.translateKey | translate}}">
+  </mat-tab>
+
+</mat-tab-group>

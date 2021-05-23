@@ -18,5 +18,10 @@
       "empty-password": "Hasło nie może być puste",
       "incorrect-email": "Nieprawidłowy adres e-mail"
     }
+  },
+  "user-management": {
+    "user-management": "Zarządzanie użytkownikami",
+    "users": "Użytkownicy",
+    "roles": "Role"
   }
 }

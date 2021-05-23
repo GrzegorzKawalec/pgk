@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
-import {ROUTE_SIGN_IN} from '../../common/const/routes';
+import {RouteSignIn} from '../../common/const/routes';
 import {AuthService} from './auth.service';
 
 @Injectable({
@@ -32,13 +32,13 @@ export class AuthGuard implements CanActivate {
   }
 
   private static guardIsNotRequired(url: string): boolean {
-    return url.startsWith(ROUTE_SIGN_IN);
+    return url.startsWith(RouteSignIn.ROUTE);
   }
 
   private isLoggedIn(url: string): boolean {
     if (!this.authService.loggedUser) {
       this.authService.urlBeforeRedirectToSignIn = url;
-      this.router.navigate([ROUTE_SIGN_IN]);
+      this.router.navigate(RouteSignIn.ROUTE_COMMANDS);
       return false;
     }
     return true;

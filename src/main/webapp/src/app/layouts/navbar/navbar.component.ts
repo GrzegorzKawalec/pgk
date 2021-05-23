@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
-import {BaseComponent} from '../../common/components/base.component';
 import {UserDTO} from '../../common/api/api-models';
+import {BaseComponent} from '../../common/components/base.component';
+import {RouteAppInfo, RouteUserManagement} from '../../common/const/routes';
 import {AuthService} from '../../core/auth/auth.service';
 
 @Component({
@@ -28,11 +29,15 @@ export class NavbarComponent extends BaseComponent implements OnInit {
   }
 
   clickInfo(): void {
-    this.router.navigateByUrl('app-info');
+    this.router.navigate(RouteAppInfo.ROUTE_COMMANDS);
   }
 
   clickSignOut(): void {
     this.authService.signOut();
+  }
+
+  clickUserManagement(): void {
+    this.router.navigate(RouteUserManagement.ROUTE_COMMANDS);
   }
 
 }

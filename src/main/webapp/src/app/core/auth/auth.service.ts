@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {AuthAPI, UserAPI} from '../../common/api/api';
 import {UserDTO} from '../../common/api/api-models';
-import {ROUTE_SIGN_IN} from '../../common/const/routes';
+import {RouteSignIn} from '../../common/const/routes';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +32,7 @@ export class AuthService {
   signOut(): void {
     this.http.post(AuthAPI.signOut, {}).subscribe(() => {
       this._loggedUser.next(null);
-      this.router.navigate([ROUTE_SIGN_IN]);
+      this.router.navigate(RouteSignIn.ROUTE_COMMANDS);
     });
   }
 
