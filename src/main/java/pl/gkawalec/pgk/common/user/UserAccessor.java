@@ -3,7 +3,7 @@ package pl.gkawalec.pgk.common.user;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import pl.gkawalec.pgk.api.dto.user.UserDTO;
+import pl.gkawalec.pgk.api.dto.account.UserDTO;
 
 public interface UserAccessor {
 

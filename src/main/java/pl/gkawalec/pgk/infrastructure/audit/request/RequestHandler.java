@@ -18,7 +18,7 @@ public class RequestHandler {
     private void controllerPointcut(){}
 
     @Around("controllerPointcut()")
-    private Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+    private Object requestHandler(ProceedingJoinPoint joinPoint) throws Throwable {
         return auditor.auditRequest(joinPoint);
     }
 

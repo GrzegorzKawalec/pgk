@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
-import pl.gkawalec.pgk.api.dto.user.UserDTO;
+import pl.gkawalec.pgk.api.dto.account.UserDTO;
 import pl.gkawalec.pgk.common.annotation.security.AuthGuard;
 import pl.gkawalec.pgk.common.exception.response.AccessDeniedResponseException;
 import pl.gkawalec.pgk.common.type.Authority;

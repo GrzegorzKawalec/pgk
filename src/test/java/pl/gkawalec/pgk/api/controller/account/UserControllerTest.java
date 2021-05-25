@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.api.controller;
+package pl.gkawalec.pgk.api.controller.account;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
