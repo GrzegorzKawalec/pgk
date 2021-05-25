@@ -6,7 +6,15 @@
     "version": "Wersja"
   },
   "exception": {
+    "ACCESS_DENIED": "Odmowa dostępu. Brak uprawnień.",
     "UNEXPECTED": "Błąd serwera. Skontaktuj się z administratorem."
+  },
+  "authorities": {
+    "authorities": "Uprawnienia",
+    "ADMIN": {
+      "name": "Administrator",
+      "description": "Administrator aplikacji"
+    }
   },
   "sign-in": {
     "email": "E-mail",

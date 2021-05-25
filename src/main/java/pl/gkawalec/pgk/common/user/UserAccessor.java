@@ -12,6 +12,10 @@ public interface UserAccessor {
 
     default boolean isAnonymous() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return isAnonymous(authentication);
+    }
+
+    default boolean isAnonymous(Authentication authentication) {
         return authentication instanceof AnonymousAuthenticationToken;
     }
 

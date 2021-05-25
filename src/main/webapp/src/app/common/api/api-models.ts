@@ -25,9 +25,10 @@ export interface UserDTO {
 }
 
 export enum Authority {
-    ADMIN = "ADMIN",
+    ADMIN = "ADMIN"
 }
 
 export enum ResponseExceptionType {
-    UNEXPECTED = "UNEXPECTED"
+    ACCESS_DENIED = "ACCESS_DENIED",
+    UNEXPECTED = "UNEXPECTED",
 }
