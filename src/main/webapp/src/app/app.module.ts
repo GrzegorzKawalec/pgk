@@ -16,6 +16,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {AppComponent} from './app.component';
 import {AppRouting} from './app.routing';
+import {CenterCardModule} from './common/components/center-card/center-card.module';
 import {COMMON_MODULES} from './common/const/common-modules';
 import {SignInComponent} from './core/auth/sign-in/sign-in.component';
 import {ExceptionInfoBodyComponent} from './core/interceptors/exception/exception-info-body.component';
@@ -49,8 +50,11 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     }),
 
     AppRouting,
+
     AppInfoModule,
     UserManagementModule,
+
+    CenterCardModule,
 
     MatButtonModule,
     MatFormFieldModule,
