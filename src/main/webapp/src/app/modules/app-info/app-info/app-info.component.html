@@ -1,4 +1,4 @@
-<div *ngIf="appInfo; else loader" class="pgk-center-content-container" fxLayout="column" fxLayoutAlign="center center">
+<pgk-canter-card *ngIf="appInfo; else loader" layout="column" elevation="24">
 
   <div class="info-container" fxLayout="column" fxLayoutAlign="center center">
     <span class="info">{{appInfo.name}}</span>
@@ -15,7 +15,7 @@
     <span class="description">{{'app-info.author' | translate}}</span>
   </div>
 
-</div>
+</pgk-canter-card>
 
 <ng-template #loader>
   <div class="pgk-center-content-container" fxLayout="column" fxLayoutAlign="center center">

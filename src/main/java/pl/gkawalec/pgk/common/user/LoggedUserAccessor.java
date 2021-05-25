@@ -7,7 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
-import pl.gkawalec.pgk.api.dto.user.UserDTO;
+import pl.gkawalec.pgk.api.dto.account.UserDTO;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.util.CollectionUtil;
 import pl.gkawalec.pgk.database.account.UserEntity;
@@ -45,6 +45,9 @@ public class LoggedUserAccessor implements UserAccessor {
 
     private UserDTO loadLoggedUserDetails() {
         String email = getLoggedUserEmail();
+        if (Objects.isNull(email)) {
+            return null;
+        }
         UserEntity userEntity = userRepository.findByEmail(email);
         List<Authority> authorities = getAuthorities();
         UserDTO result = UserDTO.of(userEntity, authorities);
@@ -57,12 +60,18 @@ public class LoggedUserAccessor implements UserAccessor {
             return user.getId();
         }
         String email = getLoggedUserEmail();
+        if (Objects.isNull(email)) {
+            return null;
+        }
         UserEntity userEntity = userRepository.findByEmail(email);
         return userEntity.getId();
     }
 
     private List<Authority> getAuthorities() {
         UserDetails userDetails = getLoggedUserDetails();
+        if (Objects.isNull(userDetails)) {
+            return Collections.emptyList();
+        }
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
         if (CollectionUtil.isEmpty(authorities)) {
             return Collections.emptyList();
@@ -74,11 +83,14 @@ public class LoggedUserAccessor implements UserAccessor {
 
     private String getLoggedUserEmail() {
         UserDetails loggedUserDetails = getLoggedUserDetails();
-        return loggedUserDetails.getUsername();
+        return Objects.nonNull(loggedUserDetails) ? loggedUserDetails.getUsername() : null;
     }
 
     private UserDetails getLoggedUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (Objects.isNull(authentication) || isAnonymous(authentication)) {
+            return null;
+        }
         return (UserDetails) authentication.getPrincipal();
     }
 

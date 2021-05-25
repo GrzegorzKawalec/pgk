@@ -6,7 +6,7 @@ import pl.gkawalec.pgk.common.type.ResponseExceptionType;
 
 import java.util.UUID;
 
-public class UnexpectedResponseException extends RuntimeException implements ExceptionForResponse {
+public class AccessDeniedResponseException extends RuntimeException implements ExceptionForResponse {
 
     @Getter
     private final String errorUUID;
@@ -17,12 +17,12 @@ public class UnexpectedResponseException extends RuntimeException implements Exc
     @Getter
     private final Throwable causeException;
 
-    public UnexpectedResponseException(Throwable throwable) {
-        super(throwable);
-        this.causeException = throwable;
+    public AccessDeniedResponseException(String message) {
+        super(message);
+        this.causeException = null;
         this.errorUUID = UUID.randomUUID().toString();
-        this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        this.type = ResponseExceptionType.UNEXPECTED;
+        this.httpStatus = HttpStatus.FORBIDDEN;
+        this.type = ResponseExceptionType.ACCESS_DENIED;
     }
 
 }

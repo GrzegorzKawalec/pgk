@@ -1,10 +1,10 @@
-package pl.gkawalec.pgk.api.controller;
+package pl.gkawalec.pgk.api.controller.account;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.gkawalec.pgk.api.dto.user.UserDTO;
+import pl.gkawalec.pgk.api.dto.account.UserDTO;
 import pl.gkawalec.pgk.common.user.LoggedUserAccessor;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 

@@ -1,7 +1,7 @@
 package pl.gkawalec.pgk.database.account;
 
 import lombok.experimental.UtilityClass;
-import pl.gkawalec.pgk.api.dto.user.UserDTO;
+import pl.gkawalec.pgk.api.dto.account.UserDTO;
 
 @UtilityClass
 public class UserEntityMapper {

@@ -15,7 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuditorFetcher {
 
-    private final LoggedUserAccessor userAccessor;
+    private final LoggedUserAccessor loggedUserAccessor;
     private final SystemUserAccessor systemUserAccessor;
     private final AnonymousUserAccessor anonymousUserAccessor;
 
@@ -27,7 +27,7 @@ public class AuditorFetcher {
 
     private Integer getUserId() {
         if (isRequest()) {
-            Integer loggedUserId = userAccessor.getUserId();
+            Integer loggedUserId = loggedUserAccessor.getUserId();
             return Objects.nonNull(loggedUserId) ? loggedUserId :
                     anonymousUserAccessor.getUserId();
         } else {

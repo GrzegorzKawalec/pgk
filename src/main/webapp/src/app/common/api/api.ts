@@ -11,7 +11,13 @@ export class InfoAPI {
   static readonly basicInfo: string = InfoAPI.url + '/basic';
 }
 
+// ---    START    ---
+// ---   account   ---
+
 export class UserAPI {
   static readonly url: string = PREFIX + '/user';
   static readonly me: string = UserAPI.url + '/me';
 }
+
+// ---   account   ---
+// ---     END     ---
