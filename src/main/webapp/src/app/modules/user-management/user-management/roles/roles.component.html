@@ -1,0 +1,5 @@
+<button *ngIf="requiredUpsertAuthorities | checkAccess"
+  mat-fab color="primary" class="add-bottom" (click)="clickAddRole()"
+        matTooltip="{{'user-management.roles-add' | translate}}" matTooltipPosition="before">
+  <mat-icon svgIcon="role_add"></mat-icon>
+</button>

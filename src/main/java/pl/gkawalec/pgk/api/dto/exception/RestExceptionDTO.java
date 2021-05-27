@@ -3,6 +3,7 @@ package pl.gkawalec.pgk.api.dto.exception;
 import lombok.ToString;
 import lombok.Value;
 import org.springframework.http.HttpStatus;
+import pl.gkawalec.pgk.common.exception.UpdatedEntityLockException;
 import pl.gkawalec.pgk.common.exception.response.ExceptionForResponse;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
 
@@ -20,6 +21,12 @@ public class RestExceptionDTO {
         this.httpStatus = ex.getHttpStatus().value();
         this.errorUUID = ex.getErrorUUID();
         this.type = ex.getType();
+    }
+
+    public RestExceptionDTO(UpdatedEntityLockException ex) {
+        this.type = ResponseExceptionType.DATA_WAS_UPDATED_EARLIER;
+        this.errorUUID = UUID.randomUUID().toString();
+        this.httpStatus = HttpStatus.CONFLICT.value();
     }
 
     public RestExceptionDTO() {

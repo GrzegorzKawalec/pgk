@@ -4,11 +4,12 @@ import {Component, Input} from '@angular/core';
   selector: 'pgk-canter-card',
   template: `
     <div class="pgk-center-content-container" fxLayoutAlign="center center">
-      <mat-card [class]="zElevation" [fxLayout]="fxLayout">
+      <mat-card [class]="zElevation" [fxLayout]="fxLayout" class="center-card-container">
         <ng-content></ng-content>
       </mat-card>
     </div>
-  `
+  `,
+  styleUrls: ['./center-card.component.scss']
 })
 export class CenterCardComponent {
 

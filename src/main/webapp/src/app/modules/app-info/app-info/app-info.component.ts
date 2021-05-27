@@ -12,11 +12,11 @@ export class AppInfoComponent implements OnInit {
   appInfo: InfoBasicDTO
 
   constructor(
-    private appInfoService: AppInfoService
+    private httpService: AppInfoService
   ) { }
 
   ngOnInit(): void {
-    this.appInfoService.getBasicInfo().subscribe((appInfo: InfoBasicDTO) => this.appInfo = appInfo);
+    this.httpService.getBasicInfo().subscribe((appInfo: InfoBasicDTO) => this.appInfo = appInfo);
   }
 
 }

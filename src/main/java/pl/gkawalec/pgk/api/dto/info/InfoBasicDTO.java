@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Value;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 
-import java.util.Objects;
-
 @Value
 @Builder(access = AccessLevel.PRIVATE)
 public class InfoBasicDTO {
@@ -16,7 +14,6 @@ public class InfoBasicDTO {
     String author;
 
     public static InfoBasicDTO of(AppSetting appSetting) {
-        Objects.requireNonNull(appSetting, AppSetting.class.getSimpleName() + " cannot be null");
         return InfoBasicDTO.builder()
                 .name(appSetting.getName())
                 .version(appSetting.getVersion())
