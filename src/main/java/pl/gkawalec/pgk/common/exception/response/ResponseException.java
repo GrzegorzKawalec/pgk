@@ -11,7 +11,7 @@ public class ResponseException extends RuntimeException implements ExceptionForR
     @Getter
     private final String errorUUID;
     @Getter
-    private HttpStatus httpStatus;
+    protected HttpStatus httpStatus;
     @Getter
     private final ResponseExceptionType type;
     @Getter

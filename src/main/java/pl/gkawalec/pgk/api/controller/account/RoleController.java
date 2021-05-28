@@ -1,0 +1,54 @@
+package pl.gkawalec.pgk.api.controller.account;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import pl.gkawalec.pgk.api.dto.account.RoleDTO;
+import pl.gkawalec.pgk.application.account.role.RoleService;
+import pl.gkawalec.pgk.common.annotation.security.AuthGuard;
+import pl.gkawalec.pgk.common.type.Authority;
+import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
+
+import java.util.Set;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping(AppSetting.API_PREFIX + RoleController.URL)
+public class RoleController {
+
+    public static final String URL = "/role";
+    public static final String AUTHORITIES = "/authorities";
+    public static final String EXISTS_NAME = "/exists-name";
+
+    private final RoleService service;
+
+    @GetMapping(RoleController.AUTHORITIES)
+    @AuthGuard({Authority.ROLE_READ, Authority.ROLE_WRITE})
+    public Set<Authority> getAllAuthorities() {
+        return Set.of(Authority.values());
+    }
+
+    @GetMapping(RoleController.EXISTS_NAME)
+    public boolean existsName(@RequestParam("name") String roleName,
+                              @RequestParam(value = "id", required = false) Integer roleId) {
+        return service.existsName(roleName, roleId);
+    }
+
+    @GetMapping("{id}")
+    @AuthGuard(Authority.ROLE_READ)
+    public RoleDTO findById(@PathVariable("id") Integer roleId) {
+        return service.findById(roleId);
+    }
+
+    @PostMapping
+    @AuthGuard(Authority.ROLE_WRITE)
+    public RoleDTO create(@RequestBody RoleDTO dto) {
+        return service.create(dto);
+    }
+
+    @PutMapping
+    @AuthGuard(Authority.ROLE_WRITE)
+    public RoleDTO update(@RequestBody RoleDTO dto) {
+        return service.update(dto);
+    }
+
+}

@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
+import pl.gkawalec.pgk.common.util.StringUtil;
 import pl.gkawalec.pgk.infrastructure.audit.database.AuditingEntity;
 
 import javax.persistence.*;
@@ -28,12 +29,20 @@ public class RoleEntity extends AuditingEntity {
 
     private String description;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "pgk_role_authority_link",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
     private List<AuthorityEntity> authorities = new ArrayList<>();
+
+    public void setName(String name) {
+        this.name = StringUtil.trimAndRemoveMultipleWhiteSpace(name);
+    }
+
+    public void setDescription(String description) {
+        this.description = StringUtil.trim(description);
+    }
 
 }

@@ -17,4 +17,9 @@ export class RouteUserManagement {
 
   static readonly ROLES: string = 'roles';
   static readonly ROLES_COMMANDS: string[] = [RouteUserManagement.ROUTE, RouteUserManagement.ROLES];
+
+  static readonly UPSERT: string = 'upsert';
+  static readonly USERS_UPSERT_COMMANDS: string[] = [...RouteUserManagement.USERS_COMMANDS, RouteUserManagement.UPSERT];
+  static readonly ROLES_UPSERT_COMMANDS: string[] = [...RouteUserManagement.ROLES_COMMANDS, RouteUserManagement.UPSERT];
+  static readonly ROLES_UPSERT_ID_PARAM: string = 'roleId';
 }

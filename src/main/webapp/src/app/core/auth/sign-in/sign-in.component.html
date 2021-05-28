@@ -2,7 +2,7 @@
 
     <mat-form-field *ngIf="!showSpinner">
       <mat-label>
-        {{'sign-in.email' | translate}}
+        {{'common.email' | translate}}
       </mat-label>
       <input matInput name="pgk-sign-in-email" type="email" [formControl]="emailControl" (keydown)="keyDownFromInput($event)">
       <mat-error *ngIf="emailControl.invalid">

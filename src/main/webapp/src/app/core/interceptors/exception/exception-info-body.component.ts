@@ -40,13 +40,22 @@ export class ExceptionInfoBodyComponent {
     @Inject(MAT_SNACK_BAR_DATA) public data: ExceptionInfoModel
   ) {
     this.uuid = data.uuid || '';
-    this.message = this.translateMessage(data).trim();
+    let translateMessage: string = this.translateMessage(data);
+    if (data.status === 400) {
+      translateMessage = this.getPrefixForBadRequestStatus() + ' ' + translateMessage;
+    }
+    this.message = translateMessage.trim();
   }
 
   private translateMessage(errorModel: ExceptionInfoModel): string {
     const translate: string = this.translateService.instant(ExceptionInfoBodyComponent.PREFIX_TRANSLATE_KEY + errorModel.type);
     return translate.startsWith(ExceptionInfoBodyComponent.PREFIX_TRANSLATE_KEY) ?
-      errorModel.type : translate;
+      errorModel.type : translate.trim();
+  }
+
+  private getPrefixForBadRequestStatus(): string {
+    const translate: string = this.translateService.instant(ExceptionInfoBodyComponent.PREFIX_TRANSLATE_KEY + '_bad_request');
+    return translate.trim();
   }
 
 }

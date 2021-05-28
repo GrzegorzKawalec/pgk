@@ -1,6 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export interface AuthorityDTO {
+    authorities?: Authority[];
+}
+
 export interface InfoBasicDTO {
     author?: string;
     name?: string;
@@ -11,6 +15,14 @@ export interface RestExceptionDTO {
     errorUUID?: string;
     httpStatus?: number;
     type?: ResponseExceptionType;
+}
+
+export interface RoleDTO {
+    authorities?: Authority[];
+    description?: string;
+    entityVersion?: number;
+    id?: number;
+    name?: string;
 }
 
 export interface UserDTO {
@@ -25,10 +37,23 @@ export interface UserDTO {
 }
 
 export enum Authority {
-    ADMIN = "ADMIN"
+    ADMIN = "ADMIN",
+    ROLE_READ = "ROLE_READ",
+    ROLE_WRITE = "ROLE_WRITE",
+    USER_READ = "USER_READ",
+    USER_WRITE = "USER_WRITE",
 }
 
 export enum ResponseExceptionType {
     ACCESS_DENIED = "ACCESS_DENIED",
+    DATA_WAS_UPDATED_EARLIER = "DATA_WAS_UPDATED_EARLIER",
     UNEXPECTED = "UNEXPECTED",
+    EMPTY_DATA = "EMPTY_DATA",
+    ROLE_BLANK_ID = "ROLE_BLANK_ID",
+    ROLE_BLANK_NAME = "ROLE_BLANK_NAME",
+    ROLE_CANNOT_UPDATE_ADMIN = "ROLE_CANNOT_UPDATE_ADMIN",
+    ROLE_EMPTY_AUTHORITIES = "ROLE_EMPTY_AUTHORITIES",
+    ROLE_NAME_EXISTS = "ROLE_NAME_EXISTS",
+    ROLE_NOT_FOUND = "ROLE_NOT_FOUND",
+    ROLE_SET_ADMIN_AUTHORITY = "ROLE_SET_ADMIN_AUTHORITY",
 }

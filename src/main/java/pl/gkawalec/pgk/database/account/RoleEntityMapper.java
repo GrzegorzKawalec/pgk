@@ -1,6 +1,7 @@
 package pl.gkawalec.pgk.database.account;
 
 import lombok.experimental.UtilityClass;
+import pl.gkawalec.pgk.api.dto.account.RoleDTO;
 
 import java.util.List;
 
@@ -17,6 +18,13 @@ public class RoleEntityMapper {
         entity.setDescription(description);
         entity.setAuthorities(authorityEntities);
         return entity;
+    }
+
+    public void update(RoleDTO dto, RoleEntity entity, List<AuthorityEntity> authorityEntities) {
+        entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
+        entity.setAuthorities(authorityEntities);
+        entity.setVersion(dto.getEntityVersion());
     }
 
 }

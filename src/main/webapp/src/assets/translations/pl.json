@@ -5,19 +5,50 @@
     "name": "Nazwa",
     "version": "Wersja"
   },
+  "common": {
+    "email": "E-mail",
+    "save": "Zapisz",
+    "saved": "Zapisano",
+    "updated": "Zaktualizowano"
+  },
   "exception": {
+    "_bad_request": "Nieprawidłowe żądanie.",
     "ACCESS_DENIED": "Odmowa dostępu. Brak uprawnień.",
-    "UNEXPECTED": "Błąd serwera. Skontaktuj się z administratorem."
+    "DATA_WAS_UPDATED_EARLIER": "Dane zostały zaktualizowane wcześniej. Odśwież stronę.",
+    "UNEXPECTED": "Błąd serwera. Skontaktuj się z administratorem.",
+    "EMPTY_DATA": "Puste dane.",
+    "ROLE_BLANK_ID": "Pusty identyfikator",
+    "ROLE_BLANK_NAME": "Pusta nazwa roli.",
+    "ROLE_CANNOT_UPDATE_ADMIN": "Nie można zaktualizować roli Administratora.",
+    "ROLE_EMPTY_AUTHORITIES": "Pusta lista uprawnień.",
+    "ROLE_NAME_EXISTS": "Nazwa roli już istnieje.",
+    "ROLE_NOT_FOUND": "Nie odnaleziono roli.",
+    "ROLE_SET_ADMIN_AUTHORITY": "Nie można nadać uprawnień Administratora."
   },
   "authorities": {
     "authorities": "Uprawnienia",
     "ADMIN": {
       "name": "Administrator",
       "description": "Administrator aplikacji"
+    },
+    "ROLE_READ": {
+      "name": "Odczyt ról",
+      "description": "Odczyt istniejących ról"
+    },
+    "ROLE_WRITE": {
+      "name": "Zapis ról",
+      "description": "Zapis nowych lub modyfikacja istniejących ról"
+    },
+    "USER_READ": {
+      "name": "Odczyt użytkowników",
+      "description": "Odczyt istniejących użytkowników"
+    },
+    "USER_WRITE": {
+      "name": "Zapis użytkowników",
+      "description": "Zapis nowych lub modyfikacja istniejących użytkowników"
     }
   },
   "sign-in": {
-    "email": "E-mail",
     "password": "Hasło",
     "sign-in": "Zaloguj",
     "sign-out": "Wyloguj",
@@ -30,6 +61,19 @@
   "user-management": {
     "user-management": "Zarządzanie użytkownikami",
     "users": "Użytkownicy",
-    "roles": "Role"
+    "roles": "Role",
+    "roles-add": "Dodaj rolę",
+    "roles-upsert": {
+      "description": "Opis roli",
+      "description-placeholder": "Podaj nazwę roli",
+      "name": "Nazwa roli",
+      "name-placeholder": "Podaj nazwę roli",
+      "select-authorities": "Wybierz uprawnienia",
+      "invalid-form": {
+        "empty-authority": "Należy wybrać przynajmniej jedno uprawnienie",
+        "empty-name": "Nazwa roli nie może być pusta",
+        "not-unique-name": "Podana nazwa roli już istnieje"
+      }
+    }
   }
 }
