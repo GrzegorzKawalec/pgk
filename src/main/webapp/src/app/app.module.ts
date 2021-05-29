@@ -5,7 +5,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -17,6 +16,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppComponent} from './app.component';
 import {AppRouting} from './app.routing';
 import {CenterCardModule} from './common/components/center-card/center-card.module';
+import {LoaderModule} from './common/components/loader/loader.module';
 import {COMMON_MODULES} from './common/const/common-modules';
 import {SignInComponent} from './core/auth/sign-in/sign-in.component';
 import {ExceptionInfoBodyComponent} from './core/interceptors/exception/exception-info-body.component';
@@ -55,12 +55,12 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     UserManagementModule,
 
     CenterCardModule,
+    LoaderModule,
 
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatProgressSpinnerModule,
     MatSnackBarModule,
     MatToolbarModule,
     MatTooltipModule

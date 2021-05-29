@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
+import {finalize} from 'rxjs/operators';
 import {Authority, RoleDTO} from '../../../../../common/api/api-models';
 import {RouteUserManagement} from '../../../../../common/const/routes';
 import {RequiredValidator} from '../../../../../common/validators/required.validator';
@@ -18,6 +19,8 @@ export class RolesUpsertComponent implements OnInit {
   readonly ctrlName: string = 'name';
   readonly ctrlAuthorities: string = 'authorities';
   readonly ctrlDescription: string = 'description';
+
+  loading: boolean = false;
 
   role: RoleDTO;
   form: FormGroup;
@@ -41,9 +44,10 @@ export class RolesUpsertComponent implements OnInit {
   }
 
   clickSave(): void {
-    if (!this.form.valid) {
+    if (this.loading || !this.form.valid) {
       return;
     }
+    this.changeLoadingState();
     const dto: RoleDTO = this.buildDTO();
     if (!this.role) {
       this.createRole(dto);
@@ -52,26 +56,39 @@ export class RolesUpsertComponent implements OnInit {
     }
   }
 
+  private changeLoadingState(): void {
+    this.loading = !this.loading;
+    if (this.loading) {
+      this.form.disable({onlySelf: true});
+    } else {
+      this.form.enable({onlySelf: true})
+    }
+  }
+
   private createRole(dto: RoleDTO): void {
-    this.roleService.create(dto).subscribe((createdRole: RoleDTO) => {
-      if (createdRole) {
-        this.afterUpsertData(createdRole, 'common.saved');
-        this.router.navigate([createdRole.id], {
-          relativeTo: this.activatedRoute,
-          queryParamsHandling: 'merge'
-        });
-      }
-    });
+    this.roleService.create(dto)
+      .pipe(finalize(() => this.changeLoadingState()))
+      .subscribe((createdRole: RoleDTO) => {
+        if (createdRole) {
+          this.afterUpsertData(createdRole, 'common.saved');
+          this.router.navigate([createdRole.id], {
+            relativeTo: this.activatedRoute,
+            queryParamsHandling: 'merge'
+          });
+        }
+      });
   }
 
   private updateRole(dto: RoleDTO): void {
     dto.id = this.role.id;
     dto.entityVersion = this.role.entityVersion;
-    this.roleService.update(dto).subscribe((updatedRole: RoleDTO) => {
-      if (updatedRole) {
-        this.afterUpsertData(updatedRole, 'common.updated');
-      }
-    });
+    this.roleService.update(dto)
+      .pipe(finalize(() => this.changeLoadingState()))
+      .subscribe((updatedRole: RoleDTO) => {
+        if (updatedRole) {
+          this.afterUpsertData(updatedRole, 'common.updated');
+        }
+      });
   }
 
   private afterUpsertData(changedDTO: RoleDTO, translationKeyForSuccess: string): void {

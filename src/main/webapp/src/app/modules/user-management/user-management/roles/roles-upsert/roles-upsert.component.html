@@ -1,6 +1,8 @@
 <pgk-canter-card layout="column">
-  <form [formGroup]="form" fxLayout="column" class="roles-upsert-container">
 
+  <pgk-progress *ngIf="loading"></pgk-progress>
+
+  <form [formGroup]="form" fxLayout="column" class="roles-upsert-container">
     <mat-form-field>
       <mat-label>{{'user-management.roles-upsert.name' | translate}}</mat-label>
       <input matInput formControlName="{{ctrlName}}" name="pgk-roles-upsert-name" autocomplete="off" required
@@ -33,9 +35,7 @@
     </mat-form-field>
   </form>
 
-  <button mat-raised-button color="primary" (click)="clickSave()"
-          [disabled]="!form.valid">
+  <button mat-raised-button color="primary" (click)="clickSave()" [disabled]="loading || !form.valid">
     {{'common.save' | translate}}
   </button>
 </pgk-canter-card>
-
