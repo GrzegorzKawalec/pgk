@@ -44,10 +44,6 @@ export class RolesUpsertComponent implements OnInit {
   }
 
   clickSave(): void {
-    if (this.loading || !this.form.valid) {
-      return;
-    }
-    this.changeLoadingState();
     const dto: RoleDTO = this.buildDTO();
     if (!this.role) {
       this.createRole(dto);
@@ -56,18 +52,9 @@ export class RolesUpsertComponent implements OnInit {
     }
   }
 
-  private changeLoadingState(): void {
-    this.loading = !this.loading;
-    if (this.loading) {
-      this.form.disable({onlySelf: true});
-    } else {
-      this.form.enable({onlySelf: true})
-    }
-  }
-
   private createRole(dto: RoleDTO): void {
     this.roleService.create(dto)
-      .pipe(finalize(() => this.changeLoadingState()))
+      .pipe(finalize(() => this.loading = false))
       .subscribe((createdRole: RoleDTO) => {
         if (createdRole) {
           this.afterUpsertData(createdRole, 'common.saved');
@@ -83,7 +70,7 @@ export class RolesUpsertComponent implements OnInit {
     dto.id = this.role.id;
     dto.entityVersion = this.role.entityVersion;
     this.roleService.update(dto)
-      .pipe(finalize(() => this.changeLoadingState()))
+      .pipe(finalize(() => this.loading = false))
       .subscribe((updatedRole: RoleDTO) => {
         if (updatedRole) {
           this.afterUpsertData(updatedRole, 'common.updated');

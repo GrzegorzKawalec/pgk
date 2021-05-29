@@ -7,6 +7,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {CenterCardModule} from '../../common/components/center-card/center-card.module';
 import {ProgressModule} from '../../common/components/progress/progress.module';
+import {UpsertFormModule} from '../../common/components/upsert-form/upsert-form.module';
 import {COMMON_MODULES} from '../../common/const/common-modules';
 import {UserManagementRouting} from './user-management.routing';
 import {RolesUpsertComponent} from './user-management/roles/roles-upsert/roles-upsert.component';
@@ -25,6 +26,7 @@ import {UserManagementComponent} from './user-management/user-management.compone
 
     CenterCardModule,
     ProgressModule,
+    UpsertFormModule,
 
     MatButtonModule,
     MatIconModule,
