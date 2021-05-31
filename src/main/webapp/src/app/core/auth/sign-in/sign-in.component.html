@@ -1,6 +1,8 @@
 <pgk-canter-card layout="column">
 
-  <mat-form-field *ngIf="!showLoader">
+  <pgk-progress [visibility]="loading"></pgk-progress>
+
+  <mat-form-field>
     <mat-label>
       {{'common.email' | translate}}
     </mat-label>
@@ -10,7 +12,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field *ngIf="!showLoader">
+  <mat-form-field>
     <mat-label>
       {{'sign-in.password' | translate}}
     </mat-label>
@@ -24,10 +26,8 @@
     </mat-error>
   </mat-form-field>
 
-  <pgk-loader *ngIf="showLoader"></pgk-loader>
-
   <button mat-raised-button color="primary" class="sign-in-button" (click)="signIn()"
-          [disabled]="showLoader || emailControl.invalid || passwordControl.invalid">
+          [disabled]="loading || emailControl.invalid || passwordControl.invalid">
     {{'sign-in.sign-in' | translate}}
     <mat-icon svgIcon="login"></mat-icon>
   </button>

@@ -32,9 +32,9 @@ export class UpsertFormComponent implements OnChanges {
   private changeLoadingState(loading: boolean): void {
     this.loading = loading;
     if (this.loading) {
-      this.formGroup.disable({onlySelf: true});
+      this.formGroup.disable();
     } else {
-      this.formGroup.enable({onlySelf: true})
+      this.formGroup.enable();
     }
     this.loadingChange.emit(this.loading);
   }

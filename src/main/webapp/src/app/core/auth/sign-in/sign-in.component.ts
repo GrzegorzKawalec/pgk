@@ -15,7 +15,7 @@ import {AuthService} from '../auth.service';
 })
 export class SignInComponent extends BaseComponent {
 
-  showLoader: boolean = false;
+  loading: boolean = false;
   hidePassword: boolean = true;
 
   emailControl: FormControl = new FormControl('', [RequiredValidator.requiredTrim, EmailValidator.email]);
@@ -39,7 +39,7 @@ export class SignInComponent extends BaseComponent {
     if (this.emailControl.invalid || this.passwordControl.invalid) {
       return;
     }
-    this.showLoader = true;
+    this.changeLoadingState(true);
     const username: string = this.emailControl.value.trim();
     const password: string = this.passwordControl.value;
     this.authService.signIn(username, password).subscribe(() => {
@@ -47,9 +47,20 @@ export class SignInComponent extends BaseComponent {
       this.authService.loggedUser$
         .pipe(
           takeUntil(this.destroy$),
-          finalize(() => this.showLoader = false)
+          finalize(() => this.changeLoadingState(false))
         ).subscribe(() => this.router.navigateByUrl(urlToRedirect));
     });
+  }
+
+  private changeLoadingState(state: boolean): void {
+    this.loading = state;
+    if (this.loading) {
+      this.emailControl.disable()
+      this.passwordControl.disable()
+    } else {
+      this.emailControl.enable()
+      this.passwordControl.enable()
+    }
   }
 
   private prepareUrlToRedirect(): string {

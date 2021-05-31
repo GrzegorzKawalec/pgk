@@ -1,6 +1,6 @@
 <pgk-canter-card layout="column">
 
-  <pgk-progress *ngIf="loading"></pgk-progress>
+  <pgk-progress [visibility]="loading"></pgk-progress>
 
   <form [formGroup]="formGroup" fxLayout="column" class="roles-upsert-container">
     <ng-content></ng-content>

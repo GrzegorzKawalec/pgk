@@ -4,11 +4,12 @@ import {ProgressBarMode} from '@angular/material/progress-bar';
 @Component({
   selector: 'pgk-progress',
   template: `
-    <mat-progress-bar [mode]="mode" style="margin-bottom: -4px"></mat-progress-bar>
+    <mat-progress-bar [mode]="mode" [ngStyle]="!visibility && {'visibility': 'hidden'}"></mat-progress-bar>
   `
 })
 export class ProgressComponent {
 
+  @Input() visibility: boolean = true;
   @Input() mode: ProgressBarMode = 'indeterminate';
 
 }

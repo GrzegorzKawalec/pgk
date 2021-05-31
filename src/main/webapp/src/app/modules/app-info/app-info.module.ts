@@ -12,8 +12,8 @@ import {AppInfoComponent} from './app-info/app-info.component';
   imports: [
     COMMON_MODULES,
     AppInfoRouting,
-    LoaderModule,
-    CenterCardModule
+    CenterCardModule,
+    LoaderModule
   ]
 })
 export class AppInfoModule {
