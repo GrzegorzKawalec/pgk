@@ -14,10 +14,10 @@
 
   <mat-form-field>
     <mat-label>{{'user-management.roles-upsert.select-authorities' | translate}}</mat-label>
-    <mat-select formControlName="{{ctrlAuthorities}}" [(ngModel)]="selectedAuthorities" multiple required>
+    <mat-select formControlName="{{ctrlAuthorities}}" multiple required>
       <mat-option *ngFor="let model of selectAuthorityModels" [value]="model" [disabled]="model.disabled"
-                  [matTooltip]="model.translateDescription" matTooltipPosition="before">
-        {{model.translateName}}
+                  [matTooltip]="model.translateModel.description" matTooltipPosition="before">
+        {{model.translateModel.name}}
       </mat-option>
     </mat-select>
     <mat-error *ngIf="form.get(ctrlAuthorities).hasError('required')">

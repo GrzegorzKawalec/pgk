@@ -1,7 +1,10 @@
 package pl.gkawalec.pgk.application.account.role;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import pl.gkawalec.pgk.api.dto.account.RoleCriteria;
 import pl.gkawalec.pgk.api.dto.account.RoleDTO;
 import pl.gkawalec.pgk.common.exception.response.ResponseException;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
@@ -49,6 +52,14 @@ public class RoleService {
         RoleEntityMapper.update(dto, roleEntity, authorityEntities);
         roleEntity = roleRepository.saveAndFlush(roleEntity);
         return RoleDTO.of(roleEntity);
+    }
+
+    public Page<RoleDTO> find(RoleCriteria criteria) {
+        criteria = Objects.nonNull(criteria) ? criteria : new RoleCriteria();
+        RoleSpecification specification = new RoleSpecification(criteria);
+        PageRequest pageRequest = criteria.getSearchPage().toPageRequest();
+        return roleRepository.findAll(specification, pageRequest)
+                .map(RoleDTO::of);
     }
 
 }

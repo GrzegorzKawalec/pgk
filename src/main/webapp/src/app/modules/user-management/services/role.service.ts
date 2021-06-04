@@ -2,7 +2,8 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {RoleAPI} from '../../../common/api/api';
-import {Authority, RoleDTO} from '../../../common/api/api-models';
+import {Authority, RoleCriteria, RoleDTO} from '../../../common/api/api-models';
+import {Page} from '../../../common/api/api-pagination.models';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,10 @@ export class RoleService {
 
   update(dto: RoleDTO): Observable<RoleDTO> {
     return this.http.put(RoleAPI.url, dto);
+  }
+
+  find(criteria?: RoleCriteria): Observable<Page<RoleDTO>> {
+    return this.http.post(RoleAPI.find, criteria);
   }
 
 }

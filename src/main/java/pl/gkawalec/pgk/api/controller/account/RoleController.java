@@ -1,9 +1,12 @@
 package pl.gkawalec.pgk.api.controller.account;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import pl.gkawalec.pgk.api.dto.account.RoleCriteria;
 import pl.gkawalec.pgk.api.dto.account.RoleDTO;
 import pl.gkawalec.pgk.application.account.role.RoleService;
+import pl.gkawalec.pgk.common.annotation.request.AuditedRequest;
 import pl.gkawalec.pgk.common.annotation.security.AuthGuard;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
@@ -18,6 +21,7 @@ public class RoleController {
     public static final String URL = "/role";
     public static final String AUTHORITIES = "/authorities";
     public static final String EXISTS_NAME = "/exists-name";
+    public static final String FIND = "/find";
 
     private final RoleService service;
 
@@ -49,6 +53,13 @@ public class RoleController {
     @AuthGuard(Authority.ROLE_WRITE)
     public RoleDTO update(@RequestBody RoleDTO dto) {
         return service.update(dto);
+    }
+
+    @AuditedRequest(false)
+    @AuthGuard(Authority.ROLE_READ)
+    @PostMapping(RoleController.FIND)
+    public Page<RoleDTO> find(@RequestBody(required = false) RoleCriteria criteria) {
+        return service.find(criteria);
     }
 
 }

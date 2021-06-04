@@ -5,6 +5,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
+import {MatPaginatorIntl} from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -21,6 +22,7 @@ import {COMMON_MODULES} from './common/const/common-modules';
 import {SignInComponent} from './core/auth/sign-in/sign-in.component';
 import {ExceptionInfoBodyComponent} from './core/interceptors/exception/exception-info-body.component';
 import {INTERCEPTORS} from './core/interceptors/interceptors';
+import {PaginatorIntlService} from './core/internationalization/paginator-intl.service';
 import {NavbarComponent} from './layouts/navbar/navbar.component';
 import {AppInfoModule} from './modules/app-info/app-info.module';
 import {UserManagementModule} from './modules/user-management/user-management.module';
@@ -67,7 +69,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   ],
   providers: [
     INTERCEPTORS,
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: MatPaginatorIntl, useClass: PaginatorIntlService}
   ],
   bootstrap: [AppComponent]
 })

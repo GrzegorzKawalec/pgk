@@ -1,0 +1,24 @@
+@import "../../../../common/styles/pgk-styles";
+
+.cell-icon {
+  width: 18px;
+  cursor: pointer;
+}
+
+.cell-center-icon {
+  padding: 0 2px;
+}
+
+.mat-column-name {
+  text-align: left;
+  width: calc(30% - 60px);
+}
+
+.mat-column-authorities {
+  width: calc(70% - 60px);
+}
+
+.mat-column-buttons {
+  font-weight: lighter;
+  width: 60px;
+}
