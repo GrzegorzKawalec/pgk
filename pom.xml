@@ -155,7 +155,8 @@
                             <jsonLibrary>jackson2</jsonLibrary>
                             <outputKind>module</outputKind>
                             <classPatterns>
-                                <pattern>pl.gkawalec.pgk.**DTO</pattern>
+                                <pattern>pl.gkawalec.pgk.api.dto.**DTO</pattern>
+                                <pattern>pl.gkawalec.pgk.api.dto.**Criteria</pattern>
                             </classPatterns>
                             <outputFile>src/main/webapp/src/app/common/api/api-models.ts</outputFile>
                             <outputFileType>implementationFile</outputFileType>

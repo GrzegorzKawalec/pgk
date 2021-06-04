@@ -1,12 +1,11 @@
 {
-  "app-info": {
-    "app-info": "Informacje o aplikacji",
-    "author": "Autor",
-    "name": "Nazwa",
-    "version": "Wersja"
-  },
   "common": {
+    "clear": "Wyczyść",
+    "delete": "Usuń",
+    "details": "Szczegóły",
+    "edit": "Edytuj",
     "email": "E-mail",
+    "no-data": "Brak danych",
     "save": "Zapisz",
     "saved": "Zapisano",
     "updated": "Zaktualizowano"
@@ -48,6 +47,20 @@
       "description": "Zapis nowych lub modyfikacja istniejących użytkowników"
     }
   },
+  "pagination": {
+    "first-page": "Pierwsza strona",
+    "items-per-page": "Elementów na stronie",
+    "last-page": "Ostatnia strona",
+    "next-page": "Następna strona",
+    "of": "z",
+    "previous-page": "Poprzednia strona"
+  },
+  "app-info": {
+    "app-info": "Informacje o aplikacji",
+    "author": "Autor",
+    "name": "Nazwa",
+    "version": "Wersja"
+  },
   "sign-in": {
     "password": "Hasło",
     "sign-in": "Zaloguj",
@@ -62,7 +75,15 @@
     "user-management": "Zarządzanie użytkownikami",
     "users": "Użytkownicy",
     "roles": "Role",
-    "roles-add": "Dodaj rolę",
+    "role": {
+      "roles-add": "Dodaj rolę",
+      "search-role-by": "Wpisz nazwę roli",
+      "search-role-by-authorities": "Wybierz uprawnienia",
+      "columns": {
+        "authorities": "Uprawnienia",
+        "name": "Nazwa"
+      }
+    },
     "roles-upsert": {
       "description": "Opis roli",
       "description-placeholder": "Podaj nazwę roli",

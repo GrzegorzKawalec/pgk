@@ -1,6 +1,5 @@
 package pl.gkawalec.pgk.api.dto.account;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Value;
 import pl.gkawalec.pgk.common.type.Authority;

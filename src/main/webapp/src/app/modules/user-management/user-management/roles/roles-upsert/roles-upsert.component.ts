@@ -6,6 +6,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {finalize} from 'rxjs/operators';
 import {Authority, RoleDTO} from '../../../../../common/api/api-models';
 import {RouteUserManagement} from '../../../../../common/const/routes';
+import {AuthorityTranslateModel, AuthorityTranslateService} from '../../../../../common/services/authority-translate.service';
 import {RequiredValidator} from '../../../../../common/validators/required.validator';
 import {UniqueAsyncValidator} from '../../../../../common/validators/unique.async-validator';
 import {RoleService} from '../../../services/role.service';
@@ -24,7 +25,6 @@ export class RolesUpsertComponent implements OnInit {
 
   role: RoleDTO;
   form: FormGroup;
-  selectedAuthorities: SelectAuthorityModel[] = [];
   selectAuthorityModels: SelectAuthorityModel[] = [];
 
   constructor(
@@ -33,13 +33,14 @@ export class RolesUpsertComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private translateService: TranslateService,
     private snackBar: MatSnackBar,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private authorityTranslateService: AuthorityTranslateService
   ) {
   }
 
   ngOnInit(): void {
     this.initForm();
-    this.roleService.getAllAuthorities().subscribe((allAuthorities: Authority[]) => this.prepareSelectAuthorityModels(allAuthorities));
+    this.prepareSelectAuthorityModels(Object.values(Authority));
     this.activatedRoute.params.subscribe((params: Params) => this.initRoleForUpdate(params));
   }
 
@@ -110,14 +111,14 @@ export class RolesUpsertComponent implements OnInit {
       return [];
     }
     return authorities.map(authority => {
-      const translateKey: string = 'authorities.' + authority + '.';
       return {
         disabled: Authority.ADMIN === authority,
         authority: authority,
-        translateName: this.translateService.instant(translateKey + 'name'),
-        translateDescription: this.translateService.instant(translateKey + 'description')
-      };
-    }).sort((a, b) => (a.translateName > b.translateName) ? 1 : ((b.translateName > a.translateName) ? -1 : 0));
+        translateModel: this.authorityTranslateService.translate(authority)
+      } as SelectAuthorityModel;
+    }).sort((a, b) =>
+      (a.translateModel.name > b.translateModel.name) ? 1 : ((b.translateModel.name > a.translateModel.name) ? -1 : 0)
+    );
   }
 
   private initRoleForUpdate(params: Params): void {
@@ -165,6 +166,5 @@ export class RolesUpsertComponent implements OnInit {
 interface SelectAuthorityModel {
   disabled: boolean;
   authority: Authority,
-  translateName: string;
-  translateDescription: string;
+  translateModel: AuthorityTranslateModel
 }

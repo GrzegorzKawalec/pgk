@@ -5,6 +5,11 @@ export interface AuthorityDTO {
     authorities?: Authority[];
 }
 
+export interface BaseCriteria {
+    searchBy?: string;
+    searchPage?: SearchPageDTO;
+}
+
 export interface InfoBasicDTO {
     author?: string;
     name?: string;
@@ -17,12 +22,27 @@ export interface RestExceptionDTO {
     type?: ResponseExceptionType;
 }
 
+export interface RoleCriteria extends BaseCriteria {
+    authorities?: Authority[];
+}
+
 export interface RoleDTO {
     authorities?: Authority[];
     description?: string;
     entityVersion?: number;
     id?: number;
     name?: string;
+}
+
+export interface SearchPageDTO {
+    pageNumber?: number;
+    pageSize?: number;
+    sorting?: SortDTO[];
+}
+
+export interface SortDTO {
+    direction?: Direction;
+    property?: string;
 }
 
 export interface UserDTO {
@@ -42,6 +62,11 @@ export enum Authority {
     ROLE_WRITE = "ROLE_WRITE",
     USER_READ = "USER_READ",
     USER_WRITE = "USER_WRITE",
+}
+
+export enum Direction {
+    ASC = "ASC",
+    DESC = "DESC",
 }
 
 export enum ResponseExceptionType {

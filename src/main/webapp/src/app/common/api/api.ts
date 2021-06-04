@@ -20,6 +20,7 @@ export class RoleAPI {
   static readonly existsName: string = RoleAPI.url + '/exists-name';
   static readonly existsNameParamName: string = 'name';
   static readonly existsNameParamId: string = 'id';
+  static readonly find: string = RoleAPI.url + '/find'
 }
 
 export class UserAPI {
