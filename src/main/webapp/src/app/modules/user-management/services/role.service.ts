@@ -2,7 +2,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {RoleAPI} from '../../../common/api/api';
-import {Authority, RoleCriteria, RoleDTO} from '../../../common/api/api-models';
+import {Authority, RoleAuditingDTO, RoleCriteria, RoleDTO} from '../../../common/api/api-models';
 import {Page} from '../../../common/api/api-pagination.models';
 
 @Injectable({
@@ -44,6 +44,11 @@ export class RoleService {
 
   find(criteria?: RoleCriteria): Observable<Page<RoleDTO>> {
     return this.http.post(RoleAPI.find, criteria);
+  }
+
+  getAuditingInfo(roleId: number): Observable<RoleAuditingDTO> {
+    const url: string = RoleAPI.auditingInfo + '/' + roleId;
+    return this.http.get(url);
   }
 
 }

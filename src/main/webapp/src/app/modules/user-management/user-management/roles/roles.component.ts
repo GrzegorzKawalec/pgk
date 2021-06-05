@@ -1,4 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSelectChange} from '@angular/material/select';
 import {MatSort} from '@angular/material/sort';
@@ -13,6 +14,7 @@ import {RouteUserManagement} from '../../../../common/const/routes';
 import {AuthorityTranslateModel, AuthorityTranslateService} from '../../../../common/services/authority-translate.service';
 import {CriteriaBuilder, DirectionMapper} from '../../../../common/utils/criteria.util';
 import {RoleService} from '../../services/role.service';
+import {RoleAuditingModalComponent} from './role-auditing-modal/role-auditing-modal.component';
 
 @Component({
   selector: 'pgk-roles',
@@ -46,6 +48,7 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
 
   constructor(
     private router: Router,
+    private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     private roleService: RoleService,
     private authorityTranslateService: AuthorityTranslateService
@@ -68,6 +71,10 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
 
   clickAddRole(): void {
     this.router.navigate(RouteUserManagement.ROLES_UPSERT_COMMANDS);
+  }
+
+  clickDetails(role: RoleTableModel): void {
+    this.dialog.open(RoleAuditingModalComponent, {data: role, minWidth: '500px'});
   }
 
   clearFilter(): void {

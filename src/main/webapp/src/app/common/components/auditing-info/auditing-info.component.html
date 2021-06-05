@@ -1,0 +1,21 @@
+<ng-container [fxLayout]="fxLayout">
+  <mat-form-field>
+    <mat-label>{{'auditing.created-by' | translate}}</mat-label>
+    <input matInput readonly [value]="createdBy">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{'auditing.created-on' | translate}}</mat-label>
+    <input matInput readonly [value]="createdOn">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{'auditing.last-modified-by' | translate}}</mat-label>
+    <input matInput readonly [value]="lastModifiedBy">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{'auditing.last-modified-on' | translate}}</mat-label>
+    <input matInput readonly [value]="lastModifiedOn">
+  </mat-form-field>
+</ng-container>

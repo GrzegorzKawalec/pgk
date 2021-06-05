@@ -1,6 +1,20 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export interface AuditingDTO {
+    created?: AuditorDTO;
+    lastModified?: AuditorDTO;
+}
+
+export interface AuditorDTO {
+    date?: string;
+    email?: string;
+    firstName?: string;
+    id?: number;
+    lastName?: string;
+    time?: string;
+}
+
 export interface AuthorityDTO {
     authorities?: Authority[];
 }
@@ -20,6 +34,11 @@ export interface RestExceptionDTO {
     errorUUID?: string;
     httpStatus?: number;
     type?: ResponseExceptionType;
+}
+
+export interface RoleAuditingDTO {
+    auditing?: AuditingDTO;
+    role?: RoleDTO;
 }
 
 export interface RoleCriteria extends BaseCriteria {

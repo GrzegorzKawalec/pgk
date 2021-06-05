@@ -55,6 +55,12 @@
     "of": "z",
     "previous-page": "Poprzednia strona"
   },
+  "auditing": {
+    "created-by": "Utworzono przez",
+    "created-on": "Utworzono dnia",
+    "last-modified-by": "Ostatnia modyfikacja przez",
+    "last-modified-on": "Ostatnia modyfikacja dnia"
+  },
   "app-info": {
     "app-info": "Informacje o aplikacji",
     "author": "Autor",
@@ -83,6 +89,12 @@
         "authorities": "Uprawnienia",
         "name": "Nazwa"
       }
+    },
+    "role-auditing": {
+      "description": "Opis",
+      "id": "Identyfikator",
+      "name": "Nazwa roli",
+      "version": "Wersja"
     },
     "roles-upsert": {
       "description": "Opis roli",

@@ -111,6 +111,26 @@ class RoleControllerTest {
 
     @Test
     @Transactional
+    @DisplayName("Test end-point that returns audited role information. User without the required authorities.")
+    void getAuditingInfo_withoutAuthorities() throws Exception {
+        //given
+        RoleEntity roleEntity = roleRepository.findAll().stream().findFirst().get();
+        String url = URL + RoleController.AUDITING_INFO + "/" + roleEntity.getId();
+        String email = "testowy_a@testowy_a";
+        String pass = "password_a";
+        Authority invalidAuthority = Authority.USER_READ;
+
+        //when
+        testUserUtil.createUserWithAuthorities(email, pass, invalidAuthority);
+        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
+        MockHttpServletRequestBuilder request = get(url).session(session);
+
+        //then
+        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+    }
+
+    @Test
+    @Transactional
     @DisplayName("Test end-point that returns all authorities. User without the required authorities.")
     void getAllAuthorities_withoutAuthorities() throws Exception {
         //given
