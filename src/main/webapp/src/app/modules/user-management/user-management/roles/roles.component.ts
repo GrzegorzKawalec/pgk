@@ -13,6 +13,7 @@ import {BaseComponent} from '../../../../common/components/base.component';
 import {RouteUserManagement} from '../../../../common/const/routes';
 import {AuthorityTranslateModel, AuthorityTranslateService} from '../../../../common/services/authority-translate.service';
 import {CriteriaBuilder, DirectionMapper} from '../../../../common/utils/criteria.util';
+import {AuthHelper} from '../../../../core/auth/auth.helper';
 import {RoleService} from '../../services/role.service';
 import {RoleAuditingModalComponent} from './role-auditing-modal/role-auditing-modal.component';
 
@@ -50,6 +51,7 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
     private router: Router,
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
+    private authHelper: AuthHelper,
     private roleService: RoleService,
     private authorityTranslateService: AuthorityTranslateService
   ) {
@@ -75,6 +77,12 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
 
   clickDetails(role: RoleTableModel): void {
     this.dialog.open(RoleAuditingModalComponent, {data: role, minWidth: '500px'});
+  }
+
+  clickEdit(role: RoleTableModel): void {
+    if (this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
+      this.router.navigate([...RouteUserManagement.ROLES_UPSERT_COMMANDS, role.id]);
+    }
   }
 
   clearFilter(): void {
