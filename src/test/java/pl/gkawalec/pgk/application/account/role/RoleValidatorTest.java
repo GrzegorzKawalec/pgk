@@ -4,11 +4,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import pl.gkawalec.pgk.api.dto.account.RoleDTO;
+import pl.gkawalec.pgk.api.dto.account.role.RoleDTO;
 import pl.gkawalec.pgk.common.exception.response.ValidateResponseException;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
-import pl.gkawalec.pgk.database.account.RoleEntity;
+import pl.gkawalec.pgk.database.account.role.RoleEntity;
 import pl.gkawalec.pgk.test.annotation.PGKSpringBootTest;
 
 import java.util.Collections;

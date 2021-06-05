@@ -12,10 +12,10 @@ import {UniqueAsyncValidator} from '../../../../../common/validators/unique.asyn
 import {RoleService} from '../../../services/role.service';
 
 @Component({
-  templateUrl: './roles-upsert.component.html',
-  styleUrls: ['./roles-upsert.component.scss']
+  templateUrl: './role-upsert.component.html',
+  styleUrls: ['./role-upsert.component.scss']
 })
-export class RolesUpsertComponent implements OnInit {
+export class RoleUpsertComponent implements OnInit {
 
   readonly ctrlName: string = 'name';
   readonly ctrlAuthorities: string = 'authorities';

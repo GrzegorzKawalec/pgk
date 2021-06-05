@@ -1,11 +1,11 @@
-package pl.gkawalec.pgk.api.dto.account;
+package pl.gkawalec.pgk.api.dto.account.role;
 
 import lombok.Builder;
 import lombok.Value;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.util.CollectionUtil;
-import pl.gkawalec.pgk.database.account.AuthorityEntity;
-import pl.gkawalec.pgk.database.account.RoleEntity;
+import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
+import pl.gkawalec.pgk.database.account.role.RoleEntity;
 
 import java.util.Collections;
 import java.util.Set;

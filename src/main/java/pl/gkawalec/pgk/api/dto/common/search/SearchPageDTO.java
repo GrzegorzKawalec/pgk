@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.api.dto.common;
+package pl.gkawalec.pgk.api.dto.common.search;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Value;

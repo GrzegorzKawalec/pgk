@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.database.account;
+package pl.gkawalec.pgk.database.account.authority;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

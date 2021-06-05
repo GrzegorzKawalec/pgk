@@ -1,8 +1,8 @@
-package pl.gkawalec.pgk.api.dto.account;
+package pl.gkawalec.pgk.api.dto.account.role;
 
 import lombok.EqualsAndHashCode;
 import lombok.Value;
-import pl.gkawalec.pgk.api.dto.common.BaseCriteria;
+import pl.gkawalec.pgk.api.dto.common.search.BaseCriteria;
 import pl.gkawalec.pgk.common.type.Authority;
 
 import java.util.HashSet;

@@ -16,7 +16,7 @@ export class RoleService {
   }
 
   getAllAuthorities(): Observable<Authority[]> {
-    return this.http.get<Authority[]>(RoleAPI.allAuthorities);
+    return this.http.get<Authority[]>(RoleAPI.authorities);
   }
 
   existsRoleName(roleName: string, roleId?: number): Observable<boolean> {

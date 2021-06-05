@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {Authority} from '../../common/api/api-models';
 import {RouteUserManagement} from '../../common/const/routes';
 import {AuthGuard} from '../../core/auth/auth.guard';
-import {RolesUpsertComponent} from './user-management/roles/roles-upsert/roles-upsert.component';
+import {RoleUpsertComponent} from './user-management/roles/role-upsert/role-upsert.component';
 import {UserManagementComponent} from './user-management/user-management.component';
 
 const routes: Routes = [
@@ -38,11 +38,11 @@ const routes: Routes = [
             children: [
               {
                 path: '',
-                component: RolesUpsertComponent
+                component: RoleUpsertComponent
               },
               {
                 path: ':' + RouteUserManagement.ROLES_UPSERT_ID_PARAM,
-                component: RolesUpsertComponent
+                component: RoleUpsertComponent
               }
             ]
           }

@@ -3,7 +3,7 @@ package pl.gkawalec.pgk.api.dto.account;
 import lombok.Builder;
 import lombok.Value;
 import pl.gkawalec.pgk.common.type.Authority;
-import pl.gkawalec.pgk.database.account.UserEntity;
+import pl.gkawalec.pgk.database.account.user.UserEntity;
 
 import java.util.List;
 

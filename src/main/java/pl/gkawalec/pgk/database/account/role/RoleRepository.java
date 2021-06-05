@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.database.account;
+package pl.gkawalec.pgk.database.account.role;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

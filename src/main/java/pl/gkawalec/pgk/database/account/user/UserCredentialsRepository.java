@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.database.account;
+package pl.gkawalec.pgk.database.account.user;
 
 import pl.gkawalec.pgk.common.jpa.BaseRepository;
 

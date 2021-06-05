@@ -2,15 +2,15 @@ package pl.gkawalec.pgk.application.account.role;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.gkawalec.pgk.api.dto.account.RoleDTO;
+import pl.gkawalec.pgk.api.dto.account.role.RoleDTO;
 import pl.gkawalec.pgk.common.exception.response.ValidateResponseException;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
 import pl.gkawalec.pgk.common.util.CollectionUtil;
 import pl.gkawalec.pgk.common.util.StringUtil;
-import pl.gkawalec.pgk.database.account.AuthorityEntity;
-import pl.gkawalec.pgk.database.account.RoleEntity;
-import pl.gkawalec.pgk.database.account.RoleRepository;
+import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
+import pl.gkawalec.pgk.database.account.role.RoleEntity;
+import pl.gkawalec.pgk.database.account.role.RoleRepository;
 
 import java.util.List;
 import java.util.Objects;

@@ -1,21 +1,12 @@
 @import "variables";
 
-mat-form-field {
-  margin-top: $mat-form-field-top-bottom-margin;
-  margin-bottom: $mat-form-field-top-bottom-margin;
-}
-
-table {
-  width: 100%;
-}
-
 .pgk-add-bottom {
   position: fixed !important;
   right: 15px;
   bottom: 15px;
 }
 
-.pgk-container {
+.pgk-content-container {
   position: relative;
   overflow: auto;
   margin-left: 2%;
@@ -29,11 +20,6 @@ table {
   width: 100%;
   height: $content-max-height;
   position: relative;
-}
-
-.pgk-clear-filter-button {
-  top: 4px;
-  margin-top: $mat-form-field-top-bottom-margin;
 }
 
 .pgk-paginator-container {

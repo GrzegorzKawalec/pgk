@@ -1,12 +1,12 @@
 <div>
-  <div class="pgk-container" fxLayout="row" fxLayoutGap="2em">
+  <pgk-filter-panel (clickClearEvent)="clearFilter()">
 
-    <mat-form-field fxFlex="calc(30%-25px)">
+    <mat-form-field fxFlex="30%">
       <mat-label>{{'user-management.role.search-role-by' | translate}}</mat-label>
       <input matInput (keyup)="applyTextFilter($event)" autofocus [(ngModel)]="filterText">
     </mat-form-field>
 
-    <mat-form-field fxFlex="calc(60%-25px)">
+    <mat-form-field fxFlex="70%">
       <mat-label>{{'user-management.role.search-role-by-authorities' | translate}}</mat-label>
       <mat-select multiple (selectionChange)="changeAuthoritiesFilter($event)" (closed)="applyAuthoritiesFilter()"
                   [(ngModel)]="selectedAuthorityModels">
@@ -16,14 +16,9 @@
       </mat-select>
     </mat-form-field>
 
-    <button mat-icon-button class="pgk-clear-filter-button" fxFlex="25px" matTooltip="{{'common.clear' | translate}}"
-            (click)="clickClearFilter()">
-      <mat-icon svgIcon="clear"></mat-icon>
-    </button>
+  </pgk-filter-panel>
 
-  </div>
-
-  <table [ngStyle]="loading && {'display': 'none'}" mat-table [dataSource]="tableData" class="mat-elevation-z8 pgk-container"
+  <table [ngStyle]="loading && {'display': 'none'}" mat-table [dataSource]="tableData" class="mat-elevation-z8 pgk-content-container"
          matSort matSortDisableClear matSortActive="{{clnName}}" matSortDirection="asc">
 
     <ng-container matColumnDef="{{clnName}}">

@@ -2,9 +2,9 @@ package migrations;
 
 import lombok.RequiredArgsConstructor;
 import pl.gkawalec.pgk.common.type.Authority;
-import pl.gkawalec.pgk.database.account.AuthorityEntity;
-import pl.gkawalec.pgk.database.account.AuthorityEntityMapper;
-import pl.gkawalec.pgk.database.account.AuthorityRepository;
+import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
+import pl.gkawalec.pgk.database.account.authority.AuthorityEntityMapper;
+import pl.gkawalec.pgk.database.account.authority.AuthorityRepository;
 import pl.gkawalec.pgk.infrastructure.migration.PGKMigration;
 
 import java.util.Set;

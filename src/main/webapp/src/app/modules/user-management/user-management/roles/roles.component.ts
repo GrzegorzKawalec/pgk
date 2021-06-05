@@ -70,7 +70,7 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
     this.router.navigate(RouteUserManagement.ROLES_UPSERT_COMMANDS);
   }
 
-  clickClearFilter(): void {
+  clearFilter(): void {
     if (!this.criteria.searchBy && !this.criteria.authorities) {
       return;
     }

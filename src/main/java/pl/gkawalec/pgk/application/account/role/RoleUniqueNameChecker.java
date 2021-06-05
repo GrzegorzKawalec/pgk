@@ -3,7 +3,7 @@ package pl.gkawalec.pgk.application.account.role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.gkawalec.pgk.common.util.StringUtil;
-import pl.gkawalec.pgk.database.account.RoleRepository;
+import pl.gkawalec.pgk.database.account.role.RoleRepository;
 
 import java.util.Objects;
 

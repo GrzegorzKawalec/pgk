@@ -1,11 +1,13 @@
-package pl.gkawalec.pgk.database.account;
+package pl.gkawalec.pgk.database.account.role;
 
 import org.springframework.data.jpa.domain.Specification;
-import pl.gkawalec.pgk.api.dto.account.RoleCriteria;
+import pl.gkawalec.pgk.api.dto.account.role.RoleCriteria;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.util.CollectionUtil;
 import pl.gkawalec.pgk.common.util.PredicateUtil;
 import pl.gkawalec.pgk.common.util.StringUtil;
+import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
+import pl.gkawalec.pgk.database.account.authority.AuthorityEntity_;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.persistence.criteria.*;

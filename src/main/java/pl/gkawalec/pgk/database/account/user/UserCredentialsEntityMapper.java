@@ -1,7 +1,8 @@
-package pl.gkawalec.pgk.database.account;
+package pl.gkawalec.pgk.database.account.user;
 
 import lombok.experimental.UtilityClass;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import pl.gkawalec.pgk.database.account.role.RoleEntity;
 
 @UtilityClass
 public class UserCredentialsEntityMapper {

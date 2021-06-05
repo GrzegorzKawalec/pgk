@@ -10,8 +10,8 @@ import org.springframework.web.context.annotation.RequestScope;
 import pl.gkawalec.pgk.api.dto.account.UserDTO;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.util.CollectionUtil;
-import pl.gkawalec.pgk.database.account.UserEntity;
-import pl.gkawalec.pgk.database.account.UserRepository;
+import pl.gkawalec.pgk.database.account.user.UserEntity;
+import pl.gkawalec.pgk.database.account.user.UserRepository;
 
 import java.util.Collection;
 import java.util.Collections;

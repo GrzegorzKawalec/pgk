@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.database.account;
+package pl.gkawalec.pgk.database.account.user;
 
 import lombok.experimental.UtilityClass;
 import pl.gkawalec.pgk.api.dto.account.UserDTO;

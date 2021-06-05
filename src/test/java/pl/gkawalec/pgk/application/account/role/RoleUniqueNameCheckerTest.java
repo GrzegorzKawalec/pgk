@@ -1,10 +1,9 @@
 package pl.gkawalec.pgk.application.account.role;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.gkawalec.pgk.database.account.RoleEntity;
+import pl.gkawalec.pgk.database.account.role.RoleEntity;
 import pl.gkawalec.pgk.test.annotation.PGKSpringBootTest;
 
 import javax.transaction.Transactional;

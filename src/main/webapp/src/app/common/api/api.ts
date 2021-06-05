@@ -16,7 +16,7 @@ export class InfoAPI {
 
 export class RoleAPI {
   static readonly url: string = PREFIX + '/role';
-  static readonly allAuthorities: string = RoleAPI.url + '/authorities';
+  static readonly authorities: string = RoleAPI.url + '/authorities';
   static readonly existsName: string = RoleAPI.url + '/exists-name';
   static readonly existsNameParamName: string = 'name';
   static readonly existsNameParamId: string = 'id';

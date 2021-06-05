@@ -1,7 +1,8 @@
-package pl.gkawalec.pgk.database.account;
+package pl.gkawalec.pgk.database.account.role;
 
 import lombok.experimental.UtilityClass;
-import pl.gkawalec.pgk.api.dto.account.RoleDTO;
+import pl.gkawalec.pgk.api.dto.account.role.RoleDTO;
+import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
 
 import java.util.List;
 

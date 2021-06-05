@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.database.account;
+package pl.gkawalec.pgk.database.account.authority;
 
 import pl.gkawalec.pgk.common.jpa.BaseNumberIDRepository;
 import pl.gkawalec.pgk.common.type.Authority;

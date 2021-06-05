@@ -1,10 +1,11 @@
-package pl.gkawalec.pgk.database.account;
+package pl.gkawalec.pgk.database.account.role;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
 import pl.gkawalec.pgk.common.util.StringUtil;
+import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
 import pl.gkawalec.pgk.infrastructure.audit.database.AuditingEntity;
 
 import javax.persistence.*;
