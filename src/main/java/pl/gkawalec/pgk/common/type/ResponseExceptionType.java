@@ -17,6 +17,7 @@ public enum ResponseExceptionType {
     // --- role  ---
     ROLE_BLANK_ID,
     ROLE_BLANK_NAME,
+    ROLE_CANNOT_DELETE_ADMIN,
     ROLE_CANNOT_UPDATE_ADMIN,
     ROLE_EMPTY_AUTHORITIES,
     ROLE_NAME_EXISTS,

@@ -40,9 +40,17 @@
     <ng-container matColumnDef="{{clnButtons}}">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
-        <mat-icon svgIcon="info" class="cell-icon" matTooltip="{{'common.details' | translate}}"></mat-icon>
-        <mat-icon svgIcon="edit" class="cell-icon cell-center-icon" matTooltip="{{'common.edit' | translate}}"></mat-icon>
-        <mat-icon svgIcon="delete" class="cell-icon" matTooltip="{{'common.delete' | translate}}"></mat-icon>
+        <mat-icon svgIcon="info" class="cell-icon"
+                  (click)="clickDetails(row)"
+                  matTooltip="{{'common.details' | translate}}"></mat-icon>
+        <mat-icon *ngIf="!hasAdminAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
+                  svgIcon="edit" class="cell-icon cell-center-icon"
+                  (click)="clickEdit(row)"
+                  matTooltip="{{'common.edit' | translate}}"></mat-icon>
+        <mat-icon *ngIf="!hasAdminAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
+                  svgIcon="delete" class="cell-icon"
+                  (click)="clickDelete(row)"
+                  matTooltip="{{'common.delete' | translate}}"></mat-icon>
       </td>
     </ng-container>
 
