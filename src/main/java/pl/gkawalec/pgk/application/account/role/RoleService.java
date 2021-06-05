@@ -56,11 +56,17 @@ public class RoleService {
     public RoleDTO update(RoleDTO dto) {
         validator.validateUpdate(dto);
         List<AuthorityEntity> authorityEntities = authorityRepository.findAllByAuthorityIn(dto.getAuthorities());
-        RoleEntity roleEntity = roleRepository.findById(dto.getId()).orElse(null);
-        if (Objects.isNull(roleEntity)) return null;
+        RoleEntity roleEntity = roleRepository.findOneById(dto.getId());
         RoleEntityMapper.update(dto, roleEntity, authorityEntities);
         roleEntity = roleRepository.saveAndFlush(roleEntity);
         return RoleDTO.of(roleEntity);
+    }
+
+    @Transactional
+    public void delete(Integer roleId) {
+        validator.validateDelete(roleId);
+        RoleEntity roleEntity = roleRepository.findOneById(roleId);
+        roleRepository.delete(roleEntity);
     }
 
     public Page<RoleDTO> find(RoleCriteria criteria) {

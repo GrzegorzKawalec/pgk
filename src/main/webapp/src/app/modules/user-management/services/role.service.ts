@@ -42,6 +42,11 @@ export class RoleService {
     return this.http.put(RoleAPI.url, dto);
   }
 
+  delete(roleId: number): Observable<void> {
+    const url: string = RoleAPI.url + '/' + roleId;
+    return this.http.delete<void>(url);
+  }
+
   find(criteria?: RoleCriteria): Observable<Page<RoleDTO>> {
     return this.http.post(RoleAPI.find, criteria);
   }

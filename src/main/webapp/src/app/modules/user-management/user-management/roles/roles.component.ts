@@ -1,15 +1,19 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSelectChange} from '@angular/material/select';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 import {debounceTime, finalize, takeUntil} from 'rxjs/operators';
 import {Authority, RoleCriteria, RoleDTO} from '../../../../common/api/api-models';
 import {Page} from '../../../../common/api/api-pagination.models';
 import {BaseComponent} from '../../../../common/components/base.component';
+import {ModalConfirmComponent} from '../../../../common/components/modal-confirm/modal-confirm.component';
+import {ModalConfirmModel} from '../../../../common/components/modal-confirm/modal-confirm.model';
 import {RouteUserManagement} from '../../../../common/const/routes';
 import {AuthorityTranslateModel, AuthorityTranslateService} from '../../../../common/services/authority-translate.service';
 import {CriteriaBuilder, DirectionMapper} from '../../../../common/utils/criteria.util';
@@ -50,9 +54,11 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
   constructor(
     private router: Router,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
     private authHelper: AuthHelper,
     private roleService: RoleService,
+    private translateService: TranslateService,
     private authorityTranslateService: AuthorityTranslateService
   ) {
     super();
@@ -71,6 +77,13 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
     this.subscribePaginator();
   }
 
+  hasAdminAuthority(role: RoleTableModel): boolean {
+    if (!role || !role.authorities || role.authorities.length < 1) {
+      return false;
+    }
+    return role.authorities.includes(Authority.ADMIN);
+  }
+
   clickAddRole(): void {
     this.router.navigate(RouteUserManagement.ROLES_UPSERT_COMMANDS);
   }
@@ -82,6 +95,14 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
   clickEdit(role: RoleTableModel): void {
     if (this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
       this.router.navigate([...RouteUserManagement.ROLES_UPSERT_COMMANDS, role.id]);
+    }
+  }
+
+  clickDelete(role: RoleTableModel): void {
+    if (this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
+      const confirmModel: ModalConfirmModel = this.prepareModelForConfirmDeleteModal(role);
+      const dialogRef: MatDialogRef<ModalConfirmComponent> = this.dialog.open(ModalConfirmComponent, {data: confirmModel});
+      dialogRef.afterClosed().subscribe(confirmed => confirmed === true && this.deleteRole(role.id));
     }
   }
 
@@ -194,6 +215,26 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
     }).sort((a, b) =>
       (a.translate > b.translate) ? 1 : ((b.translate > a.translate) ? -1 : 0)
     );
+  }
+
+  private prepareModelForConfirmDeleteModal(role: RoleTableModel): ModalConfirmModel {
+    const content: string = this.translateService.instant('user-management.role.trying-to-delete-role') + ' ' + role.name + '.';
+    return {
+      titleTranslateKey: 'user-management.role.want-to-delete-role',
+      showDefaultContent: true,
+      content: content
+    };
+  }
+
+  private deleteRole(roleId: number): void {
+    this.loading = true;
+    this.roleService.delete(roleId)
+      .pipe(finalize(() => this.loading = false))
+      .subscribe(() => {
+        const message: string = this.translateService.instant('common.deleted');
+        this.snackBar.open(message, 'OK', {duration: 2000});
+        this.searchRole();
+      });
   }
 
 }

@@ -127,4 +127,15 @@ class RoleServiceTest {
         assertNotNull(ex, "Exception, because the second requests has a different version");
     }
 
+    @Test
+    @DisplayName("The role was deleted correctly")
+    void delete_correct() {
+        //given
+        String name = UUID.randomUUID().toString();
+        RoleEntity roleEntity = roleCreator.create(name, Authority.ROLE_WRITE);
+
+        //when
+        roleService.delete(roleEntity.getId());
+    }
+
 }

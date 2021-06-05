@@ -12,6 +12,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {AuditingInfoModule} from '../../common/components/auditing-info/auditing-info.module';
 import {LoaderModule} from '../../common/components/loader/loader.module';
+import {ModalConfirmModule} from '../../common/components/modal-confirm/modal-confirm.module';
 import {ProgressModule} from '../../common/components/progress/progress.module';
 import {FilterPanelModule} from '../../common/components/filter-panel/filter-panel.module';
 import {UpsertFormModule} from '../../common/components/upsert-form/upsert-form.module';
@@ -37,6 +38,7 @@ import {UserManagementComponent} from './user-management/user-management.compone
     AuditingInfoModule,
     FilterPanelModule,
     LoaderModule,
+    ModalConfirmModule,
     ProgressModule,
     UpsertFormModule,
 

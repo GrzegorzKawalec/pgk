@@ -212,4 +212,41 @@ class RoleValidatorTest {
         //then
     }
 
+    @Test
+    @DisplayName("Validation of role deletion: id not given")
+    void validateDelete_withoutId() {
+        //when
+        ValidateResponseException ex = assertThrows(ValidateResponseException.class, () -> validator.validateDelete(null));
+
+        //then
+        assertEquals(ex.getType(), ResponseExceptionType.ROLE_BLANK_ID);
+    }
+
+    @Test
+    @DisplayName("Validation of role deletion: role not found")
+    void validateDelete_notFoundId() {
+        //given
+        Integer roleId = Integer.MIN_VALUE;
+
+        //when
+        ValidateResponseException ex = assertThrows(ValidateResponseException.class, () -> validator.validateDelete(roleId));
+
+        //then
+        assertEquals(ex.getType(), ResponseExceptionType.ROLE_NOT_FOUND);
+    }
+
+    @Test
+    @DisplayName("validation of role deletion: role with ADMIN authorities")
+    void validateDelete_deleteAdminAuthority() {
+        //given
+        String roleName = UUID.randomUUID().toString();
+        RoleEntity role = roleCreator.create(roleName, Authority.ADMIN);
+
+        //when
+        ValidateResponseException ex = assertThrows(ValidateResponseException.class, () -> validator.validateDelete(role.getId()));
+
+        //then
+        assertEquals(ex.getType(), ResponseExceptionType.ROLE_CANNOT_DELETE_ADMIN);
+    }
+
 }

@@ -70,4 +70,10 @@ public class RoleController {
         return service.getAuditingInfo(roleId);
     }
 
+    @DeleteMapping("{id}")
+    @AuthGuard(Authority.ROLE_WRITE)
+    public void delete(@PathVariable("id") Integer roleId) {
+        service.delete(roleId);
+    }
+
 }

@@ -44,6 +44,17 @@ class RoleValidator {
         }
     }
 
+    void validateDelete(Integer roleId) {
+        if (Objects.isNull(roleId)) {
+            throw new ValidateResponseException(ResponseExceptionType.ROLE_BLANK_ID);
+        }
+        RoleEntity roleEntity = roleRepository.findById(roleId)
+                .orElseThrow(() -> new ValidateResponseException(ResponseExceptionType.ROLE_NOT_FOUND));
+        if (hasAdminAuthority(roleEntity)) {
+            throw new ValidateResponseException(ResponseExceptionType.ROLE_CANNOT_DELETE_ADMIN);
+        }
+    }
+
     private boolean hasAdminAuthority(RoleEntity roleEntity) {
         List<AuthorityEntity> authorities = roleEntity.getAuthorities();
         if (CollectionUtil.isEmpty(authorities)) {
