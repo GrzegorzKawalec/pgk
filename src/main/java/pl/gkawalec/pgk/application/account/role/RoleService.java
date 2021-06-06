@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import pl.gkawalec.pgk.api.dto.account.role.RoleAuditingDTO;
 import pl.gkawalec.pgk.api.dto.account.role.RoleCriteria;
 import pl.gkawalec.pgk.api.dto.account.role.RoleDTO;
-import pl.gkawalec.pgk.api.dto.common.auditing.AuditingDTO;
+import pl.gkawalec.pgk.api.dto.common.auditing.AuditingInfoDTO;
 import pl.gkawalec.pgk.common.auditing.AuditingMapper;
 import pl.gkawalec.pgk.common.exception.response.ResponseException;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
@@ -79,8 +79,8 @@ public class RoleService {
 
     public RoleAuditingDTO getAuditingInfo(Integer roleId) {
         RoleEntity roleEntity = findEntityById(roleId);
-        AuditingDTO auditingDTO = auditingMapper.map(roleEntity);
-        return RoleAuditingDTO.of(roleEntity, auditingDTO);
+        AuditingInfoDTO auditingInfoDTO = auditingMapper.map(roleEntity);
+        return RoleAuditingDTO.of(roleEntity, auditingInfoDTO);
     }
 
     private RoleEntity findEntityById(Integer roleId) {

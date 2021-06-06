@@ -1,7 +1,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export interface AuditingDTO {
+export interface AuditingDTO<T> {
+    dto?: T;
+    info?: AuditingInfoDTO;
+}
+
+export interface AuditingInfoDTO {
     created?: AuditorDTO;
     lastModified?: AuditorDTO;
 }
@@ -36,9 +41,8 @@ export interface RestExceptionDTO {
     type?: ResponseExceptionType;
 }
 
-export interface RoleAuditingDTO {
-    auditing?: AuditingDTO;
-    role?: RoleDTO;
+export interface RoleAuditingDTO extends AuditingDTO<RoleDTO> {
+    dto?: RoleDTO;
 }
 
 export interface RoleCriteria extends BaseCriteria {
@@ -95,6 +99,7 @@ export enum ResponseExceptionType {
     EMPTY_DATA = "EMPTY_DATA",
     ROLE_BLANK_ID = "ROLE_BLANK_ID",
     ROLE_BLANK_NAME = "ROLE_BLANK_NAME",
+    ROLE_CANNOT_DELETE_ADMIN = "ROLE_CANNOT_DELETE_ADMIN",
     ROLE_CANNOT_UPDATE_ADMIN = "ROLE_CANNOT_UPDATE_ADMIN",
     ROLE_EMPTY_AUTHORITIES = "ROLE_EMPTY_AUTHORITIES",
     ROLE_NAME_EXISTS = "ROLE_NAME_EXISTS",

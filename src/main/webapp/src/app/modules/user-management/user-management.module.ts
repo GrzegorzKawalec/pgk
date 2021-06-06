@@ -18,7 +18,7 @@ import {FilterPanelModule} from '../../common/components/filter-panel/filter-pan
 import {UpsertFormModule} from '../../common/components/upsert-form/upsert-form.module';
 import {COMMON_MODULES} from '../../common/const/common-modules';
 import {UserManagementRouting} from './user-management.routing';
-import {RoleAuditingModalComponent} from './user-management/roles/role-auditing-modal/role-auditing-modal.component';
+import {RoleDetailsModalComponent} from './user-management/roles/role-details-modal/role-details-modal.component';
 import {RoleUpsertComponent} from './user-management/roles/role-upsert/role-upsert.component';
 import {RolesComponent} from './user-management/roles/roles.component';
 import {UserManagementComponent} from './user-management/user-management.component';
@@ -29,7 +29,7 @@ import {UserManagementComponent} from './user-management/user-management.compone
 
     RolesComponent,
     RoleUpsertComponent,
-    RoleAuditingModalComponent
+    RoleDetailsModalComponent
   ],
   imports: [
     COMMON_MODULES,

@@ -2,7 +2,7 @@ package pl.gkawalec.pgk.common.auditing;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.gkawalec.pgk.api.dto.common.auditing.AuditingDTO;
+import pl.gkawalec.pgk.api.dto.common.auditing.AuditingInfoDTO;
 import pl.gkawalec.pgk.api.dto.common.auditing.AuditorDTO;
 import pl.gkawalec.pgk.common.util.DateTimeUtil;
 import pl.gkawalec.pgk.database.account.user.UserEntity;
@@ -18,13 +18,13 @@ public class AuditingMapper {
 
     private final UserRepository userRepository;
 
-    public AuditingDTO map(AuditingEntity entity) {
+    public AuditingInfoDTO map(AuditingEntity entity) {
         if (Objects.isNull(entity)) {
             return null;
         }
         AuditorDTO created = map(entity.getCreated());
         AuditorDTO lastModified = map(entity.getLastModified());
-        return AuditingDTO.builder()
+        return AuditingInfoDTO.builder()
                 .created(created)
                 .lastModified(lastModified)
                 .build();

@@ -21,6 +21,16 @@ export class AuthorityTranslateService {
   ) {
   }
 
+  translateAndSort(authorities: Authority[]): AuthorityTranslateModel[] {
+    if (!authorities || authorities.length < 1) {
+      return [];
+    }
+    return authorities.map(authority => this.translate(authority))
+      .sort((a, b) =>
+        (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)
+      );
+  }
+
   translate(authority: Authority): AuthorityTranslateModel {
     return {
       name: this.translateName(authority),

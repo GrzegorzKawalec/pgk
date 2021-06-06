@@ -19,7 +19,7 @@ import {AuthorityTranslateModel, AuthorityTranslateService} from '../../../../co
 import {CriteriaBuilder, DirectionMapper} from '../../../../common/utils/criteria.util';
 import {AuthHelper} from '../../../../core/auth/auth.helper';
 import {RoleService} from '../../services/role.service';
-import {RoleAuditingModalComponent} from './role-auditing-modal/role-auditing-modal.component';
+import {RoleDetailsModalComponent} from './role-details-modal/role-details-modal.component';
 
 @Component({
   selector: 'pgk-roles',
@@ -89,7 +89,7 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
   }
 
   clickDetails(role: RoleTableModel): void {
-    this.dialog.open(RoleAuditingModalComponent, {data: role, minWidth: '500px'});
+    this.dialog.open(RoleDetailsModalComponent, {data: role, minWidth: '500px', width: '50%'});
   }
 
   clickEdit(role: RoleTableModel): void {

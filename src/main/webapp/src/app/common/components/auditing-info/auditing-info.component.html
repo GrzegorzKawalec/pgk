@@ -1,4 +1,15 @@
 <ng-container [fxLayout]="fxLayout">
+
+  <mat-form-field *ngIf="id">
+    <mat-label>{{'auditing.id' | translate}}</mat-label>
+    <input matInput readonly [value]="id">
+  </mat-form-field>
+
+  <mat-form-field *ngIf="version">
+    <mat-label>{{'auditing.version' | translate}}</mat-label>
+    <input matInput readonly [value]="version">
+  </mat-form-field>
+
   <mat-form-field>
     <mat-label>{{'auditing.created-by' | translate}}</mat-label>
     <input matInput readonly [value]="createdBy">

@@ -1,13 +1,8 @@
 package pl.gkawalec.pgk.api.dto.common.auditing;
 
-import lombok.Builder;
-import lombok.Value;
+public interface AuditingDTO<T> {
 
-@Value
-@Builder
-public class AuditingDTO {
-
-    AuditorDTO created;
-    AuditorDTO lastModified;
+    T getDto();
+    AuditingInfoDTO getInfo();
 
 }

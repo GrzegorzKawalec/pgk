@@ -64,8 +64,10 @@
   "auditing": {
     "created-by": "Utworzono przez",
     "created-on": "Utworzono dnia",
+    "id": "Identyfikator",
     "last-modified-by": "Ostatnia modyfikacja przez",
-    "last-modified-on": "Ostatnia modyfikacja dnia"
+    "last-modified-on": "Ostatnia modyfikacja dnia",
+    "version": "Wersja"
   },
   "app-info": {
     "app-info": "Informacje o aplikacji",
@@ -98,11 +100,9 @@
         "name": "Nazwa"
       }
     },
-    "role-auditing": {
+    "role-details": {
       "description": "Opis",
-      "id": "Identyfikator",
-      "name": "Nazwa roli",
-      "version": "Wersja"
+      "name": "Nazwa roli"
     },
     "roles-upsert": {
       "description": "Opis roli",
