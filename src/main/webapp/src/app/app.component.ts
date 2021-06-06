@@ -32,7 +32,7 @@ export class AppComponent {
   }
 
   private getCurrentLang(): string {
-    const lastLang: string = this.localStorageService.read(LocalStorageKey.LS_LANG);
+    const lastLang: string = this.localStorageService.read(LocalStorageKey.LANG);
     return lastLang ? lastLang : DEFAULT_LANG;
   }
 

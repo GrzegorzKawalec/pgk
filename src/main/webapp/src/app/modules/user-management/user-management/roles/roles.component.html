@@ -64,7 +64,7 @@
   </table>
 
   <div class="pgk-paginator-container">
-    <mat-paginator showFirstLastButtons [pageSizeOptions]="[5, 10, 25, 100]" [ngStyle]="loading && {'display': 'none'}"></mat-paginator>
+    <mat-paginator showFirstLastButtons [pageSizeOptions]="pageSizeOptions" [ngStyle]="loading && {'display': 'none'}"></mat-paginator>
   </div>
 
   <pgk-loader *ngIf="loading"></pgk-loader>

@@ -1,6 +1,6 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSelectChange} from '@angular/material/select';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
@@ -16,6 +16,8 @@ import {ModalConfirmComponent} from '../../../../common/components/modal-confirm
 import {ModalConfirmModel} from '../../../../common/components/modal-confirm/modal-confirm.model';
 import {RouteUserManagement} from '../../../../common/const/routes';
 import {AuthorityTranslateModel, AuthorityTranslateService} from '../../../../common/services/authority-translate.service';
+import {LocalStorageKey} from '../../../../common/services/local-storage/local-storage-key';
+import {PaginatorService} from '../../../../common/services/paginator.service';
 import {CriteriaBuilder, DirectionMapper} from '../../../../common/utils/criteria.util';
 import {AuthHelper} from '../../../../core/auth/auth.helper';
 import {RoleService} from '../../services/role.service';
@@ -27,6 +29,8 @@ import {RoleDetailsModalComponent} from './role-details-modal/role-details-modal
   styleUrls: ['./roles.component.scss']
 })
 export class RolesComponent extends BaseComponent implements OnInit, AfterViewInit {
+
+  readonly pageSizeOptions: number[] = this.paginatorService.pageSizeOptions;
 
   readonly requiredUpsertAuthorities: Authority[] = [Authority.USER_WRITE];
 
@@ -59,6 +63,7 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
     private authHelper: AuthHelper,
     private roleService: RoleService,
     private translateService: TranslateService,
+    private paginatorService: PaginatorService,
     private authorityTranslateService: AuthorityTranslateService
   ) {
     super();
@@ -71,8 +76,7 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
   }
 
   ngAfterViewInit(): void {
-    this.paginator.pageSize = this.criteria.searchPage.pageSize;
-    this.cdr.detectChanges();
+    this.initPageSize();
     this.subscribeSort();
     this.subscribePaginator();
   }
@@ -161,15 +165,7 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
   private subscribePaginator(): void {
     this.paginator.page
       .pipe(takeUntil(this.destroy$))
-      .subscribe((pageEvent) => {
-        const pageSize: number = pageEvent.pageSize;
-        const pageIndex: number = pageEvent.pageIndex;
-        if (pageSize !== this.criteria.searchPage.pageSize || pageIndex !== this.criteria.searchPage.pageNumber) {
-          this.criteria.searchPage.pageSize = pageSize;
-          this.criteria.searchPage.pageNumber = pageIndex;
-          this.searchRole();
-        }
-      });
+      .subscribe((pageEvent: PageEvent) => this.afterChangePaginatorFields(pageEvent));
   }
 
   private searchRole(): void {
@@ -235,6 +231,24 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
         this.snackBar.open(message, 'OK', {duration: 2000});
         this.searchRole();
       });
+  }
+
+  private initPageSize(): void {
+    const pageSize: number = this.paginatorService.lastPageSize(LocalStorageKey.ROLES_ITEM_PER_PAGE);
+    this.criteria.searchPage.pageSize = pageSize;
+    this.paginator.pageSize = pageSize;
+    this.cdr.detectChanges();
+  }
+
+  private afterChangePaginatorFields(pageEvent: PageEvent): void {
+    const pageSize: number = pageEvent.pageSize;
+    const pageIndex: number = pageEvent.pageIndex;
+    if (pageSize !== this.criteria.searchPage.pageSize || pageIndex !== this.criteria.searchPage.pageNumber) {
+      this.paginatorService.changeLastPageSize(LocalStorageKey.ROLES_ITEM_PER_PAGE, pageSize);
+      this.criteria.searchPage.pageSize = pageSize;
+      this.criteria.searchPage.pageNumber = pageIndex;
+      this.searchRole();
+    }
   }
 
 }

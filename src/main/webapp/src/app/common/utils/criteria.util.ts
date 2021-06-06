@@ -1,4 +1,5 @@
 import {BaseCriteria, Direction, SearchPageDTO, SortDTO} from '../api/api-models';
+import {DEFAULT_PAGE_SIZE} from '../const/const';
 
 export class CriteriaBuilder {
 
@@ -13,7 +14,7 @@ export class CriteriaBuilder {
     return {
       sorting: CriteriaBuilder.initSorting(sortBy),
       pageNumber: 0,
-      pageSize: 10
+      pageSize: DEFAULT_PAGE_SIZE
     };
   }
 
