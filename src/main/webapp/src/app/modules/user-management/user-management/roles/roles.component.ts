@@ -30,11 +30,11 @@ import {RoleDetailsModalComponent} from './role-details-modal/role-details-modal
 })
 export class RolesComponent extends BaseComponent implements OnInit, AfterViewInit {
 
-  readonly pageSizeOptions: number[] = this.paginatorService.pageSizeOptions;
-
   readonly requiredUpsertAuthorities: Authority[] = [Authority.USER_WRITE];
 
   readonly prefixTranslateColumn: string = 'user-management.role.columns.';
+
+  readonly pageSizeOptions: number[] = this.paginatorService.pageSizeOptions;
 
   readonly clnName: string = 'name';
   readonly clnAuthorities: string = 'authorities';
