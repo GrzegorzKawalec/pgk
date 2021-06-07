@@ -10,6 +10,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {AddButtonModule} from '../../common/components/add-button/add-button.module';
 import {AuditingInfoModule} from '../../common/components/auditing-info/auditing-info.module';
 import {FilterPanelModule} from '../../common/components/filter-panel/filter-panel.module';
 import {LoaderModule} from '../../common/components/loader/loader.module';
@@ -35,6 +36,7 @@ import {UserManagementComponent} from './user-management/user-management.compone
     COMMON_MODULES,
     UserManagementRouting,
 
+    AddButtonModule,
     AuditingInfoModule,
     FilterPanelModule,
     LoaderModule,

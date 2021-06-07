@@ -7,6 +7,7 @@ function register(name: string, fileName?: string): IconSvgModel {
 
 export const REGISTERED_ICONS: IconSvgModel[] = [
 
+  register('add'),
   register('clear'),
   register('delete'),
   register('edit'),

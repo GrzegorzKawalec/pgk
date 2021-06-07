@@ -71,8 +71,6 @@
 
 </div>
 
-<button *ngIf="requiredUpsertAuthorities | checkAccess"
-        mat-fab color="primary" class="pgk-add-bottom" (click)="clickAddRole()"
-        matTooltip="{{'user-management.role.roles-add' | translate}}" matTooltipPosition="before">
-  <mat-icon svgIcon="role_add"></mat-icon>
-</button>
+<pgk-add-button [requiredAuthorities]="requiredUpsertAuthorities"
+                tooltipTranslateKey="user-management.role.roles-add" svg="role_add"
+                (clickEvent)="clickAddRole()"></pgk-add-button>
