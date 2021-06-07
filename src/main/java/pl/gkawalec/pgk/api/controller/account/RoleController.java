@@ -40,7 +40,7 @@ public class RoleController {
     }
 
     @GetMapping("{id}")
-    @AuthGuard(Authority.ROLE_READ)
+    @AuthGuard({Authority.ROLE_READ, Authority.ROLE_WRITE})
     public RoleDTO findById(@PathVariable("id") Integer roleId) {
         return service.findById(roleId);
     }
@@ -58,14 +58,14 @@ public class RoleController {
     }
 
     @AuditedRequest(false)
-    @AuthGuard(Authority.ROLE_READ)
     @PostMapping(RoleController.FIND)
+    @AuthGuard({Authority.ROLE_READ, Authority.ROLE_WRITE})
     public Page<RoleDTO> find(@RequestBody(required = false) RoleCriteria criteria) {
         return service.find(criteria);
     }
 
-    @AuthGuard(Authority.ROLE_READ)
     @GetMapping(RoleController.AUDITING_INFO + "/{id}")
+    @AuthGuard({Authority.ROLE_READ, Authority.ROLE_WRITE})
     public RoleAuditingDTO getAuditingInfo(@PathVariable("id") Integer roleId) {
         return service.getAuditingInfo(roleId);
     }
