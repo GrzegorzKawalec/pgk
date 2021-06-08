@@ -1,5 +1,6 @@
 package pl.gkawalec.pgk.test.util;
 
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.gkawalec.pgk.api.dto.account.UserDTO;
@@ -12,6 +13,7 @@ import pl.gkawalec.pgk.database.account.role.RoleRepository;
 import pl.gkawalec.pgk.database.account.user.*;
 import pl.gkawalec.pgk.test.annotation.PGKTestProfiles;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -19,6 +21,8 @@ import java.util.Set;
 @Component
 @PGKTestProfiles
 public class TestUserUtil {
+
+    private static final Set<Authority> AUTHORITIES = Set.of(Authority.values());
 
     @Autowired
     private UserCredentialsRepository userCredentialsRepository;
@@ -31,6 +35,17 @@ public class TestUserUtil {
 
     @Autowired
     private AuthorityRepository authorityRepository;
+
+    public void createUserExcludedAuthority(String email, String password, Authority excludedAuthority) {
+        createUserExcludedAuthorities(email, password, Set.of(excludedAuthority));
+    }
+
+    public void createUserExcludedAuthorities(String email, String password, Set<Authority> excludedAuthorities) {
+        Set<Object> excludedAuthoritiesWithAdmin = new HashSet<>(excludedAuthorities);
+        excludedAuthoritiesWithAdmin.add(Authority.ADMIN);
+        Sets.SetView<Authority> authorities = Sets.difference(AUTHORITIES, excludedAuthoritiesWithAdmin);
+        createUserWithAuthorities(email, password, authorities);
+    }
 
     public void createUserWithAuthorities(String email, String password, Authority authority) {
         createUserWithAuthorities(email, password, Set.of(authority));
