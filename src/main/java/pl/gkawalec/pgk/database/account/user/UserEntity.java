@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
+import pl.gkawalec.pgk.common.util.StringUtil;
 import pl.gkawalec.pgk.infrastructure.audit.database.AuditingEntity;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ import javax.validation.constraints.Size;
 public class UserEntity extends AuditingEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull
@@ -41,5 +42,25 @@ public class UserEntity extends AuditingEntity {
 
     @NotNull
     private boolean isActive = true;
+
+    public void setEmail(String email) {
+        this.email = StringUtil.trim(email);
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = StringUtil.trim(firstName);
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = StringUtil.trim(lastName);
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = StringUtil.trim(phoneNumber);
+    }
+
+    public void setDescription(String description) {
+        this.description = StringUtil.trim(description);
+    }
 
 }

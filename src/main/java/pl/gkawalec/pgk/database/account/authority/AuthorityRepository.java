@@ -10,8 +10,11 @@ import java.util.Optional;
 public interface AuthorityRepository extends BaseNumberIDRepository<AuthorityEntity> {
 
     boolean existsByAuthority(Authority authority);
+
     AuthorityEntity findByAuthority(Authority authority);
+
     Optional<AuthorityEntity> findFirstByOrderByIdDesc();
+
     List<AuthorityEntity> findAllByAuthorityIn(Collection<Authority> authorities);
 
 }

@@ -100,6 +100,7 @@ export class RoleUpsertComponent implements OnInit {
     this.form.controls[this.ctrlName].setAsyncValidators(
       UniqueAsyncValidator.uniqueFn(this.roleService, 'existsRoleName', 'notUnique', roleId)
     );
+    this.form.controls[this.ctrlName].updateValueAndValidity();
   }
 
   private prepareSelectAuthorityModels(allAuthorities: Authority[]): void {
@@ -136,11 +137,14 @@ export class RoleUpsertComponent implements OnInit {
   }
 
   private loadRoleFromServer(roleId: number): void {
-    this.roleService.findById(roleId).subscribe((role: RoleDTO) => {
-      this.role = role;
-      this.patchFormValue(role);
-      this.setExistsRoleNameAsyncValidator();
-    });
+    this.loading = true;
+    this.roleService.findById(roleId)
+      .pipe(finalize(() => this.loading = false))
+      .subscribe((role: RoleDTO) => {
+        this.role = role;
+        this.patchFormValue(role);
+        this.setExistsRoleNameAsyncValidator();
+      });
   }
 
   private patchFormValue(role: RoleDTO): void {

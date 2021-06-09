@@ -26,7 +26,7 @@ public class UserCredentialsEntity extends AuditingEntity {
     private String password;
 
     @NotNull
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "role_id")
     private RoleEntity role;
 

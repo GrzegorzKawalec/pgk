@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 public class AuditRequestEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Integer userId;
