@@ -6,4 +6,6 @@ public interface UserCredentialsRepository extends BaseRepository<UserCredential
 
     boolean existsByEmail(String email);
 
+    UserCredentialsEntity findByEmail(String email);
+
 }

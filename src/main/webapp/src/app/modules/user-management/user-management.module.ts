@@ -23,6 +23,8 @@ import {RoleDetailsModalComponent} from './user-management/roles/role-details-mo
 import {RoleUpsertComponent} from './user-management/roles/role-upsert/role-upsert.component';
 import {RolesComponent} from './user-management/roles/roles.component';
 import {UserManagementComponent} from './user-management/user-management.component';
+import {UserUpsertComponent} from './user-management/users/user-upsert/user-upsert.component';
+import {UsersComponent} from './user-management/users/users.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,10 @@ import {UserManagementComponent} from './user-management/user-management.compone
 
     RolesComponent,
     RoleUpsertComponent,
-    RoleDetailsModalComponent
+    RoleDetailsModalComponent,
+
+    UsersComponent,
+    UserUpsertComponent
   ],
   imports: [
     COMMON_MODULES,

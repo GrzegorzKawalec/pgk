@@ -76,7 +76,7 @@ class TabModel {
   private static usersTab(): TabModel {
     const tab: TabModel = new TabModel();
     tab._index = TabModel.USER_TAB_INDEX;
-    tab._translateKey = TabModel.TRANSLATE_PREFIX + 'users';
+    tab._translateKey = TabModel.TRANSLATE_PREFIX + 'tab-users';
     tab._lastElementPath = RouteUserManagement.USERS;
     tab._routeCommands = RouteUserManagement.USERS_COMMANDS;
     return tab;
@@ -85,7 +85,7 @@ class TabModel {
   private static roleTabs(): TabModel {
     const tab: TabModel = new TabModel();
     tab._index = TabModel.ROLES_TAB_INDEX;
-    tab._translateKey = TabModel.TRANSLATE_PREFIX + 'roles';
+    tab._translateKey = TabModel.TRANSLATE_PREFIX + 'tab-roles';
     tab._lastElementPath = RouteUserManagement.ROLES;
     tab._routeCommands = RouteUserManagement.ROLES_COMMANDS;
     tab._requiredAuthorities = [Authority.ROLE_READ, Authority.ROLE_WRITE]

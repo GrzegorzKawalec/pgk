@@ -10,6 +10,7 @@ import pl.gkawalec.pgk.api.dto.account.role.RoleDTO;
 import pl.gkawalec.pgk.api.dto.common.auditing.AuditingInfoDTO;
 import pl.gkawalec.pgk.common.auditing.AuditingMapper;
 import pl.gkawalec.pgk.common.exception.response.ResponseException;
+import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
 import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
 import pl.gkawalec.pgk.database.account.authority.AuthorityRepository;
@@ -21,6 +22,7 @@ import pl.gkawalec.pgk.database.account.role.RoleSpecification;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +43,13 @@ public class RoleService {
     public RoleDTO findById(Integer roleId) {
         RoleEntity roleEntity = findEntityById(roleId);
         return RoleDTO.of(roleEntity);
+    }
+
+    public List<RoleDTO> allAvailable() {
+        return roleRepository.findAll().stream()
+                .map(RoleDTO::of)
+                .filter(r -> !r.getAuthorities().contains(Authority.ADMIN))
+                .collect(Collectors.toList());
     }
 
     @Transactional

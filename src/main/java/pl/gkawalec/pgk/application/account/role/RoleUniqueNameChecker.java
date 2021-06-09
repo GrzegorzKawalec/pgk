@@ -21,7 +21,7 @@ class RoleUniqueNameChecker {
         if (StringUtil.isBlank(roleName)) {
             return false;
         }
-        return roleRepository.existsWithoutMultipleWhiteSpaceAndIgnoreCaseExcludedId(roleName, excludedRoleId);
+        return roleRepository.existsByNameWithoutMultipleWhiteSpaceAndIgnoreCaseExcludedId(roleName, excludedRoleId);
     }
 
     boolean existsTrimName(String roleName) {
@@ -29,7 +29,7 @@ class RoleUniqueNameChecker {
         if (StringUtil.isBlank(roleName)) {
             return false;
         }
-        return roleRepository.existsWithoutMultipleWhiteSpaceAndIgnoreCase(roleName);
+        return roleRepository.existsByNameWithoutMultipleWhiteSpaceAndIgnoreCase(roleName);
     }
 
 }

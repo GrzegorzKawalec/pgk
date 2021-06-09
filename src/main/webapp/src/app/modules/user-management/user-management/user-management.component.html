@@ -5,6 +5,7 @@
   <mat-tab *ngFor="let tab of tabs"
            label="{{tab.translateKey | translate}}">
 
+    <pgk-users *ngIf="tab.index === usersTabIndex"></pgk-users>
     <pgk-roles *ngIf="tab.index === rolesTabIndex"></pgk-roles>
 
   </mat-tab>
