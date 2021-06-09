@@ -12,6 +12,7 @@ import pl.gkawalec.pgk.common.annotation.security.AuthGuard;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -20,6 +21,7 @@ import java.util.Set;
 public class RoleController {
 
     public static final String URL = "/role";
+    public static final String ALL_AVAILABLE = "/available";
     public static final String AUDITING_INFO = "/auditing-info";
     public static final String AUTHORITIES = "/authorities";
     public static final String EXISTS_NAME = "/exists-name";
@@ -43,6 +45,12 @@ public class RoleController {
     @AuthGuard({Authority.ROLE_READ, Authority.ROLE_WRITE})
     public RoleDTO findById(@PathVariable("id") Integer roleId) {
         return service.findById(roleId);
+    }
+
+    @AuthGuard(Authority.ROLE_READ)
+    @GetMapping(RoleController.ALL_AVAILABLE)
+    public List<RoleDTO> allAvailable() {
+        return service.allAvailable();
     }
 
     @PostMapping

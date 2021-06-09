@@ -168,8 +168,23 @@ class RoleControllerTest {
         TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
     }
 
-    private void performRequestWithoutAuthority() {
+    @Test
+    @Transactional
+    @DisplayName("Test end-point that returns available authorities. User without the required authorities.")
+    void allAvailable_withoutAuthorities() throws Exception {
+        //given
+        String url = URL + RoleController.ALL_AVAILABLE;
+        String email = "testowy_a@testowy_a";
+        String pass = "password_a";
+        Authority correctAuthority = Authority.ROLE_READ;
 
+        //when
+        testUserUtil.createUserExcludedAuthority(email, pass, correctAuthority);
+        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
+        MockHttpServletRequestBuilder request = get(url).session(session);
+
+        //then
+        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
     }
 
     @Test
@@ -194,7 +209,7 @@ class RoleControllerTest {
         Set<Authority> allAuthorities = Set.of(Authority.values());
 
         //when
-        testUserUtil.createUserWithAuthorities(email, pass, requiredAuthority);
+        testUserUtil.createUserWithAuthority(email, pass, requiredAuthority);
         MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
         MockHttpServletRequestBuilder request = get(url).session(session);
 

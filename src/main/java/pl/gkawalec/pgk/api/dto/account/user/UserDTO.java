@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.api.dto.account;
+package pl.gkawalec.pgk.api.dto.account.user;
 
 import lombok.Builder;
 import lombok.Value;

@@ -15,6 +15,15 @@ public class UserCredentialsEntityMapper {
         return credentialsEntity;
     }
 
+    public boolean update(UserCredentialsEntity credentialsEntity, RoleEntity roleEntity) {
+        RoleEntity oldRoleEntity = credentialsEntity.getRole();
+        if (oldRoleEntity.getId().equals(roleEntity.getId())) {
+            return false;
+        }
+        credentialsEntity.setRole(roleEntity);
+        return true;
+    }
+
     private String encodePassword(String password) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder.encode(password);

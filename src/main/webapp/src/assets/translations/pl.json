@@ -6,11 +6,16 @@
     "confirm": "Potwierdź",
     "delete": "Usuń",
     "deleted": "Usunięto",
+    "description": "Opis",
     "details": "Szczegóły",
     "edit": "Edytuj",
     "email": "E-mail",
+    "first-name": "Imię",
+    "last-name": "Nazwisko",
     "no-data": "Brak danych",
     "operation-cannot-be-undone": "Tej operacji nie można cofnąć.",
+    "phone-number": "Numer telefonu",
+    "role": "Rola",
     "save": "Zapisz",
     "saved": "Zapisano",
     "updated": "Zaktualizowano"
@@ -21,14 +26,27 @@
     "DATA_WAS_UPDATED_EARLIER": "Dane zostały zaktualizowane wcześniej. Odśwież stronę.",
     "UNEXPECTED": "Błąd serwera. Skontaktuj się z administratorem.",
     "EMPTY_DATA": "Puste dane.",
-    "ROLE_BLANK_ID": "Pusty identyfikator",
+    "ROLE_BLANK_ID": "Pusty identyfikator.",
     "ROLE_BLANK_NAME": "Pusta nazwa roli.",
     "ROLE_CANNOT_DELETE_ADMIN": "Nie można usunąć roli Administratora.",
     "ROLE_CANNOT_UPDATE_ADMIN": "Nie można zaktualizować roli Administratora.",
     "ROLE_EMPTY_AUTHORITIES": "Pusta lista uprawnień.",
     "ROLE_NAME_EXISTS": "Nazwa roli już istnieje.",
     "ROLE_NOT_FOUND": "Nie odnaleziono roli.",
-    "ROLE_SET_ADMIN_AUTHORITY": "Nie można nadać uprawnień Administratora."
+    "ROLE_SET_ADMIN_AUTHORITY": "Nie można nadać uprawnień Administratora.",
+    "USER_BLANK_EMAIL": "Pusty adres e-mail.",
+    "USER_BLANK_FIRST_NAME": "Puste imię.",
+    "USER_BLANK_LAST_NAME": "Puste nazwisko.",
+    "USER_BLANK_ROLE_ID": "Pusty identyfikator roli.",
+    "USER_BLANK_USER_ID": "Pusty identyfikator użytkownika.",
+    "USER_CANNOT_CHANGE_EMAIL": "Nie można zmienić adresu e-mail.",
+    "USER_CANNOT_SET_ADMIN_ROLE": "Nie można przypisać roli administratora.",
+    "USER_CANNOT_UPDATE_ADMIN_ROLE": "Nie można aktualizować roli administratora.",
+    "USER_EMAIL_EXISTS": "Podany e-mail już istnieje.",
+    "USER_EMPTY_PASSWORD": "Puste hasło.",
+    "USER_EMPTY_ROLE_DATA": "Puste dane roli.",
+    "USER_EMPTY_USER_DATA": "Puste dane użytkownika.",
+    "USER_NOT_FOUND": "Nie odnaleziono użytkownika."
   },
   "authorities": {
     "authorities": "Uprawnienia",
@@ -87,8 +105,8 @@
   },
   "user-management": {
     "user-management": "Zarządzanie użytkownikami",
-    "users": "Użytkownicy",
-    "roles": "Role",
+    "tab-users": "Użytkownicy",
+    "tab-roles": "Role",
     "role": {
       "roles-add": "Dodaj rolę",
       "search-role-by": "Wpisz nazwę roli",
@@ -114,6 +132,32 @@
         "empty-authority": "Należy wybrać przynajmniej jedno uprawnienie",
         "empty-name": "Nazwa roli nie może być pusta",
         "not-unique-name": "Podana nazwa roli już istnieje"
+      }
+    },
+    "users": {
+      "user-add": "Dodaj użytkownika"
+    },
+    "user-upsert": {
+      "description-placeholder": "Napisz coś o nowym użytkowniku",
+      "email-placeholder": "Wpisz adres e-mail nowego użytkownika",
+      "first-name-placeholder": "Wpisz imię nowego użytkownika",
+      "last-name-placeholder": "Wpisz nazwisko nowego użytkownika",
+      "password": "Hasło",
+      "password-placeholder": "Ustaw hasło nowemu użytkownikowi",
+      "password-repeat": "Powtórz hasło",
+      "password-repeat-placeholder": "Wpisz ponownie ustawiane hasło",
+      "phone-number-placeholder": "Podaj numer telefonu użytkownika",
+      "role-placeholder": "Wybierz rolę nowemu użytkownikowi",
+      "invalid-form": {
+        "empty-email": "Adres e-mail nie może być pusty",
+        "empty-first-name": "Imię nie może być puste",
+        "empty-last-name": "Nazwisko nie może być puste",
+        "empty-password": "Hasło nie może pozostać puste",
+        "empty-password-repeat": "Ponowne wpisanie hasła jest wymagane",
+        "empty-role": "Należy wybrać role dla użytkownika",
+        "incorrect-email": "Nieprawidłowy adres e-mail",
+        "not-unique-email": "Podany adres email już istnieje",
+        "passwords-do-not-match": "Hasła nie są takie same"
       }
     }
   }

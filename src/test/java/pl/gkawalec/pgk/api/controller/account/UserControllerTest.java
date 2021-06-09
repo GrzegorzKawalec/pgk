@@ -3,18 +3,26 @@ package pl.gkawalec.pgk.api.controller.account;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import pl.gkawalec.pgk.api.dto.account.user.UserUpsertDTO;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.database.account.user.UserEntity;
 import pl.gkawalec.pgk.database.account.user.UserRepository;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 import pl.gkawalec.pgk.test.annotation.PGKSpringMockMvcTest;
+import pl.gkawalec.pgk.test.util.TestConverterJSONUtil;
 import pl.gkawalec.pgk.test.util.TestLoginUtil;
+import pl.gkawalec.pgk.test.util.TestRequestPerformerUtil;
+import pl.gkawalec.pgk.test.util.TestUserUtil;
+
+import javax.transaction.Transactional;
+import java.util.Set;
 
 import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,6 +36,9 @@ class UserControllerTest {
 
     @Autowired
     private AppSetting appSetting;
+
+    @Autowired
+    private TestUserUtil testUserUtil;
 
     @Autowired
     private TestLoginUtil testLoginUtil;
@@ -74,6 +85,50 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.description").value(user.getDescription()))
                 .andExpect(jsonPath("$.authorities").isArray())
                 .andExpect(jsonPath("$.authorities", hasItem(Authority.ADMIN.name())));
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Test end-point creating a user. User without the required authorities.")
+    void create_withoutAuthorities() throws Exception {
+        //given
+        String url = URL;
+        String email = "testowy_a@testowy_a";
+        String pass = "password_a";
+        Set<Authority> correctAuthorities = Set.of(Authority.USER_WRITE, Authority.ROLE_WRITE);
+        UserUpsertDTO dto = UserUpsertDTO.builder().build();
+        String bodyRequest = TestConverterJSONUtil.convert(dto);
+
+        //when
+        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
+        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
+        MockHttpServletRequestBuilder request = post(url).session(session)
+                .content(bodyRequest).contentType(MediaType.APPLICATION_JSON);
+
+        //then
+        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Test end-point updating user. User without the required authorities.")
+    void update_withoutAuthorities() throws Exception {
+        //given
+        String url = URL;
+        String email = "testowy_a@testowy_a";
+        String pass = "password_a";
+        Set<Authority> correctAuthorities = Set.of(Authority.USER_WRITE, Authority.ROLE_WRITE);
+        UserUpsertDTO dto = UserUpsertDTO.builder().build();
+        String bodyRequest = TestConverterJSONUtil.convert(dto);
+
+        //when
+        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
+        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
+        MockHttpServletRequestBuilder request = put(url, dto).session(session)
+                .content(bodyRequest).contentType(MediaType.APPLICATION_JSON);
+
+        //then
+        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
     }
 
 }

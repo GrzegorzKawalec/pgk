@@ -14,6 +14,7 @@ import pl.gkawalec.pgk.database.account.role.RoleEntity;
 import pl.gkawalec.pgk.test.annotation.PGKSpringBootTest;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -62,7 +63,24 @@ class RoleServiceTest {
         assertEquals(roleEntity.getDescription(), roleFound.getDescription());
         assertEquals(roleAuthorities, roleFound.getAuthorities());
         assertEquals(roleEntity.getVersion(), roleFound.getEntityVersion());
-//        assertEquals(1, roleFound.getEntityVersion(), "This is the first version, so the value must be 1");
+        assertEquals(1, roleFound.getEntityVersion(), "This is the first version, so the value must be 1");
+    }
+
+    @Test
+    @DisplayName("Get all roles without admin authority")
+    void allAvailable_correct() {
+        //when
+        List<RoleDTO> roles = roleService.allAvailable();
+        boolean hasAdminRole = false;
+        for (RoleDTO role : roles) {
+            if (role.getAuthorities().stream().anyMatch(Authority.ADMIN::equals)) {
+                hasAdminRole = true;
+                break;
+            }
+        }
+
+        //then
+        assertFalse(hasAdminRole, "Role with admin authority is not available for normal use");
     }
 
     @Test

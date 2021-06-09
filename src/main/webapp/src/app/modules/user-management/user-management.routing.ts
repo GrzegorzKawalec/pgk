@@ -5,6 +5,7 @@ import {RouteUserManagement} from '../../common/const/routes';
 import {AuthGuard} from '../../core/auth/auth.guard';
 import {RoleUpsertComponent} from './user-management/roles/role-upsert/role-upsert.component';
 import {UserManagementComponent} from './user-management/user-management.component';
+import {UserUpsertComponent} from './user-management/users/user-upsert/user-upsert.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,28 @@ const routes: Routes = [
       },
       {
         path: RouteUserManagement.USERS,
-        component: UserManagementComponent
+        children: [
+          {
+            path: '',
+            component: UserManagementComponent,
+            data: {authorities: [Authority.USER_READ, Authority.USER_WRITE]},
+            canActivate: [AuthGuard]
+          },
+          {
+            path: RouteUserManagement.UPSERT,
+            data: {authorities: [Authority.USER_WRITE]},
+            children: [
+              {
+                path: '',
+                component: UserUpsertComponent
+              },
+              {
+                path: ':' + RouteUserManagement.USERS_UPSERT_ID_PARAM,
+                component: UserUpsertComponent
+              }
+            ]
+          }
+        ]
       },
       {
         path: RouteUserManagement.ROLES,
@@ -30,10 +52,7 @@ const routes: Routes = [
           },
           {
             path: RouteUserManagement.UPSERT,
-            data: {
-              authorities: [Authority.ROLE_WRITE],
-              allRequired: true
-            },
+            data: {authorities: [Authority.ROLE_WRITE]},
             canActivate: [AuthGuard],
             children: [
               {

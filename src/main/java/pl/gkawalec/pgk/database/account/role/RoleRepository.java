@@ -14,10 +14,10 @@ public interface RoleRepository extends BaseNumberIDRepository<RoleEntity> {
     RoleEntity findByName(String name);
 
     @Query(SQL_EXISTS_WITHOUT_MULTIPLE_WHITE_SPACE_AND_IGNORE_CASE)
-    boolean existsWithoutMultipleWhiteSpaceAndIgnoreCase(@Param("name") String name);
+    boolean existsByNameWithoutMultipleWhiteSpaceAndIgnoreCase(@Param("name") String name);
 
     @Query(SQL_EXISTS_WITHOUT_MULTIPLE_WHITE_SPACE_AND_IGNORE_CASE + " and r.id != :excludedId")
-    boolean existsWithoutMultipleWhiteSpaceAndIgnoreCaseExcludedId(@Param("name") String name,
-                                                                   @Param("excludedId") Integer excludedId);
+    boolean existsByNameWithoutMultipleWhiteSpaceAndIgnoreCaseExcludedId(@Param("name") String name,
+                                                                         @Param("excludedId") Integer excludedId);
 
 }
