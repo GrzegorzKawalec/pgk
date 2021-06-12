@@ -22,7 +22,6 @@ const routes: Routes = [
           {
             path: '',
             component: UserManagementComponent,
-            data: {authorities: [Authority.USER_READ, Authority.USER_WRITE]},
             canActivate: [AuthGuard]
           },
           {

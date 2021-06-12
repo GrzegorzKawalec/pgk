@@ -64,7 +64,7 @@
     },
     "USER_READ": {
       "name": "Odczyt użytkowników",
-      "description": "Odczyt istniejących użytkowników"
+      "description": "Odczyt szczegółowych informacji o istniejących użytkownikach"
     },
     "USER_WRITE": {
       "name": "Zapis użytkowników",
