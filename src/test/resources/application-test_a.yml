@@ -5,6 +5,6 @@ app:
 
 spring:
   datasource:
-    url: jdbc:p6spy:postgresql://rogue.db.elephantsql.com:5432/mempzxut?currentSchema=${app.database.schema}
-    username: mempzxut
-    password: mPVcgkieLhpuy2t8TxVp0PAZUT46Tn8w
+    url: jdbc:p6spy:postgresql://ec2-54-155-226-153.eu-west-1.compute.amazonaws.com:5432/d9ls4dna2vp4a4?currentSchema=${app.database.schema}
+    username: lrsnwcgvnunapj
+    password: 2d6517a4e95d52b7fbe07f53c1869d2c2c8bf4a27c68c0aad3d3214ccafcc143
