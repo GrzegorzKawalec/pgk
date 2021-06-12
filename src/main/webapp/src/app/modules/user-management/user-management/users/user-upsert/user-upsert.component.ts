@@ -10,7 +10,7 @@ import {EmailValidator} from '../../../../../common/validators/email.validator';
 import {RequiredValidator} from '../../../../../common/validators/required.validator';
 import {UniqueAsyncValidator} from '../../../../../common/validators/unique.async-validator';
 import {RoleService} from '../../../services/role.service';
-import {UserUpsertService} from '../../../services/user-upsert.service';
+import {UserManagementService} from '../../../services/user-management.service';
 
 @Component({
   templateUrl: './user-upsert.component.html',
@@ -46,7 +46,7 @@ export class UserUpsertComponent implements OnInit {
     private translateService: TranslateService,
     private snackBar: MatSnackBar,
     private roleService: RoleService,
-    private userManagementService: UserUpsertService
+    private userManagementService: UserManagementService
   ) {
   }
 

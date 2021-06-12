@@ -44,7 +44,7 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  loading: boolean = true;
+  loading: boolean = false;
 
   private criteria: RoleCriteria = CriteriaBuilder.init(this.clnName);
 

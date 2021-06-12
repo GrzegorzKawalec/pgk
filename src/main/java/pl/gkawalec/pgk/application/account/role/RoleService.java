@@ -45,9 +45,14 @@ public class RoleService {
         return RoleDTO.of(roleEntity);
     }
 
-    public List<RoleDTO> allAvailable() {
+    public List<RoleDTO> all() {
         return roleRepository.findAll().stream()
                 .map(RoleDTO::of)
+                .collect(Collectors.toList());
+    }
+
+    public List<RoleDTO> allAvailable() {
+        return all().stream()
                 .filter(r -> !r.getAuthorities().contains(Authority.ADMIN))
                 .collect(Collectors.toList());
     }

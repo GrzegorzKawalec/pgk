@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Value;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.database.account.user.UserEntity;
+import pl.gkawalec.pgk.database.account.user.UserSearchEntity;
 
 import java.util.List;
 
@@ -35,6 +36,16 @@ public class UserDTO {
                 .description(entity.getDescription())
                 .entityVersion(entity.getVersion())
                 .authorities(authorities)
+                .build();
+    }
+
+    public static UserDTO of(UserSearchEntity entity) {
+        return UserDTO.builder()
+                .id(entity.getId())
+                .email(entity.getEmail())
+                .firstName(entity.getFirstName())
+                .lastName(entity.getLastName())
+                .phoneNumber(entity.getPhoneNumber())
                 .build();
     }
 

@@ -1,7 +1,11 @@
 package pl.gkawalec.pgk.application.account.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import pl.gkawalec.pgk.api.dto.account.user.UserCriteria;
+import pl.gkawalec.pgk.api.dto.account.user.UserSearchDTO;
 import pl.gkawalec.pgk.api.dto.account.user.UserUpsertDTO;
 import pl.gkawalec.pgk.common.exception.response.ResponseException;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
@@ -10,6 +14,7 @@ import pl.gkawalec.pgk.database.account.role.RoleRepository;
 import pl.gkawalec.pgk.database.account.user.*;
 
 import javax.transaction.Transactional;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +25,7 @@ public class UserService {
 
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+    private final UserSearchRepository userSearchRepository;
     private final UserCredentialsRepository userCredentialsRepository;
 
     public boolean existsUserEmail(String userEmail, Integer userId) {
@@ -56,6 +62,14 @@ public class UserService {
             userCredentialsRepository.save(credentialsEntity);
         }
         return UserUpsertDTO.of(userEntity, roleEntity);
+    }
+
+    public Page<UserSearchDTO> find(UserCriteria criteria) {
+        criteria = Objects.nonNull(criteria) ? criteria : new UserCriteria();
+        UserSpecification specification = new UserSpecification(criteria);
+        PageRequest pageRequest = criteria.getSearchPage().toPageRequest();
+        return userSearchRepository.findAll(specification, pageRequest)
+                .map(UserSearchDTO::of);
     }
 
 }

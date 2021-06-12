@@ -30,6 +30,10 @@ export class RoleService {
     return this.http.get(RoleAPI.url + '/' + roleId);
   }
 
+  all(): Observable<RoleDTO[]> {
+    return this.http.get<RoleDTO[]>(RoleAPI.all);
+  }
+
   allAvailable(): Observable<RoleDTO[]> {
     return this.http.get<RoleDTO[]>(RoleAPI.allAvailable);
   }

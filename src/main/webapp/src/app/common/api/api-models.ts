@@ -68,6 +68,10 @@ export interface SortDTO {
     property?: string;
 }
 
+export interface UserCriteria extends BaseCriteria {
+    roleIds?: number[];
+}
+
 export interface UserDTO {
     authorities?: Authority[];
     description?: string;
@@ -77,6 +81,11 @@ export interface UserDTO {
     id?: number;
     lastName?: string;
     phoneNumber?: string;
+}
+
+export interface UserSearchDTO {
+    role?: RoleDTO;
+    user?: UserDTO;
 }
 
 export interface UserUpsertDTO {

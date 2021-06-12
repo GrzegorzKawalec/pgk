@@ -2,12 +2,13 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {UserAPI} from '../../../common/api/api';
-import {UserUpsertDTO} from '../../../common/api/api-models';
+import {UserCriteria, UserSearchDTO, UserUpsertDTO} from '../../../common/api/api-models';
+import {Page} from '../../../common/api/api-pagination.models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserUpsertService {
+export class UserManagementService {
 
   constructor(
     private http: HttpClient
@@ -36,6 +37,10 @@ export class UserUpsertService {
 
   update(dto: UserUpsertDTO): Observable<UserUpsertDTO> {
     return this.http.put(UserAPI.url, dto);
+  }
+
+  find(criteria?: UserCriteria): Observable<Page<UserSearchDTO>> {
+    return this.http.post(UserAPI.find, criteria);
   }
 
 }

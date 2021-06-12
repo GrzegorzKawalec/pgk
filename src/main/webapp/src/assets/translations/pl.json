@@ -134,8 +134,17 @@
         "not-unique-name": "Podana nazwa roli już istnieje"
       }
     },
-    "users": {
-      "user-add": "Dodaj użytkownika"
+    "user": {
+      "search-user-by": "Wpisz imię, nazwisko, adresie e-mail lub nr telefonu",
+      "search-user-by-role": "Wybierz role",
+      "user-add": "Dodaj użytkownika",
+      "columns": {
+        "email": "E-mail",
+        "first-name": "Imię",
+        "last-name": "Nazwisko",
+        "phone-number": "Nr telefonu",
+        "role": "Rola"
+      }
     },
     "user-upsert": {
       "description-placeholder": "Napisz coś o nowym użytkowniku",

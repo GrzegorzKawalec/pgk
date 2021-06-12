@@ -21,6 +21,7 @@ import java.util.Set;
 public class RoleController {
 
     public static final String URL = "/role";
+    public static final String ALL = "/all";
     public static final String ALL_AVAILABLE = "/available";
     public static final String AUDITING_INFO = "/auditing-info";
     public static final String AUTHORITIES = "/authorities";
@@ -45,6 +46,11 @@ public class RoleController {
     @AuthGuard({Authority.ROLE_READ, Authority.ROLE_WRITE})
     public RoleDTO findById(@PathVariable("id") Integer roleId) {
         return service.findById(roleId);
+    }
+
+    @GetMapping(ALL)
+    public List<RoleDTO> all() {
+        return service.all();
     }
 
     @AuthGuard(Authority.ROLE_READ)

@@ -1,10 +1,14 @@
 package pl.gkawalec.pgk.api.controller.account;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import pl.gkawalec.pgk.api.dto.account.user.UserCriteria;
 import pl.gkawalec.pgk.api.dto.account.user.UserDTO;
+import pl.gkawalec.pgk.api.dto.account.user.UserSearchDTO;
 import pl.gkawalec.pgk.api.dto.account.user.UserUpsertDTO;
 import pl.gkawalec.pgk.application.account.user.UserService;
+import pl.gkawalec.pgk.common.annotation.request.AuditedRequest;
 import pl.gkawalec.pgk.common.annotation.security.AuthGuard;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.user.LoggedUserAccessor;
@@ -18,6 +22,7 @@ public class UserController {
     public static final String URL = "/user";
     public static final String URL_ME = "/me";
     public static final String EXISTS_EMAIL = "/exists-email";
+    public static final String FIND = "/find";
     public static final String FIND_UPSERT = "/find-upsert";
 
     private final UserService userService;
@@ -49,6 +54,12 @@ public class UserController {
     @AuthGuard({Authority.USER_WRITE, Authority.ROLE_WRITE})
     public UserUpsertDTO update(@RequestBody UserUpsertDTO dto) {
         return userService.update(dto);
+    }
+
+    @PostMapping(FIND)
+    @AuditedRequest(false)
+    public Page<UserSearchDTO> find(@RequestBody(required = false) UserCriteria criteria) {
+        return userService.find(criteria);
     }
 
 }

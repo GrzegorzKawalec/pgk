@@ -39,6 +39,9 @@ class Keys {
       case LocalStorageKey.ROLES_ITEM_PER_PAGE:
         lsKey = 'roles-item-per-page';
         break;
+      case LocalStorageKey.USERS_ITEM_PER_PAGE:
+        lsKey = 'users-item-per-page';
+        break;
       default:
         return null;
     }
