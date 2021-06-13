@@ -38,6 +38,9 @@ class RoleValidator {
         if (hasAdminAuthority(roleEntity)) {
             throw new ValidateResponseException(ResponseExceptionType.ROLE_CANNOT_UPDATE_ADMIN);
         }
+        if (hasGuestAuthority(roleEntity)) {
+            throw new ValidateResponseException(ResponseExceptionType.ROLE_CANNOT_UPDATE_GUEST);
+        }
         validateFieldDTO(dto);
         if (roleUniqueNameChecker.existsTrimName(dto.getName(), dto.getId())) {
             throw new ValidateResponseException(ResponseExceptionType.ROLE_NAME_EXISTS);
@@ -53,15 +56,26 @@ class RoleValidator {
         if (hasAdminAuthority(roleEntity)) {
             throw new ValidateResponseException(ResponseExceptionType.ROLE_CANNOT_DELETE_ADMIN);
         }
+        if (hasGuestAuthority(roleEntity)) {
+            throw new ValidateResponseException(ResponseExceptionType.ROLE_CANNOT_DELETE_GUEST);
+        }
     }
 
     private boolean hasAdminAuthority(RoleEntity roleEntity) {
+        return hasAuthority(roleEntity, Authority.ADMIN);
+    }
+
+    private boolean hasGuestAuthority(RoleEntity roleEntity) {
+        return hasAuthority(roleEntity, Authority.GUEST);
+    }
+
+    private boolean hasAuthority(RoleEntity roleEntity, Authority authority) {
         List<AuthorityEntity> authorities = roleEntity.getAuthorities();
         if (CollectionUtil.isEmpty(authorities)) {
             return false;
         }
         return authorities.stream()
-                .anyMatch(authority -> Authority.ADMIN.equals(authority.getAuthority()));
+                .anyMatch(authorityEntity -> authority.equals(authorityEntity.getAuthority()));
     }
 
     private void validateFieldDTO(RoleDTO dto) {
@@ -73,6 +87,9 @@ class RoleValidator {
         }
         if (dto.getAuthorities().contains(Authority.ADMIN)) {
             throw new ValidateResponseException(ResponseExceptionType.ROLE_SET_ADMIN_AUTHORITY);
+        }
+        if (dto.getAuthorities().contains(Authority.GUEST)) {
+            throw new ValidateResponseException(ResponseExceptionType.ROLE_SET_GUEST_AUTHORITY);
         }
     }
 

@@ -12,12 +12,16 @@ import pl.gkawalec.pgk.common.auditing.AuditingMapper;
 import pl.gkawalec.pgk.common.exception.response.ResponseException;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
+import pl.gkawalec.pgk.common.util.CollectionUtil;
 import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
 import pl.gkawalec.pgk.database.account.authority.AuthorityRepository;
 import pl.gkawalec.pgk.database.account.role.RoleEntity;
 import pl.gkawalec.pgk.database.account.role.RoleEntityMapper;
 import pl.gkawalec.pgk.database.account.role.RoleRepository;
 import pl.gkawalec.pgk.database.account.role.RoleSpecification;
+import pl.gkawalec.pgk.database.account.user.UserCredentialsEntity;
+import pl.gkawalec.pgk.database.account.user.UserCredentialsEntityMapper;
+import pl.gkawalec.pgk.database.account.user.UserCredentialsRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -33,6 +37,7 @@ public class RoleService {
 
     private final RoleRepository roleRepository;
     private final AuthorityRepository authorityRepository;
+    private final UserCredentialsRepository userCredentialsRepository;
 
     private final AuditingMapper auditingMapper;
 
@@ -46,7 +51,7 @@ public class RoleService {
     }
 
     public List<RoleDTO> all() {
-        return roleRepository.findAll().stream()
+        return roleRepository.findAllByOrderByName().stream()
                 .map(RoleDTO::of)
                 .collect(Collectors.toList());
     }
@@ -79,8 +84,19 @@ public class RoleService {
     @Transactional
     public void delete(Integer roleId) {
         validator.validateDelete(roleId);
-        RoleEntity roleEntity = roleRepository.findOneById(roleId);
-        roleRepository.delete(roleEntity);
+        RoleEntity roleToDeleted = roleRepository.findOneById(roleId);
+        setGuestRoleIfSomeoneHasRoleToDeleted(roleToDeleted);
+        roleRepository.delete(roleToDeleted);
+    }
+
+    private void setGuestRoleIfSomeoneHasRoleToDeleted(RoleEntity roleToDeleted) {
+        List<UserCredentialsEntity> usersWithRoleToDeleted = userCredentialsRepository.findAllByRole(roleToDeleted);
+        if (CollectionUtil.isEmpty(usersWithRoleToDeleted)) {
+            return;
+        }
+        RoleEntity guestRole = roleRepository.findAllByAuthorities_authority(Authority.GUEST).get(0);
+        usersWithRoleToDeleted.forEach(uc -> UserCredentialsEntityMapper.update(uc, guestRole));
+        userCredentialsRepository.saveAll(usersWithRoleToDeleted);
     }
 
     public Page<RoleDTO> find(RoleCriteria criteria) {

@@ -68,6 +68,19 @@ class RoleValidatorTest {
     }
 
     @Test
+    @DisplayName("Validate DTO for new role with GUEST authorities")
+    void validateCreate_addGuestAuthority() {
+        //given
+        RoleDTO dto = RoleDTO.builder().name("name").authorities(Set.of(Authority.GUEST)).build();
+
+        //when
+        ValidateResponseException ex = assertThrows(ValidateResponseException.class, () -> validator.validateCreate(dto));
+
+        //then
+        assertEquals(ex.getType(), ResponseExceptionType.ROLE_SET_GUEST_AUTHORITY);
+    }
+
+    @Test
     @DisplayName("Validate DTO for new role with exists name")
     void validateCreate_existsName() {
         //given
@@ -137,6 +150,21 @@ class RoleValidatorTest {
     }
 
     @Test
+    @DisplayName("Validate DTO for an existing role with GUEST role")
+    void validateUpdate_guestRole() {
+        //given
+        String roleName = UUID.randomUUID().toString();
+        RoleEntity guest = roleCreator.create(roleName, Authority.GUEST);
+        RoleDTO dto = RoleDTO.builder().id(guest.getId()).name(roleName).authorities(Set.of(Authority.GUEST)).build();
+
+        //when
+        ValidateResponseException ex = assertThrows(ValidateResponseException.class, () -> validator.validateUpdate(dto));
+
+        //then
+        assertEquals(ex.getType(), ResponseExceptionType.ROLE_CANNOT_UPDATE_GUEST);
+    }
+
+    @Test
     @DisplayName("Validate DTO for an existing role without name")
     void validateUpdate_withoutName() {
         //given
@@ -179,6 +207,21 @@ class RoleValidatorTest {
 
         //then
         assertEquals(ex.getType(), ResponseExceptionType.ROLE_SET_ADMIN_AUTHORITY);
+    }
+
+    @Test
+    @DisplayName("Validate DTO for an existing role with GUEST authorities")
+    void validateUpdate_addAGuestAuthority() {
+        //given
+        String roleName = UUID.randomUUID().toString();
+        RoleEntity role = roleCreator.create(roleName, Authority.ROLE_WRITE);
+        RoleDTO dto = RoleDTO.builder().id(role.getId()).name(roleName).authorities(Set.of(Authority.GUEST)).build();
+
+        //when
+        ValidateResponseException ex = assertThrows(ValidateResponseException.class, () -> validator.validateUpdate(dto));
+
+        //then
+        assertEquals(ex.getType(), ResponseExceptionType.ROLE_SET_GUEST_AUTHORITY);
     }
 
     @Test
@@ -247,6 +290,20 @@ class RoleValidatorTest {
 
         //then
         assertEquals(ex.getType(), ResponseExceptionType.ROLE_CANNOT_DELETE_ADMIN);
+    }
+
+    @Test
+    @DisplayName("validation of role deletion: role with GUEST authorities")
+    void validateDelete_deleteGuestAuthority() {
+        //given
+        String roleName = UUID.randomUUID().toString();
+        RoleEntity role = roleCreator.create(roleName, Authority.GUEST);
+
+        //when
+        ValidateResponseException ex = assertThrows(ValidateResponseException.class, () -> validator.validateDelete(role.getId()));
+
+        //then
+        assertEquals(ex.getType(), ResponseExceptionType.ROLE_CANNOT_DELETE_GUEST);
     }
 
 }

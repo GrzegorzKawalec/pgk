@@ -113,7 +113,7 @@ export class RoleUpsertComponent implements OnInit {
     }
     return authorities.map(authority => {
       return {
-        disabled: Authority.ADMIN === authority,
+        disabled: Authority.ADMIN === authority || Authority.GUEST === authority,
         authority: authority,
         translateModel: this.authorityTranslateService.translate(authority)
       } as SelectAuthorityModel;

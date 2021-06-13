@@ -83,11 +83,11 @@ export class UserUpsertComponent implements OnInit {
       .pipe(finalize(() => this.loading = false))
       .subscribe((createdUser: UserUpsertDTO) => {
         if (createdUser) {
-          this.afterUpsertData(createdUser, 'common.saved');
           this.router.navigate([createdUser.user.id], {
             relativeTo: this.activatedRoute,
             queryParamsHandling: 'merge'
           });
+          this.afterUpsertData(createdUser, 'common.saved');
         }
       });
   }
@@ -106,6 +106,7 @@ export class UserUpsertComponent implements OnInit {
 
   private afterUpsertData(changedDTO: UserUpsertDTO, translationKeyForSuccess: string): void {
     this.userUpsert = changedDTO;
+    this.removeValidatorsFromPassword();
     this.setExistsUserEmailAsyncValidator();
     const translateMessage: string = this.translateService.instant(translationKeyForSuccess);
     this.snackBar.open(translateMessage, 'OK', {duration: 2000});
@@ -137,7 +138,12 @@ export class UserUpsertComponent implements OnInit {
     this.loading = true;
     this.roleService.allAvailable()
       .pipe(finalize(() => this.loading = false))
-      .subscribe((roles: RoleDTO[]) => this.availableRoles = roles);
+      .subscribe((roles: RoleDTO[]) => {
+        this.availableRoles = roles;
+        if (this.userUpsert) {
+          this.patchRoleFormValue(this.userUpsert);
+        }
+      });
   }
 
   private initRoleForUpdate(params: Params): void {
@@ -167,16 +173,24 @@ export class UserUpsertComponent implements OnInit {
   }
 
   private patchFormValue(userUpsert: UserUpsertDTO): void {
-    const selectedRole: RoleDTO = this.availableRoles.find(s => s.id === userUpsert.role.id);
     this.form.patchValue(userUpsert.user);
+    this.patchRoleFormValue(userUpsert);
+  }
+
+  private patchRoleFormValue(userUpsert: UserUpsertDTO): void {
+    const selectedRole: RoleDTO = this.availableRoles.find(s => s.id === userUpsert.role.id);
     this.form.controls[this.ctrlRole].setValue(selectedRole);
   }
 
   private removeValidatorsFromPassword(): void {
-    this.form.controls[this.ctrlPassword].clearValidators();
-    this.form.controls[this.ctrlPassword].updateValueAndValidity();
-    this.form.controls[this.ctrlPasswordRepeat].clearValidators();
-    this.form.controls[this.ctrlPasswordRepeat].updateValueAndValidity();
+    this.removeValidator(this.ctrlPassword);
+    this.removeValidator(this.ctrlPasswordRepeat);
+  }
+
+  private removeValidator(ctrlName: string): void {
+    this.form.controls[ctrlName].setValue(null);
+    this.form.controls[ctrlName].clearValidators();
+    this.form.controls[ctrlName].updateValueAndValidity();
   }
 
   private buildDTO(): UserUpsertDTO {

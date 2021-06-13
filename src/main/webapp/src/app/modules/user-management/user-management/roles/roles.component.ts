@@ -81,11 +81,16 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
     this.subscribePaginator();
   }
 
-  hasAdminAuthority(role: RoleTableModel): boolean {
+  hasUnmodifiableAuthority(role: RoleTableModel): boolean {
     if (!role || !role.authorities || role.authorities.length < 1) {
       return false;
     }
-    return role.authorities.includes(Authority.ADMIN);
+    for (let authority of role.authorities) {
+      if (Authority.ADMIN === authority || Authority.GUEST === authority) {
+        return true;
+      }
+    }
+    return false;
   }
 
   clickAddRole(): void {

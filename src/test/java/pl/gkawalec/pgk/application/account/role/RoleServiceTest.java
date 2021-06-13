@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import pl.gkawalec.pgk.api.dto.account.role.RoleDTO;
+import pl.gkawalec.pgk.api.dto.account.user.UserDTO;
+import pl.gkawalec.pgk.api.dto.account.user.UserUpsertDTO;
+import pl.gkawalec.pgk.application.account.user.UserService;
 import pl.gkawalec.pgk.common.exception.UpdatedEntityLockException;
 import pl.gkawalec.pgk.common.exception.response.ResponseException;
 import pl.gkawalec.pgk.common.type.Authority;
@@ -20,7 +23,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @PGKSpringBootTest
 class RoleServiceTest {
@@ -30,6 +32,9 @@ class RoleServiceTest {
 
     @Autowired
     private TestRoleCreator roleCreator;
+
+    @Autowired
+    private UserService userService;
 
     @Test
     @DisplayName("Get a role that does not exist")
@@ -154,6 +159,27 @@ class RoleServiceTest {
 
         //when
         roleService.delete(roleEntity.getId());
+    }
+
+    @Test
+    @DisplayName("The role was deleted correctly with the change of role to guest role")
+    void delete_correctAndChangeGuestRole() {
+        //given
+        Authority authority = Authority.ROLE_WRITE;
+        String name = UUID.randomUUID().toString();
+        RoleEntity roleEntity = roleCreator.create(name, authority);
+        UserDTO user = UserDTO.builder().email(name + "@" + name).firstName(name).lastName(name).authorities(List.of(authority)).build();
+        RoleDTO role = RoleDTO.builder().authorities(Set.of(authority)).name(name).id(roleEntity.getId()).build();
+        UserUpsertDTO createdUser = UserUpsertDTO.builder().user(user).role(role).password("pass").build();
+        createdUser = userService.create(createdUser);
+
+        //when
+        roleService.delete(roleEntity.getId());
+
+        //then
+        UserUpsertDTO userWithGuestRole = userService.findUpsertById(createdUser.getUser().getId());
+        assertEquals(1, userWithGuestRole.getUser().getAuthorities().size());
+        assertEquals(Authority.GUEST, userWithGuestRole.getUser().getAuthorities().get(0));
     }
 
 }
