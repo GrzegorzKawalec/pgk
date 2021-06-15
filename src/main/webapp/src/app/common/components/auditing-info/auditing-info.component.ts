@@ -9,9 +9,6 @@ import {SYSTEM_EMAIL} from '../../const/const';
 })
 export class AuditingInfoComponent<T> {
 
-  private readonly defaultLayout: string = 'column';
-  fxLayout: string = this.defaultLayout;
-
   id: string;
   version: string;
 
@@ -20,14 +17,6 @@ export class AuditingInfoComponent<T> {
   lastModifiedOn: string;
   lastModifiedBy: string;
   private _auditing: AuditingDTO<T>;
-
-  @Input() set layout(layout: string) {
-    let fxLayout: string = this.defaultLayout;
-    if (layout === 'row' || layout === 'column') {
-      fxLayout = layout;
-    }
-    this.fxLayout = fxLayout;
-  }
 
   @Input() set auditing(auditing: AuditingDTO<T>) {
     this.setInfoFieldsToUndefined();

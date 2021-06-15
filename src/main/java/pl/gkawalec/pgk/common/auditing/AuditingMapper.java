@@ -46,6 +46,7 @@ public class AuditingMapper {
         return AuditorDTO.builder()
                 .id(userId)
                 .email(userEntity.getEmail())
+                .firstName(userEntity.getFirstName())
                 .lastName(userEntity.getLastName())
                 .date(DateTimeUtil.date(auditor.getDate()))
                 .time(DateTimeUtil.time(auditor.getDate()))

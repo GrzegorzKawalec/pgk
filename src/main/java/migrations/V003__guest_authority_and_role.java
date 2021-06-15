@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @RequiredArgsConstructor
-public class V003__guest_authority_and_role extends PGKMigration {
+class V003__guest_authority_and_role extends PGKMigration {
 
     private final RoleRepository roleRepository;
 

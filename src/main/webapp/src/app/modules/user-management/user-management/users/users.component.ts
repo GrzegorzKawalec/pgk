@@ -120,6 +120,7 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
       .subscribe((page: Page<UserSearchDTO>) => {
         if (page) {
           this.tableData = new MatTableDataSource(page.content);
+          this.paginator.length = page.totalElements;
         }
       });
   }
