@@ -13,7 +13,9 @@ import {BaseComponent} from '../../../../common/components/base.component';
 import {RouteUserManagement} from '../../../../common/const/routes';
 import {LocalStorageKey} from '../../../../common/services/local-storage/local-storage-key';
 import {PaginatorService} from '../../../../common/services/paginator.service';
+import {AuthorityUtil} from '../../../../common/utils/authority.util';
 import {CriteriaBuilder, DirectionMapper} from '../../../../common/utils/criteria.util';
+import {AuthHelper} from '../../../../core/auth/auth.helper';
 import {RoleService} from '../../services/role.service';
 import {UserManagementService} from '../../services/user-management.service';
 import {UserDetailsModalComponent} from './user-details-modal/user-details-modal.component';
@@ -59,6 +61,7 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
     private router: Router,
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
+    private authHelper: AuthHelper,
     private roleService: RoleService,
     private userService: UserManagementService,
     private paginatorService: PaginatorService
@@ -78,12 +81,25 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
     this.subscribePaginator();
   }
 
+  hasUnmodifiableAuthority(user: UserSearchDTO): boolean {
+    if (!user || !user.role) {
+      return false;
+    }
+    return AuthorityUtil.hasUnmodifiableAuthority(user.role.authorities);
+  }
+
   clickAddUser(): void {
     this.router.navigate(RouteUserManagement.USERS_UPSERT_COMMANDS);
   }
 
   clickDetails(user: UserSearchDTO): void {
     this.dialog.open(UserDetailsModalComponent, {data: user.user, minWidth: '500px'});
+  }
+
+  clickEdit(user: UserSearchDTO): void {
+    if (this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
+      this.router.navigate([...RouteUserManagement.USERS_UPSERT_COMMANDS, user.user.id]);
+    }
   }
 
   clearFilter(): void {

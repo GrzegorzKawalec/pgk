@@ -18,6 +18,7 @@ import {RouteUserManagement} from '../../../../common/const/routes';
 import {AuthorityTranslateModel, AuthorityTranslateService} from '../../../../common/services/authority-translate.service';
 import {LocalStorageKey} from '../../../../common/services/local-storage/local-storage-key';
 import {PaginatorService} from '../../../../common/services/paginator.service';
+import {AuthorityUtil} from '../../../../common/utils/authority.util';
 import {CriteriaBuilder, DirectionMapper} from '../../../../common/utils/criteria.util';
 import {AuthHelper} from '../../../../core/auth/auth.helper';
 import {RoleService} from '../../services/role.service';
@@ -82,15 +83,10 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
   }
 
   hasUnmodifiableAuthority(role: RoleTableModel): boolean {
-    if (!role || !role.authorities || role.authorities.length < 1) {
+    if (!role) {
       return false;
     }
-    for (let authority of role.authorities) {
-      if (Authority.ADMIN === authority || Authority.GUEST === authority) {
-        return true;
-      }
-    }
-    return false;
+    return AuthorityUtil.hasUnmodifiableAuthority(role.authorities);
   }
 
   clickAddRole(): void {
