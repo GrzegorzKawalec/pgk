@@ -68,6 +68,10 @@ export interface SortDTO {
     property?: string;
 }
 
+export interface UserAuditingDTO extends AuditingDTO<UserUpsertDTO> {
+    dto?: UserUpsertDTO;
+}
+
 export interface UserCriteria extends BaseCriteria {
     roleIds?: number[];
 }

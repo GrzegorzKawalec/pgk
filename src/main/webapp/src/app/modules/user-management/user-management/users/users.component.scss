@@ -1,3 +1,34 @@
+.cell-icon {
+  width: 18px;
+  cursor: pointer;
+}
+
 .mat-cell {
   text-align: left;
+}
+
+.mat-column-email {
+  width: calc(30% - 80px);
+}
+
+.mat-column-first-name {
+  width: calc(15% - 80px);
+}
+
+.mat-column-last-name {
+  width: calc(15% - 80px);
+}
+
+.mat-column-phone-number {
+  width: calc(15% - 80px);
+}
+
+.mat-column-role {
+  width: calc(25% - 80px);
+}
+
+.mat-column-buttons {
+  font-weight: lighter;
+  text-align: center;
+  width: 80px;
 }

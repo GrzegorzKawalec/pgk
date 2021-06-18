@@ -2,7 +2,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {UserAPI} from '../../../common/api/api';
-import {UserCriteria, UserSearchDTO, UserUpsertDTO} from '../../../common/api/api-models';
+import {UserAuditingDTO, UserCriteria, UserSearchDTO, UserUpsertDTO} from '../../../common/api/api-models';
 import {Page} from '../../../common/api/api-pagination.models';
 
 @Injectable({
@@ -41,6 +41,11 @@ export class UserManagementService {
 
   find(criteria?: UserCriteria): Observable<Page<UserSearchDTO>> {
     return this.http.post(UserAPI.find, criteria);
+  }
+
+  getAuditingInfo(userId: number): Observable<UserAuditingDTO> {
+    const url: string = UserAPI.auditingInfo + '/' + userId;
+    return this.http.get(url);
   }
 
 }

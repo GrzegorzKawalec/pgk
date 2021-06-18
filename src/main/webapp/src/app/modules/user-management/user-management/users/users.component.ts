@@ -1,4 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSelectChange} from '@angular/material/select';
 import {MatSort} from '@angular/material/sort';
@@ -15,6 +16,7 @@ import {PaginatorService} from '../../../../common/services/paginator.service';
 import {CriteriaBuilder, DirectionMapper} from '../../../../common/utils/criteria.util';
 import {RoleService} from '../../services/role.service';
 import {UserManagementService} from '../../services/user-management.service';
+import {UserDetailsModalComponent} from './user-details-modal/user-details-modal.component';
 
 @Component({
   selector: 'pgk-users',
@@ -34,7 +36,10 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
   readonly clnLastName: string = 'last-name';
   readonly clnPhoneNumber: string = 'phone-number';
   readonly clnRole: string = 'role';
-  readonly displayedColumns: string[] = [this.clnEmail, this.clnFirstName, this.clnLastName, this.clnPhoneNumber, this.clnRole];
+  readonly clnButtons: string = 'buttons';
+  readonly displayedColumns: string[] = [
+    this.clnEmail, this.clnFirstName, this.clnLastName, this.clnPhoneNumber, this.clnRole, this.clnButtons
+  ];
   tableData: MatTableDataSource<UserSearchDTO>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -52,6 +57,7 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
 
   constructor(
     private router: Router,
+    private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     private roleService: RoleService,
     private userService: UserManagementService,
@@ -74,6 +80,10 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
 
   clickAddUser(): void {
     this.router.navigate(RouteUserManagement.USERS_UPSERT_COMMANDS);
+  }
+
+  clickDetails(user: UserSearchDTO): void {
+    this.dialog.open(UserDetailsModalComponent, {data: user.user, minWidth: '500px'});
   }
 
   clearFilter(): void {

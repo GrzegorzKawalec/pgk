@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import pl.gkawalec.pgk.api.dto.account.user.UserAuditingDTO;
 import pl.gkawalec.pgk.api.dto.account.user.UserCriteria;
 import pl.gkawalec.pgk.api.dto.account.user.UserSearchDTO;
 import pl.gkawalec.pgk.api.dto.account.user.UserUpsertDTO;
+import pl.gkawalec.pgk.api.dto.common.auditing.AuditingInfoDTO;
+import pl.gkawalec.pgk.common.auditing.AuditingMapper;
 import pl.gkawalec.pgk.common.exception.response.ResponseException;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
 import pl.gkawalec.pgk.database.account.role.RoleEntity;
@@ -28,6 +31,8 @@ public class UserService {
     private final UserSearchRepository userSearchRepository;
     private final UserCredentialsRepository userCredentialsRepository;
 
+    private final AuditingMapper auditingMapper;
+
     public boolean existsUserEmail(String userEmail, Integer userId) {
         return uniqueEmailChecker.existsTrimEmail(userEmail, userId);
     }
@@ -35,9 +40,7 @@ public class UserService {
     public UserUpsertDTO findUpsertById(Integer userId) {
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseException(ResponseExceptionType.USER_NOT_FOUND));
-        UserCredentialsEntity credentialsEntity = userCredentialsRepository.findByEmail(userEntity.getEmail());
-        RoleEntity roleEntity = credentialsEntity.getRole();
-        return UserUpsertDTO.of(userEntity, roleEntity);
+        return prepareUserUpsertDTO(userEntity);
     }
 
     @Transactional
@@ -70,6 +73,27 @@ public class UserService {
         PageRequest pageRequest = criteria.getSearchPage().toPageRequest();
         return userSearchRepository.findAll(specification, pageRequest)
                 .map(UserSearchDTO::of);
+    }
+
+    public UserAuditingDTO getAuditingInfo(Integer userId) {
+        UserEntity userEntity = findUserEntityById(userId);
+        UserUpsertDTO userDTO = prepareUserUpsertDTO(userEntity);
+        AuditingInfoDTO auditingInfoDTO = auditingMapper.map(userEntity);
+        return UserAuditingDTO.builder()
+                .dto(userDTO)
+                .info(auditingInfoDTO)
+                .build();
+    }
+
+    private UserUpsertDTO prepareUserUpsertDTO(UserEntity userEntity) {
+        UserCredentialsEntity credentialsEntity = userCredentialsRepository.findByEmail(userEntity.getEmail());
+        RoleEntity roleEntity = credentialsEntity.getRole();
+        return UserUpsertDTO.of(userEntity, roleEntity);
+    }
+
+    private UserEntity findUserEntityById(Integer userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseException(ResponseExceptionType.USER_NOT_FOUND));
     }
 
 }
