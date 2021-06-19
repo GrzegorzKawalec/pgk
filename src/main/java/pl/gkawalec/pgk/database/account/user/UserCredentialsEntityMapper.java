@@ -12,6 +12,7 @@ public class UserCredentialsEntityMapper {
         credentialsEntity.setEmail(userEntity.getEmail());
         credentialsEntity.setRole(roleEntity);
         credentialsEntity.setPassword(encodePassword(password));
+        credentialsEntity.setActive(true);
         return credentialsEntity;
     }
 

@@ -43,23 +43,23 @@ public class UserEntity extends AuditingEntity {
     @NotNull
     private boolean isActive = true;
 
-    public void setEmail(String email) {
+    void setEmail(String email) {
         this.email = StringUtil.trim(email);
     }
 
-    public void setFirstName(String firstName) {
+    void setFirstName(String firstName) {
         this.firstName = StringUtil.trim(firstName);
     }
 
-    public void setLastName(String lastName) {
+    void setLastName(String lastName) {
         this.lastName = StringUtil.trim(lastName);
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = StringUtil.trim(phoneNumber);
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = StringUtil.trim(description);
     }
 

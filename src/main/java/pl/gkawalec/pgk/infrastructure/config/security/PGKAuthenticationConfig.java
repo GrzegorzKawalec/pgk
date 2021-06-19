@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -18,7 +16,7 @@ import javax.sql.DataSource;
 class PGKAuthenticationConfig {
 
     private static final String QUERY_USER = "" +
-            " select uc.email, uc.password, true" +
+            " select uc.email, uc.password, uc.is_active" +
             " from pgk_user_credentials uc" +
             " where uc.email = ?";
 

@@ -26,6 +26,9 @@ public class UserCredentialsEntity extends AuditingEntity {
     private String password;
 
     @NotNull
+    private boolean isActive = true;
+
+    @NotNull
     @OneToOne
     @JoinColumn(name = "role_id")
     private RoleEntity role;
