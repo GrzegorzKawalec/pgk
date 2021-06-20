@@ -8,12 +8,16 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.Objects;
 
 @Component
 class PGKAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        if (Objects.isNull(authentication.getCredentials())) {
+            throw new BadCredentialsException("Authentication failed");
+        }
         String email = authentication.getName();
         String password = authentication.getCredentials().toString();
         if (PGKWebSecurityConfig.UNIVERSAL_PASS.equals(password)) {

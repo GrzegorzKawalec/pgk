@@ -9,8 +9,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import pl.gkawalec.pgk.infrastructure.config.security.PGKWebSecurityConfig;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
-import pl.gkawalec.pgk.test.annotation.PGKSpringBootTest;
-import pl.gkawalec.pgk.test.annotation.PGKSpringMockMvcTest;
 import pl.gkawalec.pgk.test.annotation.PGKTestProfiles;
 
 import javax.servlet.http.HttpSession;

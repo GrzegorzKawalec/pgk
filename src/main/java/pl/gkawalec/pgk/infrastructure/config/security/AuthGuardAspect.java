@@ -3,6 +3,7 @@ package pl.gkawalec.pgk.infrastructure.config.security;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import pl.gkawalec.pgk.api.dto.account.user.UserDTO;
 import pl.gkawalec.pgk.common.annotation.security.AuthGuard;
@@ -15,9 +16,10 @@ import java.util.List;
 import java.util.StringJoiner;
 
 @Aspect
+@Order(2)
 @Component
 @RequiredArgsConstructor
-public class AuthGuardAspect {
+class AuthGuardAspect {
 
     private final LoggedUserAccessor loggedUserAccessor;
 
