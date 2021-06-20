@@ -107,7 +107,9 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
     if (this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
       const confirmModel: ModalConfirmModel = this.prepareModelForConfirmDeleteModal(role);
       const dialogRef: MatDialogRef<ModalConfirmComponent> = this.dialog.open(ModalConfirmComponent, {data: confirmModel});
-      dialogRef.afterClosed().subscribe(confirmed => confirmed === true && this.deleteRole(role.id));
+      dialogRef.afterClosed()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(confirmed => confirmed === true && this.deleteRole(role.id));
     }
   }
 
@@ -215,7 +217,7 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
   }
 
   private prepareModelForConfirmDeleteModal(role: RoleTableModel): ModalConfirmModel {
-    const content: string = this.translateService.instant('user-management.role.trying-to-delete-role') + ' ' + role.name + '.';
+    const content: string = this.translateService.instant('user-management.role.trying-to-delete-role') + ': ' + role.name + '.';
     return {
       titleTranslateKey: 'user-management.role.want-to-delete-role',
       showDefaultContent: true,

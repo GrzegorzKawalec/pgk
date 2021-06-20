@@ -29,6 +29,7 @@ export class UserAPI {
   static readonly url: string = PREFIX + '/user';
   static readonly me: string = UserAPI.url + '/me';
   static readonly auditingInfo: string = UserAPI.url + '/auditing-info';
+  static readonly deactivate: string = UserAPI.url + '/deactivate';
   static readonly existsEmail: string = UserAPI.url + '/exists-email';
   static readonly existsEmailParamEmail: string = 'email';
   static readonly existsEmailParamId: string = 'id';

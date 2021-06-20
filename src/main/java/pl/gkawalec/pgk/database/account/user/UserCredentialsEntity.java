@@ -33,4 +33,12 @@ public class UserCredentialsEntity extends AuditingEntity {
     @JoinColumn(name = "role_id")
     private RoleEntity role;
 
+    public void deactivate() {
+        this.isActive = false;
+    }
+
+    public void activate() {
+        this.isActive = true;
+    }
+
 }

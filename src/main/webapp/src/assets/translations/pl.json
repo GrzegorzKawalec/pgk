@@ -4,6 +4,8 @@
     "cancel": "Anuluj",
     "clear": "Wyczyść",
     "confirm": "Potwierdź",
+    "deactivate": "Deaktywuj",
+    "deactivated": "Deaktywowano",
     "delete": "Usuń",
     "deleted": "Usunięto",
     "description": "Opis",
@@ -118,7 +120,7 @@
       "roles-add": "Dodaj rolę",
       "search-role-by": "Wpisz nazwę roli",
       "search-role-by-authorities": "Wybierz uprawnienia",
-      "trying-to-delete-role": "Próbujesz usunąć rolę:",
+      "trying-to-delete-role": "Próbujesz usunąć rolę",
       "want-to-delete-role": "Chcesz usunąć rolę?",
       "columns": {
         "authorities": "Uprawnienia",
@@ -144,7 +146,9 @@
     "user": {
       "search-user-by": "Wpisz imię, nazwisko, adresie e-mail lub nr telefonu",
       "search-user-by-role": "Wybierz role",
+      "trying-to-deactivate-user": "Próbujesz deaktywować użytkownika",
       "user-add": "Dodaj użytkownika",
+      "want-to-deactivate-user": "Chcesz deaktywować użytkownika?",
       "columns": {
         "email": "E-mail",
         "first-name": "Imię",

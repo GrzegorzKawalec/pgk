@@ -43,6 +43,14 @@ public class UserEntity extends AuditingEntity {
     @NotNull
     private boolean isActive = true;
 
+    public void deactivate() {
+        this.isActive = false;
+    }
+
+    public void activate() {
+        this.isActive = true;
+    }
+
     void setEmail(String email) {
         this.email = StringUtil.trim(email);
     }

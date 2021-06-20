@@ -38,9 +38,16 @@ public class UserService {
     }
 
     public UserUpsertDTO findUpsertById(Integer userId) {
-        UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseException(ResponseExceptionType.USER_NOT_FOUND));
+        UserEntity userEntity = findUserEntityById(userId);
         return prepareUserUpsertDTO(userEntity);
+    }
+
+    @Transactional
+    public void deactivate(Integer userId) {
+        UserEntity userEntity = findUserEntityById(userId);
+        UserCredentialsEntity credentialsEntity = userCredentialsRepository.findByEmail(userEntity.getEmail());
+        userEntity.deactivate();
+        credentialsEntity.deactivate();
     }
 
     @Transactional

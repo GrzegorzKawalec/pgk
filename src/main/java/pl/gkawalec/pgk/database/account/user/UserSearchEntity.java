@@ -22,6 +22,8 @@ public class UserSearchEntity {
 
     private String phoneNumber;
 
+    private boolean isActive;
+
     @OneToOne
     @JoinColumn(
             name = "email",

@@ -50,13 +50,18 @@
     <ng-container matColumnDef="{{clnButtons}}">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
-        <mat-icon svgIcon="info" class="cell-icon"
+        <mat-icon *ngIf="requiredReadUserDetailsAuthorities | checkAccess"
+                  svgIcon="info" class="cell-icon"
                   (click)="clickDetails(row)"
                   matTooltip="{{'common.details' | translate}}"></mat-icon>
         <mat-icon *ngIf="!hasUnmodifiableAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
                   svgIcon="edit" class="cell-icon cell-center-icon"
                   (click)="clickEdit(row)"
                   matTooltip="{{'common.edit' | translate}}"></mat-icon>
+        <mat-icon *ngIf="!hasUnmodifiableAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
+                  svgIcon="user_deactivate" class="cell-icon cell-center-icon"
+                  (click)="clickDeactivate(row)"
+                  matTooltip="{{'common.deactivate' | translate}}"></mat-icon>
       </td>
     </ng-container>
 

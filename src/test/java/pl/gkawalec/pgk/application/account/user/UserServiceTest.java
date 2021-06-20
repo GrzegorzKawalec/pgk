@@ -166,4 +166,22 @@ class UserServiceTest {
         assertEquals(createdUser.getRole().getAuthorities(), updatedUser.getRole().getAuthorities());
     }
 
+    @Test
+    @Transactional
+    @DisplayName("The user was deactivated correctly")
+    void delete_correct() {
+        //given
+        Authority authority = Authority.ROLE_READ;
+        AuthorityEntity authorityEntity = authorityRepository.findByAuthority(authority);
+        RoleEntity roleEntity = RoleEntityMapper.create("role", "role", authorityEntity);
+        roleEntity = roleRepository.save(roleEntity);
+        UserDTO userDTO = UserDTO.builder().email("a@a").firstName("name").lastName("name").description("desc").phoneNumber("+48").build();
+        RoleDTO roleDTO = RoleDTO.builder().id(roleEntity.getId()).build();
+        UserUpsertDTO dto = UserUpsertDTO.builder().user(userDTO).role(roleDTO).password("pass").build();
+
+        //when
+        UserUpsertDTO createdUser = userService.create(dto);
+        userService.deactivate(createdUser.getUser().getId());
+    }
+
 }

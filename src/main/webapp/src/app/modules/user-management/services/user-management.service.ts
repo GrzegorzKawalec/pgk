@@ -48,4 +48,9 @@ export class UserManagementService {
     return this.http.get(url);
   }
 
+  deactivate(userId: number): Observable<void> {
+    const url: string = UserAPI.deactivate + '/' + userId;
+    return this.http.put<void>(url, {});
+  }
+
 }

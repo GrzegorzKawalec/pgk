@@ -1,15 +1,19 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSelectChange} from '@angular/material/select';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 import {debounceTime, finalize, takeUntil} from 'rxjs/operators';
-import {Authority, RoleDTO, UserCriteria, UserSearchDTO} from '../../../../common/api/api-models';
+import {Authority, RoleDTO, UserCriteria, UserDTO, UserSearchDTO} from '../../../../common/api/api-models';
 import {Page} from '../../../../common/api/api-pagination.models';
 import {BaseComponent} from '../../../../common/components/base.component';
+import {ModalConfirmComponent} from '../../../../common/components/modal-confirm/modal-confirm.component';
+import {ModalConfirmModel} from '../../../../common/components/modal-confirm/modal-confirm.model';
 import {RouteUserManagement} from '../../../../common/const/routes';
 import {LocalStorageKey} from '../../../../common/services/local-storage/local-storage-key';
 import {PaginatorService} from '../../../../common/services/paginator.service';
@@ -27,7 +31,8 @@ import {UserDetailsModalComponent} from './user-details-modal/user-details-modal
 })
 export class UsersComponent extends BaseComponent implements OnInit, AfterViewInit {
 
-  readonly requiredUpsertAuthorities: Authority[] = [Authority.ROLE_WRITE];
+  readonly requiredUpsertAuthorities: Authority[] = [Authority.ROLE_WRITE, Authority.USER_WRITE];
+  readonly requiredReadUserDetailsAuthorities: Authority[] = [...this.requiredUpsertAuthorities, Authority.USER_READ];
 
   readonly prefixTranslateColumn: string = 'user-management.user.columns.';
 
@@ -60,9 +65,11 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
   constructor(
     private router: Router,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
     private authHelper: AuthHelper,
     private roleService: RoleService,
+    private translateService: TranslateService,
     private userService: UserManagementService,
     private paginatorService: PaginatorService
   ) {
@@ -85,7 +92,7 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
     if (!user || !user.role) {
       return false;
     }
-    return AuthorityUtil.hasUnmodifiableAuthority(user.role.authorities);
+    return AuthorityUtil.hasUnmodifiableAuthority(user.role.authorities, true);
   }
 
   clickAddUser(): void {
@@ -99,6 +106,16 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
   clickEdit(user: UserSearchDTO): void {
     if (this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
       this.router.navigate([...RouteUserManagement.USERS_UPSERT_COMMANDS, user.user.id]);
+    }
+  }
+
+  clickDeactivate(user: UserSearchDTO): void {
+    if (this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
+      const confirmModel: ModalConfirmModel = this.prepareModelForConfirmDeleteModal(user.user);
+      const dialogRef: MatDialogRef<ModalConfirmComponent> = this.dialog.open(ModalConfirmComponent, {data: confirmModel});
+      dialogRef.afterClosed()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(confirmed => confirmed === true && this.deactivateUser(user.user.id));
     }
   }
 
@@ -193,6 +210,27 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
       this.criteria.searchPage.pageNumber = pageIndex;
       this.searchUser();
     }
+  }
+
+  private prepareModelForConfirmDeleteModal(user: UserDTO): ModalConfirmModel {
+    const content: string = this.translateService.instant('user-management.user.trying-to-deactivate-user') + ': ' +
+      user.firstName + ' ' + user.lastName + ' (' + user.email + ')';
+    return {
+      titleTranslateKey: 'user-management.user.want-to-deactivate-user',
+      showDefaultContent: false,
+      content: content
+    };
+  }
+
+  private deactivateUser(userId: number): void {
+    this.loading = true;
+    this.userService.deactivate(userId)
+      .pipe(finalize(() => this.loading = false))
+      .subscribe(() => {
+        const message: string = this.translateService.instant('common.deactivated');
+        this.snackBar.open(message, 'OK', {duration: 2000});
+        this.searchUser();
+      });
   }
 
 }
