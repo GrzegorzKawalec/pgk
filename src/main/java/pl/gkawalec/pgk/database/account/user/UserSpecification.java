@@ -23,7 +23,7 @@ public record UserSpecification(UserCriteria criteria) implements Specification<
         List<Predicate> predicates = new ArrayList<>();
         List<Predicate> predicatesOr = new ArrayList<>();
 
-        isActive(true, root, criteriaBuilder, predicates);
+        isActive(root, criteriaBuilder, predicates);
         excludedUsers(root, criteriaBuilder, predicates);
 
         addSearchBy(root, criteriaBuilder, predicatesOr);
@@ -37,9 +37,9 @@ public record UserSpecification(UserCriteria criteria) implements Specification<
         return PredicateUtil.togetherAnd(predicates, criteriaBuilder);
     }
 
-    private void isActive(boolean isActive, Root<UserSearchEntity> root, CriteriaBuilder criteriaBuilder, List<Predicate> predicates) {
+    private void isActive(Root<UserSearchEntity> root, CriteriaBuilder criteriaBuilder, List<Predicate> predicates) {
         Path<Boolean> isActivePath = root.get(UserSearchEntity_.isActive);
-        Predicate isActivePredicate = isActive ?
+        Predicate isActivePredicate = criteria.getIsActive() ?
                 criteriaBuilder.isTrue(isActivePath) :
                 criteriaBuilder.isFalse(isActivePath);
         predicates.add(isActivePredicate);

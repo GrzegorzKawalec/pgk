@@ -73,6 +73,7 @@ export interface UserAuditingDTO extends AuditingDTO<UserUpsertDTO> {
 }
 
 export interface UserCriteria extends BaseCriteria {
+    isActive?: boolean;
     roleIds?: number[];
 }
 

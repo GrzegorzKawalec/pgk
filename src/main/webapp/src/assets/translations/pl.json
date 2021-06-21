@@ -144,6 +144,7 @@
       }
     },
     "user": {
+      "inactive": "Nieaktywni",
       "search-user-by": "Wpisz imię, nazwisko, adresie e-mail lub nr telefonu",
       "search-user-by-role": "Wybierz role",
       "trying-to-deactivate-user": "Próbujesz deaktywować użytkownika",

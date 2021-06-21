@@ -2,6 +2,7 @@ import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@a
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSelectChange} from '@angular/material/select';
+import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -53,7 +54,7 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
 
   loading: boolean = false;
 
-  private criteria: UserCriteria = CriteriaBuilder.init(this.clnEmail);
+  criteria: UserCriteria = CriteriaBuilder.init(this.clnEmail, {isActive: true});
 
   roles: RoleDTO[] = [];
   selectedRoles: RoleDTO[] = [];
@@ -110,7 +111,7 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
   }
 
   clickDeactivate(user: UserSearchDTO): void {
-    if (this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
+    if (this.criteria.isActive && this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
       const confirmModel: ModalConfirmModel = this.prepareModelForConfirmDeleteModal(user.user);
       const dialogRef: MatDialogRef<ModalConfirmComponent> = this.dialog.open(ModalConfirmComponent, {data: confirmModel});
       dialogRef.afterClosed()
@@ -131,6 +132,11 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
     this.criteria.searchBy = null;
     this.criteria.roleIds = null;
 
+    this.searchUser();
+  }
+
+  applyInactiveFilter(inactive: MatSlideToggleChange): void {
+    this.criteria.isActive = !inactive.checked;
     this.searchUser();
   }
 

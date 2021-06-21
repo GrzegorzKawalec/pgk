@@ -7,7 +7,7 @@
       <input matInput (keyup)="applyTextFilter($event)" autofocus [(ngModel)]="filterText">
     </mat-form-field>
 
-    <mat-form-field fxFlex="50%">
+    <mat-form-field fxFlex="43%">
       <mat-label>{{'user-management.user.search-user-by-role' | translate}}</mat-label>
       <mat-select multiple (selectionChange)="changeRolesFilter($event)" (closed)="applyRolesFilter()"
                   [(ngModel)]="selectedRoles">
@@ -16,6 +16,12 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+
+    <div fxFlex="7%" fxLayoutAlign="center center" class="inactive-slider-container">
+      <mat-slide-toggle (change)="applyInactiveFilter($event)">
+        {{'user-management.user.inactive' | translate}}
+      </mat-slide-toggle>
+    </div>
 
   </pgk-filter-panel>
 
@@ -58,7 +64,7 @@
                   svgIcon="edit" class="cell-icon cell-center-icon"
                   (click)="clickEdit(row)"
                   matTooltip="{{'common.edit' | translate}}"></mat-icon>
-        <mat-icon *ngIf="!hasUnmodifiableAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
+        <mat-icon *ngIf="criteria.isActive && !hasUnmodifiableAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
                   svgIcon="user_deactivate" class="cell-icon cell-center-icon"
                   (click)="clickDeactivate(row)"
                   matTooltip="{{'common.deactivate' | translate}}"></mat-icon>
