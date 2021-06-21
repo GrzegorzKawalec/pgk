@@ -40,11 +40,19 @@ export class ExceptionInfoBodyComponent {
     @Inject(MAT_SNACK_BAR_DATA) public data: ExceptionInfoModel
   ) {
     this.uuid = data.uuid || '';
-    let translateMessage: string = this.translateMessage(data);
-    if (data.status === 400) {
-      translateMessage = this.getPrefixForBadRequestStatus() + ' ' + translateMessage;
+    this.message = this.getTranslateMessage(data).trim();
+  }
+
+  private getTranslateMessage(errorModel: ExceptionInfoModel): string {
+    if (errorModel.incorrectLoginData) {
+      return  this.translateService.instant(ExceptionInfoBodyComponent.PREFIX_TRANSLATE_KEY + '_incorrect_login_data');
+    } else {
+      let translateMessage: string = this.translateMessage(errorModel);
+      if (errorModel.status === 400) {
+        translateMessage = this.getPrefixForBadRequestStatus() + ' ' + translateMessage;
+      }
+      return translateMessage || '';
     }
-    this.message = translateMessage.trim();
   }
 
   private translateMessage(errorModel: ExceptionInfoModel): string {

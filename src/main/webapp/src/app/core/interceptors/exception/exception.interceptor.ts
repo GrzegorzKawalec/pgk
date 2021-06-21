@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {AuthAPI} from '../../../common/api/api';
 import {RouteSignIn} from '../../../common/const/routes';
 import {ExceptionInfoBodyComponent} from './exception-info-body.component';
 import {ExceptionInfoModel} from './exception-info.model';
@@ -41,7 +42,7 @@ export class ExceptionInterceptor implements HttpInterceptor {
 
   private navigateToSignInPageIfUnAuthorize(ex: any): boolean {
     const httpErrorResponse: HttpErrorResponse = ex instanceof HttpErrorResponse ? ex : null;
-    if (httpErrorResponse && httpErrorResponse.status === 401) {
+    if (httpErrorResponse && httpErrorResponse.status === 401 && !httpErrorResponse.url.endsWith(AuthAPI.signIn)) {
       this.router.navigate(RouteSignIn.ROUTE_COMMANDS);
       return true;
     }
@@ -50,7 +51,9 @@ export class ExceptionInterceptor implements HttpInterceptor {
 
   private static getErrorModel(ex: any): ExceptionInfoModel {
     const httpErrorResponse: HttpErrorResponse = ex instanceof HttpErrorResponse ? ex : null;
-    return new ExceptionInfoModel(httpErrorResponse);
+    return httpErrorResponse.status === 401 ?
+      ExceptionInfoModel.buildForIncorrectLoginData() :
+      new ExceptionInfoModel(httpErrorResponse);
   }
 
   private showInfo(errorModel: ExceptionInfoModel): boolean {

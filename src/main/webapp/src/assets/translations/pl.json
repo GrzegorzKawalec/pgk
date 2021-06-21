@@ -24,6 +24,7 @@
   },
   "exception": {
     "_bad_request": "Nieprawidłowe żądanie.",
+    "_incorrect_login_data": "Błędne dane logowania",
     "ACCESS_DENIED": "Odmowa dostępu. Brak uprawnień.",
     "DATA_WAS_UPDATED_EARLIER": "Dane zostały zaktualizowane wcześniej. Odśwież stronę.",
     "UNEXPECTED": "Błąd serwera. Skontaktuj się z administratorem.",

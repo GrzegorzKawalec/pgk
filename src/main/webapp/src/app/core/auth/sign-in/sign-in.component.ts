@@ -49,7 +49,7 @@ export class SignInComponent extends BaseComponent {
           takeUntil(this.destroy$),
           finalize(() => this.changeLoadingState(false))
         ).subscribe(() => this.router.navigateByUrl(urlToRedirect));
-    });
+    }, () => this.changeLoadingState(false));
   }
 
   private changeLoadingState(state: boolean): void {
