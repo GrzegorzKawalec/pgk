@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+import pl.gkawalec.pgk.common.exception.response.auth.AuthorizationInvalidityException;
 import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
 import pl.gkawalec.pgk.database.account.user.UserCredentialsEntity;
 import pl.gkawalec.pgk.database.account.user.UserCredentialsRepository;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
 @Order(0)
 @Component
 @RequiredArgsConstructor
-class RequestAuthorizationValidityChecker {
+class AuthorizationValidityChecker {
 
     private final UserCredentialsRepository userCredentialsRepository;
 
@@ -34,15 +35,17 @@ class RequestAuthorizationValidityChecker {
     }
 
     @Before("controllerPointcut()")
-    private void requestValidityChecker() {
+    private void checkAuthorizationValidity() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (cannotCheck(authentication)) {
             return;
         }
         User principal = (User) authentication.getPrincipal();
         UserCredentialsEntity userCredentialsEntity = userCredentialsRepository.findByEmail(principal.getUsername());
-        if (!userCredentialsEntity.isActive() || hasDifferentAuthorities(principal, userCredentialsEntity)) {
+        String exceptionMessage = getErrorMessageIfPresent(principal, userCredentialsEntity);
+        if (Objects.nonNull(exceptionMessage)) {
             SecurityContextHolder.clearContext();
+            throw new AuthorizationInvalidityException(exceptionMessage);
         }
     }
 
@@ -50,6 +53,15 @@ class RequestAuthorizationValidityChecker {
         return !authentication.isAuthenticated() ||
                 Objects.isNull(authentication.getPrincipal()) ||
                 !(authentication.getPrincipal() instanceof User);
+    }
+
+    private String getErrorMessageIfPresent(User principal, UserCredentialsEntity userCredentialsEntity) {
+        if (!userCredentialsEntity.isActive()) {
+            return "Inactive user";
+        } else if (hasDifferentAuthorities(principal, userCredentialsEntity)) {
+            return "Obsolete authorities";
+        }
+        return null;
     }
 
     private boolean hasDifferentAuthorities(User principal, UserCredentialsEntity userCredentialsEntity) {

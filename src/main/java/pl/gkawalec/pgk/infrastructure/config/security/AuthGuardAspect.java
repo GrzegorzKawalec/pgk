@@ -7,7 +7,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import pl.gkawalec.pgk.api.dto.account.user.UserDTO;
 import pl.gkawalec.pgk.common.annotation.security.AuthGuard;
-import pl.gkawalec.pgk.common.exception.response.AccessDeniedResponseException;
+import pl.gkawalec.pgk.common.exception.response.auth.AccessDeniedResponseException;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.user.LoggedUserAccessor;
 

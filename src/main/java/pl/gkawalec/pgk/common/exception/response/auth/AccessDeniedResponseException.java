@@ -1,7 +1,8 @@
-package pl.gkawalec.pgk.common.exception.response;
+package pl.gkawalec.pgk.common.exception.response.auth;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
+import pl.gkawalec.pgk.common.exception.response.ExceptionForResponse;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
 
 import java.util.UUID;
