@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.infrastructure.config.security;
+package pl.gkawalec.pgk.infrastructure.config.security.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
@@ -10,15 +10,16 @@ import pl.gkawalec.pgk.common.annotation.security.AuthGuard;
 import pl.gkawalec.pgk.common.exception.response.auth.AccessDeniedResponseException;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.user.LoggedUserAccessor;
+import pl.gkawalec.pgk.infrastructure.constant.AspectOrder;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
 
 @Aspect
-@Order(2)
 @Component
 @RequiredArgsConstructor
+@Order(AspectOrder.AUTH_GUARD)
 class AuthGuardAspect {
 
     private final LoggedUserAccessor loggedUserAccessor;

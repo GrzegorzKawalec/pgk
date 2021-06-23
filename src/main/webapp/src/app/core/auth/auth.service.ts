@@ -41,11 +41,11 @@ export class AuthService {
     const headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.post<void>(AuthAPI.signIn, data, {headers})
       .pipe(
-        tap(() => this.getLoggedUserDetails())
+        tap(() => this.fetchLoggedUserDetails())
       );
   }
 
-  private getLoggedUserDetails(): void {
+  fetchLoggedUserDetails(): void {
     this.http.get(UserAPI.me).subscribe((user: UserDTO) => {
       this._loggedUser.next(user);
     });

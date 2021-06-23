@@ -1,4 +1,4 @@
-package pl.gkawalec.pgk.infrastructure.config.security;
+package pl.gkawalec.pgk.infrastructure.config.security.auth;
 
 import com.google.common.collect.Sets;
 import lombok.RequiredArgsConstructor;
@@ -6,7 +6,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -15,6 +14,7 @@ import pl.gkawalec.pgk.common.exception.response.auth.AuthorizationInvalidityExc
 import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
 import pl.gkawalec.pgk.database.account.user.UserCredentialsEntity;
 import pl.gkawalec.pgk.database.account.user.UserCredentialsRepository;
+import pl.gkawalec.pgk.infrastructure.constant.AspectOrder;
 
 import java.util.Collection;
 import java.util.List;
@@ -23,10 +23,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Aspect
-@Order(0)
 @Component
 @RequiredArgsConstructor
-class AuthorizationValidityChecker {
+@Order(AspectOrder.AUTH_VALIDITY_CHECKER)
+class AuthValidityCheckerAspect {
 
     private final UserCredentialsRepository userCredentialsRepository;
 
@@ -36,23 +36,16 @@ class AuthorizationValidityChecker {
 
     @Before("controllerPointcut()")
     private void checkAuthorizationValidity() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (cannotCheck(authentication)) {
+        User principal = AuthenticatedUserFetcher.getAuthenticatedUser();
+        if (Objects.isNull(principal)) {
             return;
         }
-        User principal = (User) authentication.getPrincipal();
         UserCredentialsEntity userCredentialsEntity = userCredentialsRepository.findByEmail(principal.getUsername());
         String exceptionMessage = getErrorMessageIfPresent(principal, userCredentialsEntity);
         if (Objects.nonNull(exceptionMessage)) {
             SecurityContextHolder.clearContext();
             throw new AuthorizationInvalidityException(exceptionMessage);
         }
-    }
-
-    private boolean cannotCheck(Authentication authentication) {
-        return !authentication.isAuthenticated() ||
-                Objects.isNull(authentication.getPrincipal()) ||
-                !(authentication.getPrincipal() instanceof User);
     }
 
     private String getErrorMessageIfPresent(User principal, UserCredentialsEntity userCredentialsEntity) {
