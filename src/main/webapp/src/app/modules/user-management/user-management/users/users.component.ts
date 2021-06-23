@@ -63,6 +63,8 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
   filterText: string;
   private applyTextFilter$: Subject<string> = new Subject();
 
+  private readonly prefixTranslateMessage: string = 'user-management.user.';
+
   constructor(
     private router: Router,
     private dialog: MatDialog,
@@ -111,13 +113,11 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
   }
 
   clickDeactivate(user: UserSearchDTO): void {
-    if (this.criteria.isActive && this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
-      const confirmModel: ModalConfirmModel = this.prepareModelForConfirmDeleteModal(user.user);
-      const dialogRef: MatDialogRef<ModalConfirmComponent> = this.dialog.open(ModalConfirmComponent, {data: confirmModel});
-      dialogRef.afterClosed()
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(confirmed => confirmed === true && this.deactivateUser(user.user.id));
-    }
+    this.changeUserStatus(user.user, true);
+  }
+
+  clickActivate(user: UserSearchDTO): void {
+    this.changeUserStatus(user.user, false);
   }
 
   clearFilter(): void {
@@ -218,11 +218,36 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
     }
   }
 
-  private prepareModelForConfirmDeleteModal(user: UserDTO): ModalConfirmModel {
-    const content: string = this.translateService.instant('user-management.user.trying-to-deactivate-user') + ': ' +
+  private changeUserStatus(user: UserDTO, forDeactivate: boolean): void {
+    if (!this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
+      return;
+    }
+    const confirmModel: ModalConfirmModel = forDeactivate ?
+      this.prepareModelForConfirmDeactivateModal(user) :
+      this.prepareModelForConfirmActivateModal(user);
+    const dialogRef: MatDialogRef<ModalConfirmComponent> = this.dialog.open(ModalConfirmComponent, {data: confirmModel});
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(confirmed => {
+        if (confirmed === true) {
+          forDeactivate ? this.deactivateUser(user.id) : this.activateUser(user.id);
+        }
+      });
+  }
+
+  private prepareModelForConfirmDeactivateModal(user: UserDTO): ModalConfirmModel {
+    return this.prepareModelForConfirmUserModal(user, 'trying-to-deactivate-user', 'want-to-deactivate-user');
+  }
+
+  private prepareModelForConfirmActivateModal(user: UserDTO): ModalConfirmModel {
+    return this.prepareModelForConfirmUserModal(user, 'trying-to-activate-user', 'want-to-activate-user');
+  }
+
+  private prepareModelForConfirmUserModal(user: UserDTO, suffixContentKey: string, suffixTitleKey: string): ModalConfirmModel {
+    const content: string = this.translateService.instant(this.prefixTranslateMessage + suffixContentKey) + ': ' +
       user.firstName + ' ' + user.lastName + ' (' + user.email + ')';
     return {
-      titleTranslateKey: 'user-management.user.want-to-deactivate-user',
+      titleTranslateKey: this.prefixTranslateMessage + suffixTitleKey,
       showDefaultContent: false,
       content: content
     };
@@ -232,11 +257,20 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
     this.loading = true;
     this.userService.deactivate(userId)
       .pipe(finalize(() => this.loading = false))
-      .subscribe(() => {
-        const message: string = this.translateService.instant('common.deactivated');
-        this.snackBar.open(message, 'OK', {duration: 2000});
-        this.searchUser();
-      });
+      .subscribe(() => this.showSnackBarAfterChangeUserStatus('common.deactivated'));
+  }
+
+  private activateUser(userId: number): void {
+    this.loading = true;
+    this.userService.activate(userId)
+      .pipe(finalize(() => this.loading = false))
+      .subscribe(() => this.showSnackBarAfterChangeUserStatus('common.activated'))
+  }
+
+  private showSnackBarAfterChangeUserStatus(messageKey: string): void {
+    const message: string = this.translateService.instant(messageKey);
+    this.snackBar.open(message, 'OK', {duration: 2000});
+    this.searchUser();
   }
 
 }

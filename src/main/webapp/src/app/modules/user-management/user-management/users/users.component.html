@@ -68,6 +68,10 @@
                   svgIcon="user_deactivate" class="cell-icon cell-center-icon"
                   (click)="clickDeactivate(row)"
                   matTooltip="{{'common.deactivate' | translate}}"></mat-icon>
+        <mat-icon *ngIf="!criteria.isActive && !hasUnmodifiableAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
+                  svgIcon="restore" class="cell-icon cell-center-icon"
+                  (click)="clickActivate(row)"
+                  matTooltip="{{'common.activate' | translate}}"></mat-icon>
       </td>
     </ng-container>
 

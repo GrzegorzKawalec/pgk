@@ -52,6 +52,14 @@ public class UserService {
     }
 
     @Transactional
+    public void activate(Integer userId) {
+        UserEntity userEntity = findUserEntityById(userId);
+        UserCredentialsEntity credentialsEntity = userCredentialsRepository.findByEmail(userEntity.getEmail());
+        userEntity.activate();
+        credentialsEntity.activate();
+    }
+
+    @Transactional
     public UserUpsertDTO create(UserUpsertDTO dto) {
         userValidator.validateCreate(dto);
         UserEntity userEntity = UserEntityMapper.create(dto.getUser());

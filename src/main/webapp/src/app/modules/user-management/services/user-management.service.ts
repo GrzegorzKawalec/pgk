@@ -53,4 +53,9 @@ export class UserManagementService {
     return this.http.put<void>(url, {});
   }
 
+  activate(userId: number): Observable<void> {
+    const url: string = UserAPI.activate + '/' + userId;
+    return this.http.put<void>(url, {});
+  }
+
 }

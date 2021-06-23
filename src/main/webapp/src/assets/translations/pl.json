@@ -1,5 +1,7 @@
 {
   "common": {
+    "activate": "Aktywuj",
+    "activated": "Aktywowano",
     "are-you-sure": "Jesteś pewny?",
     "cancel": "Anuluj",
     "clear": "Wyczyść",
@@ -148,8 +150,10 @@
       "inactive": "Nieaktywni",
       "search-user-by": "Wpisz imię, nazwisko, adresie e-mail lub nr telefonu",
       "search-user-by-role": "Wybierz role",
+      "trying-to-activate-user": "Próbujesz aktywować użytkownika",
       "trying-to-deactivate-user": "Próbujesz deaktywować użytkownika",
       "user-add": "Dodaj użytkownika",
+      "want-to-activate-user": "Chcesz aktywować użytkownika?",
       "want-to-deactivate-user": "Chcesz deaktywować użytkownika?",
       "columns": {
         "email": "E-mail",

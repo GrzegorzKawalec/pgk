@@ -133,7 +133,7 @@ class UserControllerTest {
 
     @Test
     @Transactional
-    @DisplayName("Test end-point deactivating user. User without the required authorities.")
+    @DisplayName("Test end-point that returns audited user information. User without the required authorities.")
     void getAuditingInfo_withoutAuthorities() throws Exception {
         //given
         String url = URL + UserController.AUDITING_INFO + "/" + 1;
@@ -152,10 +152,29 @@ class UserControllerTest {
 
     @Test
     @Transactional
-    @DisplayName("Test end-point that returns audited user information. User without the required authorities.")
+    @DisplayName("Test end-point deactivating user. User without the required authorities.")
     void deactivate_withoutAuthorities() throws Exception {
         //given
         String url = URL + UserController.DEACTIVATE + "/" + 1;
+        String email = "testowy_a@testowy_a";
+        String pass = "password_a";
+        Set<Authority> correctAuthorities = Set.of(Authority.USER_WRITE, Authority.ROLE_WRITE);
+
+        //when
+        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
+        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
+        MockHttpServletRequestBuilder request = put(url).session(session);
+
+        //then
+        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Test end-point activating user. User without the required authorities.")
+    void activate_withoutAuthorities() throws Exception {
+        //given
+        String url = URL + UserController.ACTIVATE + "/" + 1;
         String email = "testowy_a@testowy_a";
         String pass = "password_a";
         Set<Authority> correctAuthorities = Set.of(Authority.USER_WRITE, Authority.ROLE_WRITE);

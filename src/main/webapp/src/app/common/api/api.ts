@@ -28,6 +28,7 @@ export class RoleAPI {
 export class UserAPI {
   static readonly url: string = PREFIX + '/user';
   static readonly me: string = UserAPI.url + '/me';
+  static readonly activate: string = UserAPI.url + '/activate';
   static readonly auditingInfo: string = UserAPI.url + '/auditing-info';
   static readonly deactivate: string = UserAPI.url + '/deactivate';
   static readonly existsEmail: string = UserAPI.url + '/exists-email';
