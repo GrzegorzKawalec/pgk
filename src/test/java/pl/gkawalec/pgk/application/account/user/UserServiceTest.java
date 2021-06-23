@@ -169,7 +169,7 @@ class UserServiceTest {
     @Test
     @Transactional
     @DisplayName("The user was deactivated correctly")
-    void delete_correct() {
+    void deactivate_correct() {
         //given
         Authority authority = Authority.ROLE_READ;
         AuthorityEntity authorityEntity = authorityRepository.findByAuthority(authority);

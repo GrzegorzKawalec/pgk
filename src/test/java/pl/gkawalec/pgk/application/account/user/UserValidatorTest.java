@@ -398,4 +398,32 @@ class UserValidatorTest {
         assertEquals(ex.getType(), ResponseExceptionType.USER_CANNOT_SET_ADMIN_ROLE);
     }
 
+    @Test
+    @Transactional
+    @DisplayName("Validation for deactivation but no user found in database")
+    void validateDeactivate_notFound() {
+        //given
+        Integer userId = Integer.MIN_VALUE;
+
+        //when
+        ValidateResponseException ex = assertThrows(ValidateResponseException.class, () -> validator.validateDeactivate(userId));
+
+        //then
+        assertEquals(ex.getType(), ResponseExceptionType.USER_NOT_FOUND);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Validation for deactivation but user with admin role")
+    void validateDeactivate_withAdminRole() {
+        //given
+        UserEntity userEntity = testUserUtil.createUserWithAuthority(email, "pass", Authority.ADMIN);
+
+        //when
+        ValidateResponseException ex = assertThrows(ValidateResponseException.class, () -> validator.validateDeactivate(userEntity.getId()));
+
+        //then
+        assertEquals(ex.getType(), ResponseExceptionType.USER_CANNOT_UPDATE_ADMIN_ROLE);
+    }
+
 }

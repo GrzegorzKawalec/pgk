@@ -30,6 +30,11 @@ class UserValidator {
     private final UserRepository userRepository;
     private final UserCredentialsRepository userCredentialsRepository;
 
+    void validateDeactivate(Integer userId) {
+        UserEntity userEntity = findUser(userId);
+        checkIsAdmin(userEntity);
+    }
+
     void validateCreate(UserUpsertDTO dto) {
         validateFieldDTO(dto);
         if (Objects.isNull(dto.getPassword())) {
@@ -50,8 +55,7 @@ class UserValidator {
             throw new ValidateResponseException(ResponseExceptionType.USER_BLANK_USER_ID);
         }
         UserDTO userDTO = dto.getUser();
-        UserEntity userEntity = userRepository.findById(userDTO.getId())
-                .orElseThrow(() -> new ValidateResponseException(ResponseExceptionType.USER_NOT_FOUND));
+        UserEntity userEntity = findUser(userDTO.getId());
         if (!userEntity.getEmail().equals(userDTO.getEmail())) {
             throw new ValidateResponseException(ResponseExceptionType.USER_CANNOT_CHANGE_EMAIL);
         }
@@ -111,6 +115,11 @@ class UserValidator {
         return roleEntity.getAuthorities().stream()
                 .map(AuthorityEntity::getAuthority)
                 .anyMatch(Authority.ADMIN::equals);
+    }
+
+    private UserEntity findUser(Integer userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ValidateResponseException(ResponseExceptionType.USER_NOT_FOUND));
     }
 
 }

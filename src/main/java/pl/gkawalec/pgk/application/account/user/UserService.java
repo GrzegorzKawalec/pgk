@@ -44,7 +44,8 @@ public class UserService {
 
     @Transactional
     public void deactivate(Integer userId) {
-        UserEntity userEntity = findUserEntityById(userId);
+        userValidator.validateDeactivate(userId);
+        UserEntity userEntity = userRepository.findOneById(userId);
         UserCredentialsEntity credentialsEntity = userCredentialsRepository.findByEmail(userEntity.getEmail());
         userEntity.deactivate();
         credentialsEntity.deactivate();
