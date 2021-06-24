@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import pl.gkawalec.pgk.api.dto.account.user.UserAuditingDTO;
-import pl.gkawalec.pgk.api.dto.account.user.UserCriteria;
-import pl.gkawalec.pgk.api.dto.account.user.UserSearchDTO;
-import pl.gkawalec.pgk.api.dto.account.user.UserUpsertDTO;
+import pl.gkawalec.pgk.api.dto.account.user.*;
 import pl.gkawalec.pgk.api.dto.common.auditing.AuditingInfoDTO;
 import pl.gkawalec.pgk.common.auditing.AuditingMapper;
 import pl.gkawalec.pgk.common.exception.response.ResponseException;
@@ -57,6 +54,14 @@ public class UserService {
         UserCredentialsEntity credentialsEntity = userCredentialsRepository.findByEmail(userEntity.getEmail());
         userEntity.activate();
         credentialsEntity.activate();
+    }
+
+    @Transactional
+    public void changePassword(UserChangePasswordDTO dto) {
+        userValidator.validateChangePassword(dto);
+        UserEntity userEntity = userRepository.findOneById(dto.getUserId());
+        UserCredentialsEntity userCredentialsEntity = userCredentialsRepository.findByEmail(userEntity.getEmail());
+        UserCredentialsEntityMapper.changePassword(userCredentialsEntity, dto.getPassword());
     }
 
     @Transactional

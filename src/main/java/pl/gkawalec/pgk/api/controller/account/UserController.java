@@ -20,6 +20,7 @@ public class UserController {
     public static final String URL_ME = "/me";
     public static final String ACTIVATE = "/activate";
     public static final String AUDITING_INFO = "/auditing-info";
+    public static final String CHANGE_PASSWORD = "/change-password";
     public static final String DEACTIVATE = "/deactivate";
     public static final String EXISTS_EMAIL = "/exists-email";
     public static final String FIND = "/find";
@@ -78,6 +79,11 @@ public class UserController {
     @AuthGuard({Authority.USER_WRITE, Authority.ROLE_WRITE})
     public void activate(@PathVariable("id") Integer userId) {
         userService.activate(userId);
+    }
+
+    @PostMapping(CHANGE_PASSWORD)
+    public void changePassword(@RequestBody UserChangePasswordDTO dto) {
+        userService.changePassword(dto);
     }
 
 }

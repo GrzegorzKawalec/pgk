@@ -18,11 +18,13 @@ import {ModalConfirmModel} from '../../../../common/components/modal-confirm/mod
 import {RouteUserManagement} from '../../../../common/const/routes';
 import {LocalStorageKey} from '../../../../common/services/local-storage/local-storage-key';
 import {PaginatorService} from '../../../../common/services/paginator.service';
+import {UserService} from '../../../../common/services/user.service';
 import {AuthorityUtil} from '../../../../common/utils/authority.util';
 import {CriteriaBuilder, DirectionMapper} from '../../../../common/utils/criteria.util';
 import {AuthHelper} from '../../../../core/auth/auth.helper';
 import {RoleService} from '../../services/role.service';
 import {UserManagementService} from '../../services/user-management.service';
+import {UserChangePasswordModalComponent} from './user-change-password-modal/user-change-password-modal.component';
 import {UserDetailsModalComponent} from './user-details-modal/user-details-modal.component';
 
 @Component({
@@ -35,7 +37,8 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
   readonly requiredUpsertAuthorities: Authority[] = [Authority.ROLE_WRITE, Authority.USER_WRITE];
   readonly requiredReadUserDetailsAuthorities: Authority[] = [...this.requiredUpsertAuthorities, Authority.USER_READ];
 
-  readonly prefixTranslateColumn: string = 'user-management.user.columns.';
+  readonly prefixTranslateMessage: string = 'user-management.user.';
+  readonly prefixTranslateColumn: string = this.prefixTranslateMessage + 'columns.';
 
   readonly pageSizeOptions: number[] = this.paginatorService.pageSizeOptions;
 
@@ -63,7 +66,6 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
   filterText: string;
   private applyTextFilter$: Subject<string> = new Subject();
 
-  private readonly prefixTranslateMessage: string = 'user-management.user.';
 
   constructor(
     private router: Router,
@@ -72,8 +74,9 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
     private cdr: ChangeDetectorRef,
     private authHelper: AuthHelper,
     private roleService: RoleService,
+    private userService: UserService,
     private translateService: TranslateService,
-    private userService: UserManagementService,
+    private userManagementService: UserManagementService,
     private paginatorService: PaginatorService
   ) {
     super();
@@ -98,6 +101,14 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
     return AuthorityUtil.hasUnmodifiableAuthority(user.role.authorities, true);
   }
 
+  canChangePassword(user: UserSearchDTO): boolean {
+    const loggedUser: UserDTO = this.userService.loggedUser;
+    if (user.user.id === loggedUser.id) {
+      return true;
+    }
+    return this.authHelper.hasAuthorities([Authority.ADMIN]);
+  }
+
   clickAddUser(): void {
     this.router.navigate(RouteUserManagement.USERS_UPSERT_COMMANDS);
   }
@@ -118,6 +129,22 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
 
   clickActivate(user: UserSearchDTO): void {
     this.changeUserStatus(user.user, false);
+  }
+
+  clickChangePassword(user: UserSearchDTO): void {
+    if (!this.canChangePassword(user)) {
+      return;
+    }
+    const dialogRef: MatDialogRef<UserChangePasswordModalComponent> = this.dialog.open(
+      UserChangePasswordModalComponent, {data: user.user, minWidth: '250px'}
+    );
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(updated => {
+        if (updated === true) {
+          this.showSnackBar('common.updated');
+        }
+      });
   }
 
   clearFilter(): void {
@@ -164,7 +191,7 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
 
   private searchUser(): void {
     this.loading = true;
-    this.userService.find(this.criteria)
+    this.userManagementService.find(this.criteria)
       .pipe(finalize(() => this.loading = false))
       .subscribe((page: Page<UserSearchDTO>) => {
         if (page) {
@@ -255,22 +282,26 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
 
   private deactivateUser(userId: number): void {
     this.loading = true;
-    this.userService.deactivate(userId)
+    this.userManagementService.deactivate(userId)
       .pipe(finalize(() => this.loading = false))
       .subscribe(() => this.showSnackBarAfterChangeUserStatus('common.deactivated'));
   }
 
   private activateUser(userId: number): void {
     this.loading = true;
-    this.userService.activate(userId)
+    this.userManagementService.activate(userId)
       .pipe(finalize(() => this.loading = false))
       .subscribe(() => this.showSnackBarAfterChangeUserStatus('common.activated'))
   }
 
   private showSnackBarAfterChangeUserStatus(messageKey: string): void {
+    this.showSnackBar(messageKey);
+    this.searchUser();
+  }
+
+  private showSnackBar(messageKey: string): void {
     const message: string = this.translateService.instant(messageKey);
     this.snackBar.open(message, 'OK', {duration: 2000});
-    this.searchUser();
   }
 
 }

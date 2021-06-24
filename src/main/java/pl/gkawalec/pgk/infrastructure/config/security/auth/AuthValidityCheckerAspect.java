@@ -36,12 +36,12 @@ class AuthValidityCheckerAspect {
 
     @Before("controllerPointcut()")
     private void checkAuthorizationValidity() {
-        User principal = AuthenticatedUserFetcher.getAuthenticatedUser();
-        if (Objects.isNull(principal)) {
+        User user = AuthenticatedUserFetcher.getAuthenticatedUser();
+        if (Objects.isNull(user)) {
             return;
         }
-        UserCredentialsEntity userCredentialsEntity = userCredentialsRepository.findByEmail(principal.getUsername());
-        String exceptionMessage = getErrorMessageIfPresent(principal, userCredentialsEntity);
+        UserCredentialsEntity userCredentialsEntity = userCredentialsRepository.findByEmail(user.getUsername());
+        String exceptionMessage = getErrorMessageIfPresent(user, userCredentialsEntity);
         if (Objects.nonNull(exceptionMessage)) {
             SecurityContextHolder.clearContext();
             throw new AuthorizationInvalidityException(exceptionMessage);

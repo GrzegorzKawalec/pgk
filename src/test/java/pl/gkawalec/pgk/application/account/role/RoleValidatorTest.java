@@ -15,8 +15,7 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @PGKSpringBootTest
 class RoleValidatorTest {
@@ -103,9 +102,7 @@ class RoleValidatorTest {
         RoleDTO dto = RoleDTO.builder().name(roleName).authorities(Set.of(Authority.ROLE_WRITE)).build();
 
         //when
-        validator.validateCreate(dto);
-
-        //then
+        assertDoesNotThrow(() -> validator.validateCreate(dto));
     }
 
     @Test
@@ -250,9 +247,7 @@ class RoleValidatorTest {
         RoleDTO dto = RoleDTO.builder().id(role.getId()).name(roleName).authorities(Set.of(Authority.ROLE_WRITE)).build();
 
         //when
-        validator.validateUpdate(dto);
-
-        //then
+        assertDoesNotThrow(() -> validator.validateUpdate(dto));
     }
 
     @Test

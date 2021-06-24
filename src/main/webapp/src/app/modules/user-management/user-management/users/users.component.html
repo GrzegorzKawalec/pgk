@@ -3,12 +3,12 @@
   <pgk-filter-panel (clickClearEvent)="clearFilter()">
 
     <mat-form-field fxFlex="50%">
-      <mat-label>{{'user-management.user.search-user-by' | translate}}</mat-label>
+      <mat-label>{{prefixTranslateMessage + 'search-user-by' | translate}}</mat-label>
       <input matInput (keyup)="applyTextFilter($event)" autofocus [(ngModel)]="filterText">
     </mat-form-field>
 
     <mat-form-field fxFlex="43%">
-      <mat-label>{{'user-management.user.search-user-by-role' | translate}}</mat-label>
+      <mat-label>{{prefixTranslateMessage + 'search-user-by-role' | translate}}</mat-label>
       <mat-select multiple (selectionChange)="changeRolesFilter($event)" (closed)="applyRolesFilter()"
                   [(ngModel)]="selectedRoles">
         <mat-option *ngFor="let role of roles" [value]="role">
@@ -19,7 +19,7 @@
 
     <div fxFlex="7%" fxLayoutAlign="center center" class="inactive-slider-container">
       <mat-slide-toggle (change)="applyInactiveFilter($event)">
-        {{'user-management.user.inactive' | translate}}
+        {{prefixTranslateMessage + 'inactive' | translate}}
       </mat-slide-toggle>
     </div>
 
@@ -59,19 +59,28 @@
         <mat-icon *ngIf="requiredReadUserDetailsAuthorities | checkAccess"
                   svgIcon="info" class="cell-icon"
                   (click)="clickDetails(row)"
-                  matTooltip="{{'common.details' | translate}}"></mat-icon>
+                  matTooltip="{{'common.details' | translate}}">
+        </mat-icon>
         <mat-icon *ngIf="!hasUnmodifiableAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
-                  svgIcon="edit" class="cell-icon cell-center-icon"
+                  svgIcon="edit" class="cell-icon"
                   (click)="clickEdit(row)"
-                  matTooltip="{{'common.edit' | translate}}"></mat-icon>
+                  matTooltip="{{'common.edit' | translate}}">
+        </mat-icon>
         <mat-icon *ngIf="criteria.isActive && !hasUnmodifiableAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
-                  svgIcon="user_deactivate" class="cell-icon cell-center-icon"
+                  svgIcon="user_deactivate" class="cell-icon"
                   (click)="clickDeactivate(row)"
-                  matTooltip="{{'common.deactivate' | translate}}"></mat-icon>
+                  matTooltip="{{'common.deactivate' | translate}}">
+        </mat-icon>
         <mat-icon *ngIf="!criteria.isActive && !hasUnmodifiableAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
-                  svgIcon="restore" class="cell-icon cell-center-icon"
+                  svgIcon="restore" class="cell-icon"
                   (click)="clickActivate(row)"
-                  matTooltip="{{'common.activate' | translate}}"></mat-icon>
+                  matTooltip="{{'common.activate' | translate}}">
+        </mat-icon>
+        <mat-icon *ngIf="canChangePassword(row)"
+                  svgIcon="password" class="cell-icon"
+                  (click)="clickChangePassword(row)"
+                  matTooltip="{{prefixTranslateMessage + 'change-password' | translate}}">
+        </mat-icon>
       </td>
     </ng-container>
 
@@ -93,6 +102,6 @@
 </div>
 
 <pgk-add-button [requiredAuthorities]="requiredUpsertAuthorities"
-                tooltipTranslateKey="user-management.user.user-add" svg="user_add"
+                tooltipTranslateKey="{{prefixTranslateMessage + 'user-add'}}" svg="user_add"
                 (clickEvent)="clickAddUser()">
 </pgk-add-button>

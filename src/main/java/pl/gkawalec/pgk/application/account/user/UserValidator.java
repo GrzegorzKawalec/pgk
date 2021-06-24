@@ -1,13 +1,16 @@
 package pl.gkawalec.pgk.application.account.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.gkawalec.pgk.api.dto.account.role.RoleDTO;
+import pl.gkawalec.pgk.api.dto.account.user.UserChangePasswordDTO;
 import pl.gkawalec.pgk.api.dto.account.user.UserDTO;
 import pl.gkawalec.pgk.api.dto.account.user.UserUpsertDTO;
 import pl.gkawalec.pgk.common.exception.response.ValidateResponseException;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
+import pl.gkawalec.pgk.common.user.UserAccessor;
 import pl.gkawalec.pgk.common.util.CollectionUtil;
 import pl.gkawalec.pgk.common.util.StringUtil;
 import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
@@ -29,6 +32,30 @@ class UserValidator {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final UserCredentialsRepository userCredentialsRepository;
+
+    private UserAccessor userAccessor;
+
+    @Autowired
+    void setUserAccessor(UserAccessor userAccessor) {
+        this.userAccessor = userAccessor;
+    }
+
+    void validateChangePassword(UserChangePasswordDTO dto) {
+        if (Objects.isNull(dto.getUserId())) {
+            throw new ValidateResponseException(ResponseExceptionType.USER_BLANK_USER_ID);
+        }
+        if (Objects.isNull(dto.getPassword())) {
+            throw new ValidateResponseException(ResponseExceptionType.USER_EMPTY_PASSWORD);
+        }
+        findUser(dto.getUserId());
+        UserDTO loggedUser = userAccessor.getUser();
+        if (loggedUser.getId().equals(dto.getUserId())) {
+            return;
+        }
+        if (!loggedUser.getAuthorities().contains(Authority.ADMIN)) {
+            throw new ValidateResponseException(ResponseExceptionType.USER_NO_PERMISSION_TO_CHANGE_PASSWORD);
+        }
+    }
 
     void validateDeactivate(Integer userId) {
         UserEntity userEntity = findUser(userId);

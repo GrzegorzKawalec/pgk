@@ -6,6 +6,7 @@ import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.database.account.user.UserEntity;
 import pl.gkawalec.pgk.database.account.user.UserSearchEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Value
@@ -18,7 +19,8 @@ public class UserDTO {
     String lastName;
     String phoneNumber;
     String description;
-    List<Authority> authorities;
+    @Builder.Default
+    List<Authority> authorities = new ArrayList<>();
 
     Integer entityVersion;
 

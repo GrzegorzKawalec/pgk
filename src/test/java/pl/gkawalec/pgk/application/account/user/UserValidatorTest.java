@@ -1,25 +1,30 @@
 package pl.gkawalec.pgk.application.account.user;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import pl.gkawalec.pgk.api.dto.account.role.RoleDTO;
+import pl.gkawalec.pgk.api.dto.account.user.UserChangePasswordDTO;
 import pl.gkawalec.pgk.api.dto.account.user.UserDTO;
 import pl.gkawalec.pgk.api.dto.account.user.UserUpsertDTO;
 import pl.gkawalec.pgk.common.exception.response.ValidateResponseException;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
+import pl.gkawalec.pgk.common.user.UserAccessor;
 import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
 import pl.gkawalec.pgk.database.account.authority.AuthorityRepository;
 import pl.gkawalec.pgk.database.account.role.RoleEntity;
 import pl.gkawalec.pgk.database.account.role.RoleEntityMapper;
 import pl.gkawalec.pgk.database.account.role.RoleRepository;
 import pl.gkawalec.pgk.database.account.user.UserEntity;
+import pl.gkawalec.pgk.infrastructure.TestUserAccessor;
 import pl.gkawalec.pgk.test.annotation.PGKSpringBootTest;
 import pl.gkawalec.pgk.test.util.TestUserUtil;
 
 import javax.transaction.Transactional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,6 +44,18 @@ class UserValidatorTest {
 
     @Autowired
     private TestUserUtil testUserUtil;
+
+    @Autowired
+    private TestUserAccessor testUserAccessor;
+
+    @Autowired
+    private UserAccessor userAccessor;
+
+    @AfterEach
+    void teardown() {
+        testUserAccessor.clearUser();
+        validator.setUserAccessor(userAccessor);
+    }
 
     @Test
     @DisplayName("Validate DTO for new user without user data")
@@ -424,6 +441,95 @@ class UserValidatorTest {
 
         //then
         assertEquals(ex.getType(), ResponseExceptionType.USER_CANNOT_UPDATE_ADMIN_ROLE);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Validate DTO for password change without user id")
+    void validateChangePassword_withoutUserId() {
+        //given
+        UserChangePasswordDTO dto = UserChangePasswordDTO.builder().build();
+
+        //when
+        ValidateResponseException ex = assertThrows(ValidateResponseException.class, () -> validator.validateChangePassword(dto));
+
+        //then
+        assertEquals(ex.getType(), ResponseExceptionType.USER_BLANK_USER_ID);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Validate DTO for password change without new password")
+    void validateChangePassword_withoutPassword() {
+        //given
+        UserChangePasswordDTO dto = UserChangePasswordDTO.builder().userId(1).build();
+
+        //when
+        ValidateResponseException ex = assertThrows(ValidateResponseException.class, () -> validator.validateChangePassword(dto));
+
+        //then
+        assertEquals(ex.getType(), ResponseExceptionType.USER_EMPTY_PASSWORD);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Validate DTO for password change with user id but not found in database")
+    void validateChangePassword_userNotFound() {
+        //given
+        UserChangePasswordDTO dto = UserChangePasswordDTO.builder().userId(Integer.MIN_VALUE).password("pass").build();
+
+        //when
+        ValidateResponseException ex = assertThrows(ValidateResponseException.class, () -> validator.validateChangePassword(dto));
+
+        //then
+        assertEquals(ex.getType(), ResponseExceptionType.USER_NOT_FOUND);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Validate DTO for password change. Changed for another user who does not have ADMIN authorities")
+    void validateChangePassword_changingSomeonePasswordWithoutAdminAuthority() {
+        //given
+        validator.setUserAccessor(testUserAccessor);
+        UserEntity changingUser = testUserUtil.createUserWithAuthority(UUID.randomUUID() + "@a", "pass", Authority.ROLE_READ);
+        testUserAccessor.setUserEntity(changingUser);
+        UserEntity changedUser = testUserUtil.createUserWithAuthority(UUID.randomUUID() + "@b", "pass", Authority.ROLE_READ);
+        UserChangePasswordDTO dto = UserChangePasswordDTO.builder().userId(changedUser.getId()).password("pass").build();
+
+        //when
+        ValidateResponseException ex = assertThrows(ValidateResponseException.class, () -> validator.validateChangePassword(dto));
+
+        //then
+        assertEquals(ex.getType(), ResponseExceptionType.USER_NO_PERMISSION_TO_CHANGE_PASSWORD);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Validate DTO for password change. Changed for another user with ADMIN authorities")
+    void validateChangePassword_adminChangingSomeonePassword() {
+        //given
+        validator.setUserAccessor(testUserAccessor);
+        UserEntity changingUser = testUserUtil.createUserWithAuthority(UUID.randomUUID() + "@a", "pass", Authority.ADMIN);
+        testUserAccessor.setUserEntity(changingUser);
+        UserEntity changedUser = testUserUtil.createUserWithAuthority(UUID.randomUUID() + "@b", "pass", Authority.ROLE_READ);
+        UserChangePasswordDTO dto = UserChangePasswordDTO.builder().userId(changedUser.getId()).password("pass").build();
+
+        //when
+        assertDoesNotThrow(() -> validator.validateChangePassword(dto));
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Validate DTO for password change - correct")
+    void validateChangePassword_changeYourPassword_correct() {
+        //given
+        validator.setUserAccessor(testUserAccessor);
+        UserEntity user = testUserUtil.createUserWithAuthority(UUID.randomUUID() + "@a", "pass", Authority.ROLE_READ);
+        testUserAccessor.setUserEntity(user);
+        UserChangePasswordDTO dto = UserChangePasswordDTO.builder().userId(user.getId()).password("pass").build();
+
+        //when
+        assertDoesNotThrow(() -> validator.validateChangePassword(dto));
     }
 
 }

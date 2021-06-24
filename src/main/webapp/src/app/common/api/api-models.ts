@@ -72,6 +72,11 @@ export interface UserAuditingDTO extends AuditingDTO<UserUpsertDTO> {
     dto?: UserUpsertDTO;
 }
 
+export interface UserChangePasswordDTO {
+    password?: string;
+    userId?: number;
+}
+
 export interface UserCriteria extends BaseCriteria {
     isActive?: boolean;
     roleIds?: number[];
@@ -142,5 +147,6 @@ export enum ResponseExceptionType {
     USER_EMPTY_PASSWORD = "USER_EMPTY_PASSWORD",
     USER_EMPTY_ROLE_DATA = "USER_EMPTY_ROLE_DATA",
     USER_EMPTY_USER_DATA = "USER_EMPTY_USER_DATA",
+    USER_NO_PERMISSION_TO_CHANGE_PASSWORD = "USER_NO_PERMISSION_TO_CHANGE_PASSWORD",
     USER_NOT_FOUND = "USER_NOT_FOUND",
 }

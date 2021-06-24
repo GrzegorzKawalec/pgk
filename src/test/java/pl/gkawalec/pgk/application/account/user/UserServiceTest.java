@@ -20,7 +20,6 @@ import pl.gkawalec.pgk.test.annotation.PGKSpringBootTest;
 import pl.gkawalec.pgk.test.util.TestUserUtil;
 
 import javax.transaction.Transactional;
-
 import java.util.List;
 import java.util.Set;
 

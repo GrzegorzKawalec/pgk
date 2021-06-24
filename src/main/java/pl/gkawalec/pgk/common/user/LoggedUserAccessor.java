@@ -1,6 +1,8 @@
 package pl.gkawalec.pgk.common.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +14,7 @@ import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.util.CollectionUtil;
 import pl.gkawalec.pgk.database.account.user.UserEntity;
 import pl.gkawalec.pgk.database.account.user.UserRepository;
+import pl.gkawalec.pgk.infrastructure.constant.PGKProfiles;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -19,6 +22,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Primary
 @Component
 @RequestScope
 @RequiredArgsConstructor

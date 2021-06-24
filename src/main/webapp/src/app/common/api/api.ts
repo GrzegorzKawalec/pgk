@@ -30,6 +30,7 @@ export class UserAPI {
   static readonly me: string = UserAPI.url + '/me';
   static readonly activate: string = UserAPI.url + '/activate';
   static readonly auditingInfo: string = UserAPI.url + '/auditing-info';
+  static readonly changePassword: string = UserAPI.url + '/change-password';
   static readonly deactivate: string = UserAPI.url + '/deactivate';
   static readonly existsEmail: string = UserAPI.url + '/exists-email';
   static readonly existsEmailParamEmail: string = 'email';

@@ -3,6 +3,7 @@ package pl.gkawalec.pgk.api.dto.account.user;
 import lombok.Builder;
 import lombok.Value;
 import pl.gkawalec.pgk.api.dto.account.role.RoleDTO;
+import pl.gkawalec.pgk.common.annotation.request.NotAuditedRequestType;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
 import pl.gkawalec.pgk.database.account.role.RoleEntity;
@@ -18,6 +19,7 @@ public class UserUpsertDTO {
     RoleDTO role;
     UserDTO user;
 
+    @NotAuditedRequestType
     String password;
 
     public static UserUpsertDTO of(UserEntity userEntity, RoleEntity roleEntity) {

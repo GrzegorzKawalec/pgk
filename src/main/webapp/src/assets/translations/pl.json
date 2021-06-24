@@ -54,6 +54,7 @@
     "USER_EMPTY_PASSWORD": "Puste hasło.",
     "USER_EMPTY_ROLE_DATA": "Puste dane roli.",
     "USER_EMPTY_USER_DATA": "Puste dane użytkownika.",
+    "USER_NO_PERMISSION_TO_CHANGE_PASSWORD": "Brak uprawnień do zmiany hasła.",
     "USER_NOT_FOUND": "Nie odnaleziono użytkownika."
   },
   "authorities": {
@@ -147,6 +148,7 @@
       }
     },
     "user": {
+      "change-password": "Zmień hasło",
       "inactive": "Nieaktywni",
       "search-user-by": "Wpisz imię, nazwisko, adresie e-mail lub nr telefonu",
       "search-user-by-role": "Wybierz role",
@@ -174,6 +176,7 @@
       "password-repeat-placeholder": "Wpisz ponownie ustawiane hasło",
       "phone-number-placeholder": "Podaj numer telefonu użytkownika",
       "role-placeholder": "Wybierz rolę nowemu użytkownikowi",
+      "trying-to-change-password": "Próbujesz zmienić hasło",
       "invalid-form": {
         "empty-email": "Adres e-mail nie może być pusty",
         "empty-first-name": "Imię nie może być puste",

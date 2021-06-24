@@ -2,7 +2,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {UserAPI} from '../../../common/api/api';
-import {UserAuditingDTO, UserCriteria, UserSearchDTO, UserUpsertDTO} from '../../../common/api/api-models';
+import {UserAuditingDTO, UserChangePasswordDTO, UserCriteria, UserSearchDTO, UserUpsertDTO} from '../../../common/api/api-models';
 import {Page} from '../../../common/api/api-pagination.models';
 
 @Injectable({
@@ -56,6 +56,10 @@ export class UserManagementService {
   activate(userId: number): Observable<void> {
     const url: string = UserAPI.activate + '/' + userId;
     return this.http.put<void>(url, {});
+  }
+
+  changePassword(dto: UserChangePasswordDTO): Observable<void> {
+    return this.http.post<void>(UserAPI.changePassword, dto);
   }
 
 }

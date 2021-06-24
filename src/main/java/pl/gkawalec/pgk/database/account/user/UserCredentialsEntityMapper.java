@@ -25,6 +25,10 @@ public class UserCredentialsEntityMapper {
         return true;
     }
 
+    public void changePassword(UserCredentialsEntity credentialsEntity, String password) {
+        credentialsEntity.setPassword(encodePassword(password));
+    }
+
     private String encodePassword(String password) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder.encode(password);

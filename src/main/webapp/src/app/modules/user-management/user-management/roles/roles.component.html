@@ -44,7 +44,7 @@
                   (click)="clickDetails(row)"
                   matTooltip="{{'common.details' | translate}}"></mat-icon>
         <mat-icon *ngIf="!hasUnmodifiableAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
-                  svgIcon="edit" class="cell-icon cell-center-icon"
+                  svgIcon="edit" class="cell-icon"
                   (click)="clickEdit(row)"
                   matTooltip="{{'common.edit' | translate}}"></mat-icon>
         <mat-icon *ngIf="!hasUnmodifiableAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
