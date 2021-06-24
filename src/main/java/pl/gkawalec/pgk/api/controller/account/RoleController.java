@@ -30,16 +30,16 @@ public class RoleController {
 
     private final RoleService service;
 
-    @GetMapping(RoleController.AUTHORITIES)
+    @GetMapping(AUTHORITIES)
     @AuthGuard({Authority.ROLE_READ, Authority.ROLE_WRITE})
     public Set<Authority> getAllAuthorities() {
         return Set.of(Authority.values());
     }
 
-    @GetMapping(RoleController.EXISTS_NAME)
+    @GetMapping(EXISTS_NAME)
     public boolean existsName(@RequestParam("name") String roleName,
-                              @RequestParam(value = "id", required = false) Integer roleId) {
-        return service.existsName(roleName, roleId);
+                              @RequestParam(value = "excludedId", required = false) Integer excludedRoleId) {
+        return service.existsName(roleName, excludedRoleId);
     }
 
     @GetMapping("{id}")
@@ -53,8 +53,8 @@ public class RoleController {
         return service.all();
     }
 
-    @AuthGuard(Authority.ROLE_READ)
-    @GetMapping(RoleController.ALL_AVAILABLE)
+    @GetMapping(ALL_AVAILABLE)
+    @AuthGuard({Authority.ROLE_READ, Authority.ROLE_WRITE})
     public List<RoleDTO> allAvailable() {
         return service.allAvailable();
     }
@@ -71,14 +71,15 @@ public class RoleController {
         return service.update(dto);
     }
 
+    @PostMapping(FIND)
     @AuditedRequest(false)
-    @PostMapping(RoleController.FIND)
     @AuthGuard({Authority.ROLE_READ, Authority.ROLE_WRITE})
     public Page<RoleDTO> find(@RequestBody(required = false) RoleCriteria criteria) {
         return service.find(criteria);
     }
 
-    @GetMapping(RoleController.AUDITING_INFO + "/{id}")
+    @AuditedRequest
+    @GetMapping(AUDITING_INFO + "/{id}")
     @AuthGuard({Authority.ROLE_READ, Authority.ROLE_WRITE})
     public RoleAuditingDTO getAuditingInfo(@PathVariable("id") Integer roleId) {
         return service.getAuditingInfo(roleId);

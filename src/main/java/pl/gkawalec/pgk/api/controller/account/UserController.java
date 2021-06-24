@@ -34,10 +34,10 @@ public class UserController {
         return loggedUserAccessor.getUser();
     }
 
-    @GetMapping(UserController.EXISTS_EMAIL)
+    @GetMapping(EXISTS_EMAIL)
     public boolean existsUserEmail(@RequestParam("email") String userEmail,
-                                   @RequestParam(value = "id", required = false) Integer userId) {
-        return userService.existsUserEmail(userEmail, userId);
+                                   @RequestParam(value = "excludedId", required = false) Integer excludedUserId) {
+        return userService.existsUserEmail(userEmail, excludedUserId);
     }
 
     @GetMapping(FIND_UPSERT + "/{id}")
@@ -63,8 +63,9 @@ public class UserController {
         return userService.find(criteria);
     }
 
+    @AuditedRequest
     @GetMapping(AUDITING_INFO + "/{id}")
-    @AuthGuard({Authority.USER_READ, Authority.USER_WRITE})
+    @AuthGuard({Authority.USER_READ, Authority.USER_WRITE, Authority.ROLE_READ, Authority.ROLE_WRITE})
     public UserAuditingDTO getAuditingInfo(@PathVariable("id") Integer userId) {
         return userService.getAuditingInfo(userId);
     }

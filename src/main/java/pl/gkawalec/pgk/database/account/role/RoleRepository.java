@@ -9,10 +9,12 @@ import java.util.List;
 
 public interface RoleRepository extends BaseNumberIDRepository<RoleEntity> {
 
-    String SQL_EXISTS_WITHOUT_MULTIPLE_WHITE_SPACE_AND_IGNORE_CASE = "select" +
-            " case when count(r) > 0 then true else false end" +
-            " from RoleEntity r" +
-            " where upper(:name) = regexp_replace(upper(r.name), '(\\s){2,}', ' ', 'g')";
+    String SQL_EXISTS_WITHOUT_MULTIPLE_WHITE_SPACE_AND_IGNORE_CASE = """ 
+            select
+             case when count(r) > 0 then true else false end
+             from RoleEntity r
+             where upper(:name) = regexp_replace(upper(r.name), '(\\s){2,}', ' ', 'g')
+            """;
 
     RoleEntity findByName(String name);
 

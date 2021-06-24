@@ -139,7 +139,7 @@ class UserControllerTest {
         String url = URL + UserController.AUDITING_INFO + "/" + 1;
         String email = "testowy_a@testowy_a";
         String pass = "password_a";
-        Set<Authority> correctAuthorities = Set.of(Authority.USER_READ, Authority.USER_WRITE);
+        Set<Authority> correctAuthorities = Set.of(Authority.USER_READ, Authority.USER_WRITE, Authority.ROLE_READ, Authority.ROLE_WRITE);
 
         //when
         testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);

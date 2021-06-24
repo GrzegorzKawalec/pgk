@@ -9,9 +9,11 @@ import java.util.Set;
 
 public interface FlywayMigrationsRepository extends BaseRepository<FlywayMigrationEntity, Integer> {
 
-    @Query("select f.version" +
-            " from FlywayMigrationEntity f" +
-            " where f.version in (:versions)")
+    @Query("""
+            select f.version
+             from FlywayMigrationEntity f
+             where f.version in (:versions)
+             """)
     Set<String> getExistsVersions(@Param("versions") Collection<String> versions);
 
     boolean existsByVersion(String version);

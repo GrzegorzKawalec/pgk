@@ -70,7 +70,7 @@ export class AuthGuard implements CanActivate {
 
   private getRequiredAuthorities(route: ActivatedRouteSnapshot): Authority[] {
     let routeWithData: ActivatedRouteSnapshot = route;
-    while (routeWithData && !routeWithData.data.authorities) {
+    while (routeWithData && (!routeWithData.data || !routeWithData.data.authorities)) {
       routeWithData = routeWithData.parent;
     }
     const data: any = routeWithData && routeWithData.data || {};

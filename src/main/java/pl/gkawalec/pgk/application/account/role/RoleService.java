@@ -41,8 +41,8 @@ public class RoleService {
 
     private final AuditingMapper auditingMapper;
 
-    public boolean existsName(String roleName, Integer roleId) {
-        return uniqueNameChecker.existsTrimName(roleName, roleId);
+    public boolean existsName(String roleName, Integer excludedRoleId) {
+        return uniqueNameChecker.existsTrimName(roleName, excludedRoleId);
     }
 
     public RoleDTO findById(Integer roleId) {

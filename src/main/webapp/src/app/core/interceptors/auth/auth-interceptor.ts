@@ -1,5 +1,5 @@
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {UserDTO} from '../../../common/api/api-models';
@@ -13,10 +13,14 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private static readonly HEADER_NAME: string = 'Authenticated';
 
+  private readonly authService: AuthService;
+  private readonly userService: UserService;
+
   constructor(
-    private authService: AuthService,
-    private userService: UserService
+    injector: Injector
   ) {
+    this.authService = injector.get(AuthService);
+    this.userService = injector.get(UserService)
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

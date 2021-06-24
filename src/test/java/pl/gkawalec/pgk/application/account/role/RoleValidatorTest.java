@@ -274,7 +274,7 @@ class RoleValidatorTest {
     }
 
     @Test
-    @DisplayName("validation of role deletion: role with ADMIN authorities")
+    @DisplayName("Validation of role deletion: role with ADMIN authorities")
     void validateDelete_deleteAdminAuthority() {
         //given
         String roleName = UUID.randomUUID().toString();
@@ -288,7 +288,7 @@ class RoleValidatorTest {
     }
 
     @Test
-    @DisplayName("validation of role deletion: role with GUEST authorities")
+    @DisplayName("Validation of role deletion: role with GUEST authorities")
     void validateDelete_deleteGuestAuthority() {
         //given
         String roleName = UUID.randomUUID().toString();

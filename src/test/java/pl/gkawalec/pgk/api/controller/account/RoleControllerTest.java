@@ -176,10 +176,10 @@ class RoleControllerTest {
         String url = URL + RoleController.ALL_AVAILABLE;
         String email = "testowy_a@testowy_a";
         String pass = "password_a";
-        Authority correctAuthority = Authority.ROLE_READ;
+        Set<Authority> correctAuthorities = Set.of(Authority.ROLE_READ, Authority.ROLE_WRITE);
 
         //when
-        testUserUtil.createUserExcludedAuthority(email, pass, correctAuthority);
+        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
         MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
         MockHttpServletRequestBuilder request = get(url).session(session);
 

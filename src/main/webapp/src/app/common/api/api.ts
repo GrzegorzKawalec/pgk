@@ -21,7 +21,7 @@ export class RoleAPI {
   static readonly auditingInfo: string = RoleAPI.url + '/auditing-info';
   static readonly existsName: string = RoleAPI.url + '/exists-name';
   static readonly existsNameParamName: string = 'name';
-  static readonly existsNameParamId: string = 'id';
+  static readonly existsNameParamId: string = 'excludedId';
   static readonly find: string = RoleAPI.url + '/find'
 }
 
@@ -34,7 +34,7 @@ export class UserAPI {
   static readonly deactivate: string = UserAPI.url + '/deactivate';
   static readonly existsEmail: string = UserAPI.url + '/exists-email';
   static readonly existsEmailParamEmail: string = 'email';
-  static readonly existsEmailParamId: string = 'id';
+  static readonly existsEmailParamId: string = 'excludedId';
   static readonly find: string = UserAPI.url + '/find'
   static readonly findUserUpsert: string = UserAPI.url + '/find-upsert'
 }

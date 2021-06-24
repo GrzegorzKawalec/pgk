@@ -30,8 +30,8 @@ public class UserService {
 
     private final AuditingMapper auditingMapper;
 
-    public boolean existsUserEmail(String userEmail, Integer userId) {
-        return uniqueEmailChecker.existsTrimEmail(userEmail, userId);
+    public boolean existsUserEmail(String userEmail, Integer excludedUserId) {
+        return uniqueEmailChecker.existsTrimEmail(userEmail, excludedUserId);
     }
 
     public UserUpsertDTO findUpsertById(Integer userId) {
