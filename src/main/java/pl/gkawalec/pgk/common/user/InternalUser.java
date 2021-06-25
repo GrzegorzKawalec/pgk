@@ -1,9 +1,9 @@
 package pl.gkawalec.pgk.common.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.gkawalec.pgk.api.dto.user.UserDTO;
-import pl.gkawalec.pgk.database.account.UserEntity;
-import pl.gkawalec.pgk.database.account.UserRepository;
+import pl.gkawalec.pgk.api.dto.account.user.UserDTO;
+import pl.gkawalec.pgk.database.account.user.UserEntity;
+import pl.gkawalec.pgk.database.account.user.UserRepository;
 
 import javax.annotation.PostConstruct;
 import java.util.Objects;

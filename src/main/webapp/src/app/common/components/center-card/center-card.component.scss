@@ -1,0 +1,6 @@
+@import '../../styles/variables';
+
+.center-card-container {
+  max-height: $content-max-height;
+  overflow: auto;
+}

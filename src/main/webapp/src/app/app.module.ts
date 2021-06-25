@@ -5,7 +5,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatPaginatorIntl} from '@angular/material/paginator';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -16,12 +16,16 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {AppComponent} from './app.component';
 import {AppRouting} from './app.routing';
+import {CenterCardModule} from './common/components/center-card/center-card.module';
+import {ProgressModule} from './common/components/progress/progress.module';
 import {COMMON_MODULES} from './common/const/common-modules';
 import {SignInComponent} from './core/auth/sign-in/sign-in.component';
 import {ExceptionInfoBodyComponent} from './core/interceptors/exception/exception-info-body.component';
 import {INTERCEPTORS} from './core/interceptors/interceptors';
+import {PaginatorIntlService} from './core/internationalization/paginator-intl.service';
 import {NavbarComponent} from './layouts/navbar/navbar.component';
 import {AppInfoModule} from './modules/app-info/app-info.module';
+import {UserManagementModule} from './modules/user-management/user-management.module';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   const timestamp: number = Date.now();
@@ -48,20 +52,25 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     }),
 
     AppRouting,
+
     AppInfoModule,
+    UserManagementModule,
+
+    CenterCardModule,
+    ProgressModule,
 
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatProgressSpinnerModule,
     MatSnackBarModule,
     MatToolbarModule,
     MatTooltipModule
   ],
   providers: [
     INTERCEPTORS,
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: MatPaginatorIntl, useClass: PaginatorIntlService}
   ],
   bootstrap: [AppComponent]
 })

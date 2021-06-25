@@ -172,6 +172,7 @@ create table if not exists pgk_user_credentials
     email            varchar,
     password         varchar not null,
     role_id          int     not null,
+    is_active        boolean not null default true,
 
     created_on       timestamp,
     created_by       int,
@@ -197,6 +198,7 @@ create table if not exists pgk_user_credentials_aud
     email            varchar,
     password         varchar,
     role_id          int,
+    is_active        boolean,
 
     created_on       timestamp,
     created_by       int,

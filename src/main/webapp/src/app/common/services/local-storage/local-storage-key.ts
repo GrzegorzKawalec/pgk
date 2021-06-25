@@ -1,6 +1,9 @@
 export enum LocalStorageKey {
 
-  LS_LANG = 'LS_LANG'
+  LANG = 'LANG',
+
+  ROLES_ITEM_PER_PAGE = "ROLES_ITEM_PER_PAGE",
+  USERS_ITEM_PER_PAGE = "USERS_ITEM_PER_PAGE"
 
 }
 

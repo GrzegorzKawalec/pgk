@@ -1,0 +1,13 @@
+<pgk-canter-card layout="column">
+
+  <pgk-progress [visibility]="loading"></pgk-progress>
+
+  <form [formGroup]="formGroup" fxLayout="column" class="roles-upsert-container">
+    <ng-content></ng-content>
+  </form>
+
+  <button mat-raised-button color="primary" (click)="clickSave()" [disabled]="loading || !formGroup.valid">
+    {{'common.save' | translate}}
+  </button>
+
+</pgk-canter-card>

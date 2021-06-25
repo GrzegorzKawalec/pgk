@@ -4,9 +4,19 @@
 
 html, body {
   height: 100%;
+  text-align: center;
 }
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+table {
+  width: 100%;
+}
+
+mat-form-field {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }

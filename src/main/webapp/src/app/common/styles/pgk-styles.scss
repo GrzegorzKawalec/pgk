@@ -1,5 +1,13 @@
 @import "variables";
 
+.pgk-content-container {
+  position: relative;
+  overflow: auto;
+  margin-left: 2%;
+  margin-right: 2%;
+  width: 96%;
+}
+
 .pgk-center-content-container {
   top: 0;
   left: 0;
@@ -8,3 +16,8 @@
   position: relative;
 }
 
+.pgk-paginator-container {
+  display: flex;
+  padding: 0 1.5%;
+  margin: 0;
+}

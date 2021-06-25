@@ -22,7 +22,7 @@ public class UnexpectedResponseException extends RuntimeException implements Exc
         this.causeException = throwable;
         this.errorUUID = UUID.randomUUID().toString();
         this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        this.type = null;
+        this.type = ResponseExceptionType.UNEXPECTED;
     }
 
 }

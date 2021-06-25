@@ -1,8 +1,14 @@
 <mat-toolbar color="primary" class="navbar">
 
-  <button mat-icon-button (click)="clickInfo()">
-    <mat-icon svgIcon="info" [matTooltip]="'app-info.app-info' | translate" matTooltipPosition="after"></mat-icon>
-  </button>
+  <div *ngIf="loggedUser">
+    <button mat-icon-button (click)="clickUserManagement()">
+      <mat-icon svgIcon="user_management" [matTooltip]="'user-management.user-management' | translate"></mat-icon>
+    </button>
+
+    <button mat-icon-button (click)="clickInfo()">
+      <mat-icon svgIcon="info" [matTooltip]="'app-info.app-info' | translate" matTooltipPosition="after"></mat-icon>
+    </button>
+  </div>
 
   <div fxFlex></div>
 

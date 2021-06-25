@@ -5,13 +5,14 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {AuthAPI, UserAPI} from '../../common/api/api';
 import {UserDTO} from '../../common/api/api-models';
-import {ROUTE_SIGN_IN} from '../../common/const/routes';
+import {RouteSignIn} from '../../common/const/routes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  urlBeforeRedirectToSignIn: string;
   private _loggedUser: BehaviorSubject<UserDTO> = new BehaviorSubject(null);
 
   get loggedUser(): UserDTO {
@@ -31,7 +32,7 @@ export class AuthService {
   signOut(): void {
     this.http.post(AuthAPI.signOut, {}).subscribe(() => {
       this._loggedUser.next(null);
-      this.router.navigate([ROUTE_SIGN_IN]);
+      this.router.navigate(RouteSignIn.ROUTE_COMMANDS);
     });
   }
 
@@ -40,11 +41,11 @@ export class AuthService {
     const headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.post<void>(AuthAPI.signIn, data, {headers})
       .pipe(
-        tap(() => this.getLoggedUserDetails())
+        tap(() => this.fetchLoggedUserDetails())
       );
   }
 
-  private getLoggedUserDetails(): void {
+  fetchLoggedUserDetails(): void {
     this.http.get(UserAPI.me).subscribe((user: UserDTO) => {
       this._loggedUser.next(user);
     });

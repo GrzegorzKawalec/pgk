@@ -16,8 +16,7 @@ public class StringUtil {
     }
 
     public String trim(String str) {
-        return Objects.isNull(str) ?
-                null : str.trim();
+        return Objects.isNull(str) ? null : str.trim();
     }
 
     public String changeFirstLetterToLowercase(String str) {
@@ -26,6 +25,18 @@ public class StringUtil {
         char fistChar = allChars[0];
         allChars[0] = Character.toLowerCase(fistChar);
         return new String(allChars);
+    }
+
+    public String removeMultipleWhiteSpace(String str) {
+        if (Objects.isNull(str)) {
+            return null;
+        }
+        return str.replaceAll("(\\s){2,}", " ");
+    }
+
+    public String trimAndRemoveMultipleWhiteSpace(String str) {
+        str = trim(str);
+        return removeMultipleWhiteSpace(str);
     }
 
 }

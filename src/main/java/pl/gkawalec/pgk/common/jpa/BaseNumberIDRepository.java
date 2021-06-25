@@ -4,4 +4,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface BaseNumberIDRepository<T> extends BaseRepository<T, Number> {
+    T findOneById(Number id);
 }

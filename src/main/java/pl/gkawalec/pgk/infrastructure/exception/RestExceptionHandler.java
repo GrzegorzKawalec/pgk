@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pl.gkawalec.pgk.api.dto.exception.RestExceptionDTO;
+import pl.gkawalec.pgk.common.exception.UpdatedEntityLockException;
 import pl.gkawalec.pgk.common.exception.response.ExceptionForResponse;
 
 import java.util.Objects;
@@ -34,9 +35,26 @@ public class RestExceptionHandler {
     }
 
     private ResponseEntity<RestExceptionDTO> forResponseHandler(ExceptionForResponse ex) {
+        if (hasUpdatedEntityLockException(ex)) {
+            return updatedEntityLockExceptionHandler((UpdatedEntityLockException) ex.getCauseException());
+        }
         RestExceptionDTO exceptionDTO = new RestExceptionDTO(ex);
         logExceptionMessage(exceptionDTO, ex);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exceptionDTO);
+        return ResponseEntity.status(exceptionDTO.getHttpStatus()).body(exceptionDTO);
+    }
+
+    private boolean hasUpdatedEntityLockException(ExceptionForResponse ex) {
+        if (Objects.isNull(ex.getCauseException())) {
+            return false;
+        }
+        return ex.getCauseException() instanceof UpdatedEntityLockException;
+    }
+
+    private ResponseEntity<RestExceptionDTO> updatedEntityLockExceptionHandler(UpdatedEntityLockException ex) {
+        RestExceptionDTO exceptionDTO = new RestExceptionDTO(ex);
+        String message = "RestExceptionDTO: [" + exceptionDTO + "]. Message: [" + ex.getMessage() + "].";
+        log.error(message, ex);
+        return ResponseEntity.status(exceptionDTO.getHttpStatus()).body(exceptionDTO);
     }
 
     private void logExceptionMessage(RestExceptionDTO exceptionDTO, ExceptionForResponse ex) {

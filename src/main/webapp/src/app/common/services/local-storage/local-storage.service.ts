@@ -33,8 +33,14 @@ class Keys {
   static get(key: LocalStorageKey): string {
     let lsKey: string;
     switch (key) {
-      case LocalStorageKey.LS_LANG:
+      case LocalStorageKey.LANG:
         lsKey = 'lang';
+        break;
+      case LocalStorageKey.ROLES_ITEM_PER_PAGE:
+        lsKey = 'roles-item-per-page';
+        break;
+      case LocalStorageKey.USERS_ITEM_PER_PAGE:
+        lsKey = 'users-item-per-page';
         break;
       default:
         return null;

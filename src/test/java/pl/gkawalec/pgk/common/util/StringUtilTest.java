@@ -189,4 +189,68 @@ class StringUtilTest {
         assertEquals("p", singleLower, "One letter was not capital");
     }
 
+    @Test
+    @DisplayName("Check that any excess spaces between words have been removed")
+    void removeMultipleWhiteSpace() {
+        //given
+        String oneWord_init = "word";
+        String needsNoChange_init = "word word word";
+        String needOneChange_init = " word     word word ";
+        String needTwoChange_init = "  word word  ";
+
+        String blankString_correctResult = " ";
+        String needOneChange_correctResult = " word word word ";
+        String needTwoChange_correctResult = " word word ";
+
+        //when
+        String nullString = StringUtil.removeMultipleWhiteSpace(this.nullString);
+        String emptyString = StringUtil.removeMultipleWhiteSpace(this.emptyString);
+        String blankString = StringUtil.removeMultipleWhiteSpace(this.blankString);
+        String oneWord = StringUtil.removeMultipleWhiteSpace(oneWord_init);
+        String needsNoChange = StringUtil.removeMultipleWhiteSpace(needsNoChange_init);
+        String needOneChange = StringUtil.removeMultipleWhiteSpace(needOneChange_init);
+        String needTwoChange = StringUtil.removeMultipleWhiteSpace(needTwoChange_init);
+
+        //then
+        assertNull(nullString, "It's null String");
+        assertEquals(this.emptyString, emptyString, "It's empty String");
+        assertEquals(blankString_correctResult, blankString, "The string has a few spaces and should result in one space");
+        assertEquals(oneWord_init, oneWord, "A single word needs no modification");
+        assertEquals(needsNoChange_init, needsNoChange, "The sentence doesn't have too many spaces between words");
+        assertEquals(needOneChange_correctResult, needOneChange);
+        assertEquals(needTwoChange_correctResult, needTwoChange);
+    }
+
+    @Test
+    @DisplayName("Check that any excess spaces between words and at the beginning and end of the sentence have been removed")
+    void trimAndRemoveMultipleWhiteSpace() {
+        //given
+        String oneWord_init = "word";
+        String needsNoChange_init = "word word word";
+        String needTwoChange_init = "  word word  ";
+        String needThreeChange_init = " word     word word ";
+
+        String blankString_correctResult = "";
+        String needTwoChange_correctResult = "word word";
+        String needThreeChange_correctResult = "word word word";
+
+        //when
+        String nullString = StringUtil.trimAndRemoveMultipleWhiteSpace(this.nullString);
+        String emptyString = StringUtil.trimAndRemoveMultipleWhiteSpace(this.emptyString);
+        String blankString = StringUtil.trimAndRemoveMultipleWhiteSpace(this.blankString);
+        String oneWord = StringUtil.trimAndRemoveMultipleWhiteSpace(oneWord_init);
+        String needsNoChange = StringUtil.trimAndRemoveMultipleWhiteSpace(needsNoChange_init);
+        String needTwoChange = StringUtil.trimAndRemoveMultipleWhiteSpace(needTwoChange_init);
+        String needThreeChange = StringUtil.trimAndRemoveMultipleWhiteSpace(needThreeChange_init);
+
+        //then
+        assertNull(nullString, "It's null String");
+        assertEquals(this.emptyString, emptyString, "It's empty String");
+        assertEquals(blankString_correctResult, blankString, "The string has a few spaces and no space should be left as a result");
+        assertEquals(oneWord_init, oneWord, "A single word needs no modification");
+        assertEquals(needsNoChange_init, needsNoChange, "The sentence doesn't have too many spaces between words");
+        assertEquals(needTwoChange_correctResult, needTwoChange);
+        assertEquals(needThreeChange_correctResult, needThreeChange);
+    }
+
 }

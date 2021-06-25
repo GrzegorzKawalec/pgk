@@ -1,13 +1,18 @@
 package migrations;
 
 import lombok.RequiredArgsConstructor;
-import pl.gkawalec.pgk.api.dto.user.UserDTO;
+import pl.gkawalec.pgk.api.dto.account.user.UserDTO;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.common.user.AnonymousUserAccessor;
 import pl.gkawalec.pgk.common.user.SystemUserAccessor;
-import pl.gkawalec.pgk.database.account.*;
+import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
+import pl.gkawalec.pgk.database.account.authority.AuthorityEntityMapper;
+import pl.gkawalec.pgk.database.account.authority.AuthorityRepository;
+import pl.gkawalec.pgk.database.account.role.RoleEntity;
+import pl.gkawalec.pgk.database.account.role.RoleEntityMapper;
+import pl.gkawalec.pgk.database.account.role.RoleRepository;
+import pl.gkawalec.pgk.database.account.user.*;
 import pl.gkawalec.pgk.infrastructure.migration.PGKMigration;
-import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 
 import java.util.Objects;
 import java.util.Set;

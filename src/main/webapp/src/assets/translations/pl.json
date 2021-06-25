@@ -1,15 +1,112 @@
 {
+  "common": {
+    "activate": "Aktywuj",
+    "activated": "Aktywowano",
+    "are-you-sure": "Jesteś pewny?",
+    "cancel": "Anuluj",
+    "clear": "Wyczyść",
+    "confirm": "Potwierdź",
+    "deactivate": "Deaktywuj",
+    "deactivated": "Deaktywowano",
+    "delete": "Usuń",
+    "deleted": "Usunięto",
+    "description": "Opis",
+    "details": "Szczegóły",
+    "edit": "Edytuj",
+    "email": "E-mail",
+    "first-name": "Imię",
+    "last-name": "Nazwisko",
+    "no-data": "Brak danych",
+    "operation-cannot-be-undone": "Tej operacji nie można cofnąć.",
+    "phone-number": "Numer telefonu",
+    "role": "Rola",
+    "save": "Zapisz",
+    "saved": "Zapisano",
+    "updated": "Zaktualizowano"
+  },
+  "exception": {
+    "_bad_request": "Nieprawidłowe żądanie.",
+    "_incorrect_login_data": "Błędne dane logowania",
+    "ACCESS_DENIED": "Odmowa dostępu. Brak uprawnień.",
+    "DATA_WAS_UPDATED_EARLIER": "Dane zostały zaktualizowane wcześniej. Odśwież stronę.",
+    "UNEXPECTED": "Błąd serwera. Skontaktuj się z administratorem.",
+    "EMPTY_DATA": "Puste dane.",
+    "ROLE_BLANK_ID": "Pusty identyfikator.",
+    "ROLE_BLANK_NAME": "Pusta nazwa roli.",
+    "ROLE_CANNOT_DELETE_ADMIN": "Nie można usunąć roli Administratora.",
+    "ROLE_CANNOT_DELETE_GUEST": "Nie można usunąć roli Gościa.",
+    "ROLE_CANNOT_UPDATE_ADMIN": "Nie można zaktualizować roli Administratora.",
+    "ROLE_CANNOT_UPDATE_GUEST": "Nie można zaktualizować roli Gościa.",
+    "ROLE_EMPTY_AUTHORITIES": "Pusta lista uprawnień.",
+    "ROLE_NAME_EXISTS": "Nazwa roli już istnieje.",
+    "ROLE_NOT_FOUND": "Nie odnaleziono roli.",
+    "ROLE_SET_ADMIN_AUTHORITY": "Nie można nadać uprawnień Administratora.",
+    "ROLE_SET_GUEST_AUTHORITY": "Nie można nadać uprawnień Gościa.",
+    "USER_BLANK_EMAIL": "Pusty adres e-mail.",
+    "USER_BLANK_FIRST_NAME": "Puste imię.",
+    "USER_BLANK_LAST_NAME": "Puste nazwisko.",
+    "USER_BLANK_ROLE_ID": "Pusty identyfikator roli.",
+    "USER_BLANK_USER_ID": "Pusty identyfikator użytkownika.",
+    "USER_CANNOT_CHANGE_EMAIL": "Nie można zmienić adresu e-mail.",
+    "USER_CANNOT_SET_ADMIN_ROLE": "Nie można przypisać roli administratora.",
+    "USER_CANNOT_UPDATE_ADMIN_ROLE": "Nie można aktualizować roli administratora.",
+    "USER_EMAIL_EXISTS": "Podany e-mail już istnieje.",
+    "USER_EMPTY_PASSWORD": "Puste hasło.",
+    "USER_EMPTY_ROLE_DATA": "Puste dane roli.",
+    "USER_EMPTY_USER_DATA": "Puste dane użytkownika.",
+    "USER_NO_PERMISSION_TO_CHANGE_PASSWORD": "Brak uprawnień do zmiany hasła.",
+    "USER_NOT_FOUND": "Nie odnaleziono użytkownika."
+  },
+  "authorities": {
+    "authorities": "Uprawnienia",
+    "ADMIN": {
+      "name": "Administrator",
+      "description": "Administrator aplikacji"
+    },
+    "GUEST": {
+      "name": "Gość",
+      "description": "Minimalne uprawnienia w aplikacji"
+    },
+    "ROLE_READ": {
+      "name": "Odczyt ról",
+      "description": "Odczyt istniejących ról"
+    },
+    "ROLE_WRITE": {
+      "name": "Zapis ról",
+      "description": "Zapis nowych lub modyfikacja istniejących ról"
+    },
+    "USER_READ": {
+      "name": "Odczyt użytkowników",
+      "description": "Odczyt szczegółowych informacji o istniejących użytkownikach"
+    },
+    "USER_WRITE": {
+      "name": "Zapis użytkowników",
+      "description": "Zapis nowych lub modyfikacja istniejących użytkowników"
+    }
+  },
+  "pagination": {
+    "first-page": "Pierwsza strona",
+    "items-per-page": "Elementów na stronie",
+    "last-page": "Ostatnia strona",
+    "next-page": "Następna strona",
+    "of": "z",
+    "previous-page": "Poprzednia strona"
+  },
+  "auditing": {
+    "created-by": "Utworzono przez",
+    "created-on": "Utworzono dnia",
+    "id": "Identyfikator",
+    "last-modified-by": "Ostatnia modyfikacja przez",
+    "last-modified-on": "Ostatnia modyfikacja dnia",
+    "version": "Wersja"
+  },
   "app-info": {
     "app-info": "Informacje o aplikacji",
     "author": "Autor",
     "name": "Nazwa",
     "version": "Wersja"
   },
-  "exception": {
-    "UNEXPECTED": "Błąd serwera. Skontaktuj się z administratorem."
-  },
   "sign-in": {
-    "email": "E-mail",
     "password": "Hasło",
     "sign-in": "Zaloguj",
     "sign-out": "Wyloguj",
@@ -17,6 +114,80 @@
       "empty-email": "E-mail nie może być pusty",
       "empty-password": "Hasło nie może być puste",
       "incorrect-email": "Nieprawidłowy adres e-mail"
+    }
+  },
+  "user-management": {
+    "user-management": "Zarządzanie użytkownikami",
+    "tab-users": "Użytkownicy",
+    "tab-roles": "Role",
+    "role": {
+      "roles-add": "Dodaj rolę",
+      "search-role-by": "Wpisz nazwę roli",
+      "search-role-by-authorities": "Wybierz uprawnienia",
+      "trying-to-delete-role": "Próbujesz usunąć rolę",
+      "want-to-delete-role": "Chcesz usunąć rolę?",
+      "columns": {
+        "authorities": "Uprawnienia",
+        "name": "Nazwa"
+      }
+    },
+    "role-details": {
+      "description": "Opis",
+      "name": "Nazwa roli"
+    },
+    "roles-upsert": {
+      "description": "Opis roli",
+      "description-placeholder": "Podaj nazwę roli",
+      "name": "Nazwa roli",
+      "name-placeholder": "Podaj nazwę roli",
+      "select-authorities": "Wybierz uprawnienia",
+      "invalid-form": {
+        "empty-authority": "Należy wybrać przynajmniej jedno uprawnienie",
+        "empty-name": "Nazwa roli nie może być pusta",
+        "not-unique-name": "Podana nazwa roli już istnieje"
+      }
+    },
+    "user": {
+      "change-password": "Zmień hasło",
+      "inactive": "Nieaktywni",
+      "search-user-by": "Wpisz imię, nazwisko, adresie e-mail lub nr telefonu",
+      "search-user-by-role": "Wybierz role",
+      "trying-to-activate-user": "Próbujesz aktywować użytkownika",
+      "trying-to-deactivate-user": "Próbujesz deaktywować użytkownika",
+      "user-add": "Dodaj użytkownika",
+      "want-to-activate-user": "Chcesz aktywować użytkownika?",
+      "want-to-deactivate-user": "Chcesz deaktywować użytkownika?",
+      "columns": {
+        "email": "E-mail",
+        "first-name": "Imię",
+        "last-name": "Nazwisko",
+        "phone-number": "Nr telefonu",
+        "role": "Rola"
+      }
+    },
+    "user-upsert": {
+      "description-placeholder": "Napisz coś o nowym użytkowniku",
+      "email-placeholder": "Wpisz adres e-mail nowego użytkownika",
+      "first-name-placeholder": "Wpisz imię nowego użytkownika",
+      "last-name-placeholder": "Wpisz nazwisko nowego użytkownika",
+      "password": "Hasło",
+      "password-placeholder": "Ustaw hasło nowemu użytkownikowi",
+      "password-repeat": "Powtórz hasło",
+      "password-repeat-placeholder": "Wpisz ponownie ustawiane hasło",
+      "phone-number-placeholder": "Podaj numer telefonu użytkownika",
+      "role-placeholder": "Wybierz rolę nowemu użytkownikowi",
+      "trying-to-change-password": "Próbujesz zmienić hasło",
+      "invalid-form": {
+        "empty-email": "Adres e-mail nie może być pusty",
+        "empty-first-name": "Imię nie może być puste",
+        "empty-last-name": "Nazwisko nie może być puste",
+        "empty-password": "Hasło nie może pozostać puste",
+        "empty-password-repeat": "Ponowne wpisanie hasła jest wymagane",
+        "empty-role": "Należy wybrać role dla użytkownika",
+        "incorrect-email": "Nieprawidłowy adres e-mail",
+        "not-unique-email": "Podany adres email już istnieje",
+        "passwords-do-not-match": "Hasła nie są takie same"
+      }
     }
   }
 }
