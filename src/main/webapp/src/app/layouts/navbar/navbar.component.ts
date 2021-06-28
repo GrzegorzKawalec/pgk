@@ -28,16 +28,16 @@ export class NavbarComponent extends BaseComponent implements OnInit {
       .subscribe((user: UserDTO) => this.loggedUser = user);
   }
 
+  clickUserManagement(): void {
+    this.router.navigate(RouteUserManagement.ROUTE_COMMANDS);
+  }
+
   clickInfo(): void {
     this.router.navigate(RouteAppInfo.ROUTE_COMMANDS);
   }
 
   clickSignOut(): void {
     this.authService.signOut();
-  }
-
-  clickUserManagement(): void {
-    this.router.navigate(RouteUserManagement.ROUTE_COMMANDS);
   }
 
 }

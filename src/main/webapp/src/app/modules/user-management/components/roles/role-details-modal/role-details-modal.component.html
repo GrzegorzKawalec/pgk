@@ -3,12 +3,12 @@
   <div *ngIf="!loading; else loader" fxLayout="column">
 
     <mat-form-field>
-      <mat-label>{{'user-management.role-details.name' | translate}}</mat-label>
+      <mat-label>{{prefixTranslateMessage + 'name' | translate}}</mat-label>
       <input matInput readonly [value]="auditingInfo?.dto?.name || ''">
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>{{'user-management.role-details.name' | translate}}</mat-label>
+      <mat-label>{{prefixTranslateMessage + 'name' | translate}}</mat-label>
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let authority of authorities" [disableRipple]="true">
           <input readonly [matChipInputFor]="chipList" [matChipInputAddOnBlur]="false"
@@ -18,7 +18,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>{{'user-management.role-details.description' | translate}}</mat-label>
+      <mat-label>{{prefixTranslateMessage + 'description' | translate}}</mat-label>
       <textarea matInput readonly rows="3" [value]="auditingInfo?.dto?.description || ''"></textarea>
     </mat-form-field>
 

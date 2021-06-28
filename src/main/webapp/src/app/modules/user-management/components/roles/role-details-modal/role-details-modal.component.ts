@@ -11,6 +11,8 @@ import {RoleService} from '../../../services/role.service';
 })
 export class RoleDetailsModalComponent {
 
+  readonly prefixTranslateMessage: string = 'user-management.role-details.';
+
   loading: boolean = false;
 
   auditingInfo: RoleAuditingDTO;

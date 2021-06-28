@@ -18,6 +18,8 @@ import {UserManagementService} from '../../../services/user-management.service';
 })
 export class UserUpsertComponent implements OnInit {
 
+  readonly prefixTranslateMessage: string = 'user-management.user-upsert.';
+
   readonly ctrlEmail: string = 'email';
   readonly ctrlFirstName: string = 'firstName';
   readonly ctrlLastName: string = 'lastName';

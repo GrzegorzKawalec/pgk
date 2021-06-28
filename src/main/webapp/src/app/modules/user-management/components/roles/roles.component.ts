@@ -31,9 +31,10 @@ import {RoleDetailsModalComponent} from './role-details-modal/role-details-modal
 })
 export class RolesComponent extends BaseComponent implements OnInit, AfterViewInit {
 
-  readonly requiredUpsertAuthorities: Authority[] = [Authority.USER_WRITE];
+  readonly requiredUpsertAuthorities: Authority[] = [Authority.ROLE_WRITE];
 
-  readonly prefixTranslateColumn: string = 'user-management.role.columns.';
+  readonly prefixTranslateMessage: string = 'user-management.role.';
+  readonly prefixTranslateColumn: string = this.prefixTranslateMessage + 'columns.';
 
   readonly pageSizeOptions: number[] = this.paginatorService.pageSizeOptions;
 
@@ -217,9 +218,9 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
   }
 
   private prepareModelForConfirmDeleteModal(role: RoleTableModel): ModalConfirmModel {
-    const content: string = this.translateService.instant('user-management.role.trying-to-delete-role') + ': ' + role.name + '.';
+    const content: string = this.translateService.instant(this.prefixTranslateMessage + 'trying-to-delete-role') + ': ' + role.name + '.';
     return {
-      titleTranslateKey: 'user-management.role.want-to-delete-role',
+      titleTranslateKey: this.prefixTranslateMessage + 'want-to-delete-role',
       showDefaultContent: true,
       content: content
     };

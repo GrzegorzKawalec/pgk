@@ -14,6 +14,8 @@ import {UserManagementService} from '../../../services/user-management.service';
 })
 export class UserChangePasswordModalComponent implements OnInit {
 
+  readonly prefixTranslateMessage: string = 'user-management.user-upsert.';
+
   readonly user: UserDTO;
 
   readonly ctrlPassword: string = 'password';

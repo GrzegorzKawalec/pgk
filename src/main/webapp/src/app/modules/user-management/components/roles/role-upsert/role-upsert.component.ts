@@ -17,6 +17,8 @@ import {RoleService} from '../../../services/role.service';
 })
 export class RoleUpsertComponent implements OnInit {
 
+  readonly prefixTranslateMessage: string = 'user-management.roles-upsert.';
+
   readonly ctrlName: string = 'name';
   readonly ctrlAuthorities: string = 'authorities';
   readonly ctrlDescription: string = 'description';

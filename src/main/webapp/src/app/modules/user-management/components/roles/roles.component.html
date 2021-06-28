@@ -2,12 +2,12 @@
   <pgk-filter-panel (clickClearEvent)="clearFilter()">
 
     <mat-form-field fxFlex="30%">
-      <mat-label>{{'user-management.role.search-role-by' | translate}}</mat-label>
+      <mat-label>{{prefixTranslateMessage + 'search-role-by' | translate}}</mat-label>
       <input matInput (keyup)="applyTextFilter($event)" autofocus [(ngModel)]="filterText">
     </mat-form-field>
 
     <mat-form-field fxFlex="70%">
-      <mat-label>{{'user-management.role.search-role-by-authorities' | translate}}</mat-label>
+      <mat-label>{{prefixTranslateMessage + 'search-role-by-authorities' | translate}}</mat-label>
       <mat-select multiple (selectionChange)="changeAuthoritiesFilter($event)" (closed)="applyAuthoritiesFilter()"
                   [(ngModel)]="selectedAuthorityModels">
         <mat-option *ngFor="let model of authoritySelectModels" [value]="model.authority">
@@ -72,5 +72,5 @@
 </div>
 
 <pgk-add-button [requiredAuthorities]="requiredUpsertAuthorities"
-                tooltipTranslateKey="user-management.role.roles-add" svg="role_add"
+                tooltipTranslateKey="{{prefixTranslateMessage + 'roles-add'}}" svg="role_add"
                 (clickEvent)="clickAddRole()"></pgk-add-button>
