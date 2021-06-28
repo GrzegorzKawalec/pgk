@@ -9,7 +9,7 @@ export class TabUtil {
     if (!tabs) {
       return [];
     }
-    const filterTabs = tabs.filter(t => authHelper.hasAuthorities(t.requiredAuthorities)) || [];
+    const filterTabs: T[] = tabs.filter(t => authHelper.hasAuthorities(t.requiredAuthorities)) || [];
     return filterTabs.sort((t1, t2) => t1.index - t2.index);
   }
 
