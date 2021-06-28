@@ -107,6 +107,10 @@ export interface UserUpsertDTO {
 export enum Authority {
     ADMIN = "ADMIN",
     GUEST = "GUEST",
+    LEGAL_ACTS_READ = "LEGAL_ACTS_READ",
+    LEGAL_ACTS_WRITE = "LEGAL_ACTS_WRITE",
+    PROJECT_READ = "PROJECT_READ",
+    PROJECT_WRITE = "PROJECT_WRITE",
     ROLE_READ = "ROLE_READ",
     ROLE_WRITE = "ROLE_WRITE",
     USER_READ = "USER_READ",

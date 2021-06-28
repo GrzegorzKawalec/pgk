@@ -8,6 +8,17 @@ export class RouteSignIn {
   static readonly ROUTE_COMMANDS: string[] = [RouteSignIn.ROUTE];
 }
 
+export class RouteProjectManagement {
+  static readonly ROUTE: string = 'project-management';
+  static readonly ROUTE_COMMANDS: string[] = [RouteProjectManagement.ROUTE];
+
+  static readonly PROJECTS: string = 'projects';
+  static readonly PROJECTS_COMMANDS: string[] = [RouteProjectManagement.ROUTE, RouteProjectManagement.PROJECTS];
+
+  static readonly LEGAL_ACTS: string = 'legal-acts';
+  static readonly LEGAL_ACTS_COMMANDS: string[] = [RouteProjectManagement.ROUTE, RouteProjectManagement.LEGAL_ACTS];
+}
+
 export class RouteUserManagement {
   static readonly ROUTE: string = 'user-management';
   static readonly ROUTE_COMMANDS: string[] = [RouteUserManagement.ROUTE];

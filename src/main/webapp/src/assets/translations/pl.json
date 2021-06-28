@@ -106,6 +106,17 @@
     "name": "Nazwa",
     "version": "Wersja"
   },
+  "project-management": {
+    "project-management": "Zarządzanie projektami",
+    "tab-projects": "Projekty",
+    "tab-legal-acts": "Akty prawne",
+    "legal-acts": {
+      "add": "Dodaj akty prawny"
+    },
+    "projects": {
+      "add": "Dodaj projekt"
+    }
+  },
   "sign-in": {
     "password": "Hasło",
     "sign-in": "Zaloguj",

@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
 import {UserDTO} from '../../common/api/api-models';
 import {BaseComponent} from '../../common/components/base.component';
-import {RouteAppInfo, RouteUserManagement} from '../../common/const/routes';
+import {RouteAppInfo, RouteProjectManagement, RouteUserManagement} from '../../common/const/routes';
 import {AuthService} from '../../core/auth/auth.service';
 
 @Component({
@@ -26,6 +26,10 @@ export class NavbarComponent extends BaseComponent implements OnInit {
     this.authService.loggedUser$
       .pipe(takeUntil(this.destroy$))
       .subscribe((user: UserDTO) => this.loggedUser = user);
+  }
+
+  clickProjectManagement(): void {
+    this.router.navigate(RouteProjectManagement.ROUTE_COMMANDS);
   }
 
   clickUserManagement(): void {
