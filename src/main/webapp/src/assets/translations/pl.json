@@ -67,6 +67,22 @@
       "name": "Gość",
       "description": "Minimalne uprawnienia w aplikacji"
     },
+    "LEGAL_ACTS_READ": {
+      "name": "Odczyt aktów prawnych",
+      "description": "Odczyt szczegółów istniejących aktów prawnych"
+    },
+    "LEGAL_ACTS_WRITE": {
+      "name": "Zapis aktów prawnych",
+      "description": "Zapis nowych lub modyfikacja istniejących aktów prawnych"
+    },
+    "PROJECT_READ": {
+      "name": "Odczyt projektów",
+      "description": "Odczyt szczegółów istniejących projektów"
+    },
+    "PROJECT_WRITE": {
+      "name": "Zapis projektów",
+      "description": "Zapis nowych lub modyfikacja istniejących projektów"
+    },
     "ROLE_READ": {
       "name": "Odczyt ról",
       "description": "Odczyt istniejących ról"
