@@ -21,7 +21,7 @@ import java.util.UUID;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @PGKSpringMockMvcTest
-public class SingInTest {
+class SingInTest {
 
     @Autowired
     private MockMvc mockMvc;

@@ -10,7 +10,7 @@ import java.util.Objects;
 @UtilityClass
 public class DateTimeUtil {
 
-    public String date(LocalDateTime localDateTime) {
+    public String dateToString(LocalDateTime localDateTime) {
         if (Objects.isNull(localDateTime)) {
             return null;
         }
@@ -18,7 +18,7 @@ public class DateTimeUtil {
         return localDate.toString();
     }
 
-    public String time(LocalDateTime localDateTime) {
+    public String timeToString(LocalDateTime localDateTime) {
         if (Objects.isNull(localDateTime)) {
             return null;
         }

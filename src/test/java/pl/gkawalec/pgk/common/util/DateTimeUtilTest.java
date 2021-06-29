@@ -29,11 +29,11 @@ class DateTimeUtilTest {
 
     @Test
     @DisplayName("Check date parsing")
-    void date() {
+    void dateToString() {
         //when
-        String nullDate = DateTimeUtil.date(null);
-        String setDate = DateTimeUtil.date(this.setDateTime);
-        String nowDate = DateTimeUtil.date(this.now);
+        String nullDate = DateTimeUtil.dateToString(null);
+        String setDate = DateTimeUtil.dateToString(this.setDateTime);
+        String nowDate = DateTimeUtil.dateToString(this.now);
 
         //then
         assertNull(nullDate);
@@ -43,11 +43,11 @@ class DateTimeUtilTest {
 
     @Test
     @DisplayName("Check time parsing")
-    void time() {
+    void timeToString() {
         //when
-        String nullTime = DateTimeUtil.time(null);
-        String setTime = DateTimeUtil.time(this.setDateTime);
-        String nowTime = DateTimeUtil.time(this.now);
+        String nullTime = DateTimeUtil.timeToString(null);
+        String setTime = DateTimeUtil.timeToString(this.setDateTime);
+        String nowTime = DateTimeUtil.timeToString(this.now);
 
         //then
         assertNull(nullTime);

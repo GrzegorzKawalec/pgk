@@ -10,7 +10,7 @@ import pl.gkawalec.pgk.infrastructure.migration.PGKMigration;
 import java.util.Set;
 
 @RequiredArgsConstructor
-public class V004__authorities_for_projects_and_legal_acts extends PGKMigration {
+class V004__authorities_for_projects_and_legal_acts extends PGKMigration {
 
     private final AuthorityRepository authorityRepository;
     private final AuthorityEntityMapper authorityEntityMapper;
