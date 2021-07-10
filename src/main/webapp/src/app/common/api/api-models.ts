@@ -35,6 +35,15 @@ export interface InfoBasicDTO {
     version?: string;
 }
 
+export interface LegalActDTO {
+    dateOfStr?: string;
+    description?: string;
+    entityVersion?: number;
+    id?: number;
+    link?: string;
+    name?: string;
+}
+
 export interface RestExceptionDTO {
     errorUUID?: string;
     httpStatus?: number;
@@ -127,6 +136,13 @@ export enum ResponseExceptionType {
     DATA_WAS_UPDATED_EARLIER = "DATA_WAS_UPDATED_EARLIER",
     UNEXPECTED = "UNEXPECTED",
     EMPTY_DATA = "EMPTY_DATA",
+    LEGAL_ACT_BLANK_NAME = "LEGAL_ACT_BLANK_NAME",
+    LEGAL_ACT_BLANK_DATE_OF = "LEGAL_ACT_BLANK_DATE_OF",
+    LEGAL_ACT_BLANK_ID = "LEGAL_ACT_BLANK_ID",
+    LEGAL_ACT_BLANK_LINK = "LEGAL_ACT_BLANK_LINK",
+    LEGAL_ACT_LINK_EXISTS = "LEGAL_ACT_LINK_EXISTS",
+    LEGAL_ACT_NAME_WITH_DATE_OF_EXISTS = "LEGAL_ACT_NAME_WITH_DATE_OF_EXISTS",
+    LEGAL_ACT_NOT_FOUND = "LEGAL_ACT_NOT_FOUND",
     ROLE_BLANK_ID = "ROLE_BLANK_ID",
     ROLE_BLANK_NAME = "ROLE_BLANK_NAME",
     ROLE_CANNOT_DELETE_ADMIN = "ROLE_CANNOT_DELETE_ADMIN",

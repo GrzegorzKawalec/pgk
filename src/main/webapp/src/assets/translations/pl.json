@@ -31,6 +31,13 @@
     "DATA_WAS_UPDATED_EARLIER": "Dane zostały zaktualizowane wcześniej. Odśwież stronę.",
     "UNEXPECTED": "Błąd serwera. Skontaktuj się z administratorem.",
     "EMPTY_DATA": "Puste dane.",
+    "LEGAL_ACT_BLANK_NAME": "Pusta nazwa aktu prawnego.",
+    "LEGAL_ACT_BLANK_DATE_OF": "Pusta data obowiązywania aktu prawnego.",
+    "LEGAL_ACT_BLANK_ID": "Pusty identyfikator.",
+    "LEGAL_ACT_BLANK_LINK": "Pusty link do aktu prawnego.",
+    "LEGAL_ACT_LINK_EXISTS": "Podany link do aktu prawnego już istnieje.",
+    "LEGAL_ACT_NAME_WITH_DATE_OF_EXISTS": "Podana nazwa z datą obowiązywania aktu prawnego już istnieje.",
+    "LEGAL_ACT_NOT_FOUND": "Nie odnaleziono aktu prawnego.",
     "ROLE_BLANK_ID": "Pusty identyfikator.",
     "ROLE_BLANK_NAME": "Pusta nazwa roli.",
     "ROLE_CANNOT_DELETE_ADMIN": "Nie można usunąć roli Administratora.",
@@ -129,6 +136,20 @@
     "legal-acts": {
       "add": "Dodaj akty prawny"
     },
+    "legal-acts-upsert": {
+      "date-of": "Obowiązuje od",
+      "description-placeholder": "Podaj opis aktu prawnego",
+      "link": "Link do aktu prawnego (np. ISAP)",
+      "link-placeholder": "Podaj link np. do Internetowego Systemu Aktów Prawnych",
+      "name": "Nazwa aktu prawnego",
+      "name-placeholder": "Podaj nazwę aktu prawnego",
+      "invalid-form": {
+        "empty-date-of": "Data obowiązywania aktu prawnego nie może być pusta",
+        "empty-link": "Link do aktu prawnego nie może być pusty",
+        "empty-name": "Nazwa aktu prawnego nie może być pusta",
+        "incorrect-url": "Nieprawidłowy link (adres URL)"
+      }
+    },
     "projects": {
       "add": "Dodaj projekt"
     }
@@ -164,7 +185,7 @@
     },
     "roles-upsert": {
       "description": "Opis roli",
-      "description-placeholder": "Podaj nazwę roli",
+      "description-placeholder": "Podaj opis roli",
       "name": "Nazwa roli",
       "name-placeholder": "Podaj nazwę roli",
       "select-authorities": "Wybierz uprawnienia",

@@ -1,17 +1,25 @@
 import {NgModule} from '@angular/core';
+import {DateAdapter, MatNativeDateModule} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
 import {AddButtonModule} from '../../common/components/add-button/add-button.module';
+import {UpsertFormModule} from '../../common/components/upsert-form/upsert-form.module';
 import {COMMON_MODULES} from '../../common/const/common-modules';
+import {PGKDateAdapter} from '../../core/internationalization/date-adapter';
+import {LegalActsUpsertComponent} from './components/legal-acts/legal-acts-upsert/legal-acts-upsert.component';
 import {LegalActsComponent} from './components/legal-acts/legal-acts.component';
 import {ProjectManagementComponent} from './components/project-management.component';
 import {ProjectsComponent} from './components/projects/projects.component';
 import {ProjectManagementRouting} from './project-management.routing';
 
 @NgModule({
-  declarations:[
+  declarations: [
     ProjectManagementComponent,
 
     LegalActsComponent,
+    LegalActsUpsertComponent,
+
     ProjectsComponent
   ],
   imports: [
@@ -19,8 +27,15 @@ import {ProjectManagementRouting} from './project-management.routing';
     ProjectManagementRouting,
 
     AddButtonModule,
+    UpsertFormModule,
 
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule,
     MatTabsModule
+  ],
+  providers: [
+    {provide: DateAdapter, useClass: PGKDateAdapter}
   ]
 })
 export class ProjectManagementModule {

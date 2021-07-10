@@ -14,6 +14,16 @@ public enum ResponseExceptionType {
 
     EMPTY_DATA,
 
+
+    // --- legal act ---
+    LEGAL_ACT_BLANK_NAME,
+    LEGAL_ACT_BLANK_DATE_OF,
+    LEGAL_ACT_BLANK_ID,
+    LEGAL_ACT_BLANK_LINK,
+    LEGAL_ACT_LINK_EXISTS,
+    LEGAL_ACT_NAME_WITH_DATE_OF_EXISTS,
+    LEGAL_ACT_NOT_FOUND,
+
     // --- role  ---
     ROLE_BLANK_ID,
     ROLE_BLANK_NAME,

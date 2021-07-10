@@ -11,8 +11,9 @@ export class InfoAPI {
   static readonly basicInfo: string = InfoAPI.url + '/basic';
 }
 
-// ---    START    ---
-// ---   account   ---
+export class LegalActAPI {
+  static readonly url: string = PREFIX + '/legal-act';
+}
 
 export class RoleAPI {
   static readonly url: string = PREFIX + '/role';
@@ -38,6 +39,3 @@ export class UserAPI {
   static readonly find: string = UserAPI.url + '/find'
   static readonly findUserUpsert: string = UserAPI.url + '/find-upsert'
 }
-
-// ---   account   ---
-// ---     END     ---

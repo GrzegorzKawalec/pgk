@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 import {Authority} from '../../../../common/api/api-models';
+import {RouteProjectManagement} from '../../../../common/const/routes';
 
 @Component({
   selector: 'pgk-legal-acts',
@@ -12,8 +14,13 @@ export class LegalActsComponent {
 
   readonly prefixTranslateMessage: string = 'project-management.legal-acts.';
 
-  clickAddLegalAct(): void {
+  constructor(
+    private router: Router
+  ) {
+  }
 
+  clickAddLegalAct(): void {
+    this.router.navigate(RouteProjectManagement.LEGAL_ACTS_UPSERT_COMMANDS);
   }
 
 }
