@@ -35,6 +35,9 @@ public class LegalActEntity extends AuditingEntity {
     @Column(unique = true)
     private String link;
 
+    @NotNull
+    private boolean isActive = true;
+
     private String description;
 
     void setName(String name) {

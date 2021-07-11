@@ -18,6 +18,7 @@ public class LegalActDTO {
     private Long id;
     private String name;
     private String link;
+    private boolean isActive;
     private String description;
 
     private Integer entityVersion;
@@ -43,6 +44,7 @@ public class LegalActDTO {
                 .id(entity.getId())
                 .name(entity.getName())
                 .link(entity.getLink())
+                .isActive(entity.isActive())
                 .description(entity.getDescription())
                 .entityVersion(entity.getVersion())
                 .build();

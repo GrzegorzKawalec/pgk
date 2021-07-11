@@ -9,6 +9,7 @@ public class LegalActMapper {
     public LegalActEntity create(LegalActDTO dto) {
         LegalActEntity entity = new LegalActEntity();
         changeField(dto, entity);
+        entity.setActive(true);
         return entity;
     }
 

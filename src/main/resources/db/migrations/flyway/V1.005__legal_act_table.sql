@@ -4,6 +4,7 @@ create table if not exists pgk_legal_act
     name             varchar not null,
     date_of          date    not null,
     link             varchar not null,
+    is_active        boolean not null default true,
     description      text,
 
     created_on       timestamp,
@@ -22,7 +23,8 @@ create table if not exists pgk_legal_act
 
 create index if not exists pgk_legal_act_name_idx on pgk_legal_act (name);
 create index if not exists pgk_legal_act_date_of_idx on pgk_legal_act (date_of);
-create index if not exists pgk_legal_act_link_idx on pgk_legal_act (link);
+create index if not exists pgk_legal_act_is_active_idx on pgk_legal_act (is_active);
+create index if not exists pgk_legal_act_description_idx on pgk_legal_act (description);
 
 create table if not exists pgk_legal_act_aud
 (
@@ -34,6 +36,7 @@ create table if not exists pgk_legal_act_aud
     date_of          date,
     link             varchar,
     description      text,
+    is_active        boolean,
 
     created_on       timestamp,
     created_by       int,

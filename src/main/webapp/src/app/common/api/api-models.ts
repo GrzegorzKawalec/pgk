@@ -36,6 +36,7 @@ export interface InfoBasicDTO {
 }
 
 export interface LegalActDTO {
+    active?: boolean;
     dateOfStr?: string;
     description?: string;
     entityVersion?: number;

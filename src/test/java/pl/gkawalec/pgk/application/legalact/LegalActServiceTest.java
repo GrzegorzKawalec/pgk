@@ -75,6 +75,7 @@ class LegalActServiceTest {
         //then
         assertNotNull(createdLegalAct);
         assertNotNull(createdLegalAct.getId());
+        assertTrue(createdLegalAct.isActive());
         assertEquals(dto.getName(), createdLegalAct.getName());
         assertEquals(dto.getDateOf(), createdLegalAct.getDateOf());
         assertEquals(dto.getLink(), createdLegalAct.getLink());
@@ -97,6 +98,7 @@ class LegalActServiceTest {
 
         //then
         assertNotNull(updatedLegalAct);
+        assertTrue(updatedLegalAct.isActive());
         assertEquals(dto.getId(), updatedLegalAct.getId());
         assertEquals(dto.getName(), updatedLegalAct.getName());
         assertEquals(dto.getDateOf(), updatedLegalAct.getDateOf());
