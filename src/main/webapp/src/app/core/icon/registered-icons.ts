@@ -13,6 +13,7 @@ export const REGISTERED_ICONS: IconSvgModel[] = [
   register('edit'),
   register('info'),
   register('legal_act_add'),
+  register('link'),
   register('login'),
   register('logout'),
   register('password'),

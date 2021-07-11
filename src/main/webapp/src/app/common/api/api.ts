@@ -13,6 +13,7 @@ export class InfoAPI {
 
 export class LegalActAPI {
   static readonly url: string = PREFIX + '/legal-act';
+  static readonly find: string = LegalActAPI.url + '/find';
 }
 
 export class RoleAPI {

@@ -35,6 +35,12 @@ export interface InfoBasicDTO {
     version?: string;
 }
 
+export interface LegalActCriteria extends BaseCriteria {
+    dateOfGreaterThanOrEqual?: string;
+    dateOfLessThanOrEqual?: string;
+    isActive?: boolean;
+}
+
 export interface LegalActDTO {
     active?: boolean;
     dateOfStr?: string;

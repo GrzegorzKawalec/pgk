@@ -134,7 +134,17 @@
     "tab-projects": "Projekty",
     "tab-legal-acts": "Akty prawne",
     "legal-acts": {
-      "add": "Dodaj akty prawny"
+      "add": "Dodaj akty prawny",
+      "inactive": "Nieaktywne",
+      "open-link": "Otwórz link w nowej karcie",
+      "search-legal-act-by": "Wpisz nazwę lub opis",
+      "date-of-greater-than-or-equals": "Data większa lub równa od",
+      "date-of-less-than-or-equals": "Data mniejsza lub równa od",
+      "columns": {
+        "name": "Nazwa",
+        "date-of": "Obowiązuje od",
+        "description": "Opis"
+      }
     },
     "legal-acts-upsert": {
       "date-of": "Obowiązuje od",
