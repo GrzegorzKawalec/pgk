@@ -3,6 +3,7 @@ package pl.gkawalec.pgk.api.dto.legalact;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldNameConstants;
+import pl.gkawalec.pgk.common.annotation.request.NotAuditedRequestType;
 import pl.gkawalec.pgk.common.util.DateTimeUtil;
 import pl.gkawalec.pgk.database.legalact.LegalActEntity;
 
@@ -24,6 +25,7 @@ public class LegalActDTO {
     private Integer entityVersion;
 
     @JsonIgnore
+    @NotAuditedRequestType
     private LocalDate dateOf;
     private String dateOfStr;
 

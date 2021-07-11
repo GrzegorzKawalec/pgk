@@ -11,3 +11,21 @@
   cursor: pointer;
   padding: 0 1px;
 }
+
+.mat-column-name {
+  width: calc(20% - 80px);
+}
+
+.mat-column-date-of {
+  width: calc(5% - 80px);
+}
+
+.mat-column-description {
+  width: calc(75% - 80px);
+}
+
+.mat-column-buttons {
+  font-weight: lighter;
+  text-align: center;
+  width: 80px;
+}

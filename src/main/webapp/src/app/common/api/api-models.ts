@@ -35,6 +35,10 @@ export interface InfoBasicDTO {
     version?: string;
 }
 
+export interface LegalActAuditingDTO extends AuditingDTO<LegalActDTO> {
+    dto?: LegalActDTO;
+}
+
 export interface LegalActCriteria extends BaseCriteria {
     dateOfGreaterThanOrEqual?: string;
     dateOfLessThanOrEqual?: string;

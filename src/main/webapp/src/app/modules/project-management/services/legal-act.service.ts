@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {LegalActAPI} from '../../../common/api/api';
-import {LegalActCriteria, LegalActDTO} from '../../../common/api/api-models';
+import {LegalActAuditingDTO, LegalActCriteria, LegalActDTO} from '../../../common/api/api-models';
 import {Page} from '../../../common/api/api-pagination.models';
 
 @Injectable({
@@ -29,6 +29,21 @@ export class LegalActService {
 
   find(criteria?: LegalActCriteria): Observable<Page<LegalActDTO>> {
     return this.http.post(LegalActAPI.find, criteria);
+  }
+
+  getAuditingInfo(legalActId: number): Observable<LegalActAuditingDTO> {
+    const url: string = LegalActAPI.auditingInfo + '/' + legalActId;
+    return this.http.get(url);
+  }
+
+  deactivate(legalActId: number): Observable<void> {
+    const url: string = LegalActAPI.deactivate + '/' + legalActId;
+    return this.http.put<void>(url, {});
+  }
+
+  activate(legalActId: number): Observable<void> {
+    const url: string = LegalActAPI.activate + '/' + legalActId;
+    return this.http.put<void>(url, {});
   }
 
 }

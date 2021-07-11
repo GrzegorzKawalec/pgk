@@ -13,6 +13,9 @@ export class InfoAPI {
 
 export class LegalActAPI {
   static readonly url: string = PREFIX + '/legal-act';
+  static readonly activate: string = LegalActAPI.url + '/activate';
+  static readonly auditingInfo: string = LegalActAPI.url + '/auditing-info';
+  static readonly deactivate: string = LegalActAPI.url + '/deactivate';
   static readonly find: string = LegalActAPI.url + '/find';
 }
 

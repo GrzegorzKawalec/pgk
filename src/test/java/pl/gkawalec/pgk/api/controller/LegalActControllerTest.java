@@ -58,6 +58,63 @@ class LegalActControllerTest {
 
     @Test
     @Transactional
+    @DisplayName("Test end-point that returns audited legal act information. User without the required authorities.")
+    void getAuditingInfo_withoutAuthorities() throws Exception {
+        //given
+        String url = URL + LegalActController.AUDITING_INFO + "/" + 1;
+        String email = "testowy_a@testowy_a";
+        String pass = "password_a";
+        Set<Authority> correctAuthorities = Set.of(Authority.LEGAL_ACTS_READ, Authority.LEGAL_ACTS_WRITE);
+
+        //when
+        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
+        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
+        MockHttpServletRequestBuilder request = get(url).session(session);
+
+        //then
+        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Test end-point deactivating legal act. User without the required authorities.")
+    void deactivate_withoutAuthorities() throws Exception {
+        //given
+        String url = URL + LegalActController.DEACTIVATE + "/" + 1;
+        String email = "testowy_a@testowy_a";
+        String pass = "password_a";
+        Authority correctAuthority = Authority.LEGAL_ACTS_WRITE;
+
+        //when
+        testUserUtil.createUserExcludedAuthority(email, pass, correctAuthority);
+        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
+        MockHttpServletRequestBuilder request = put(url).session(session);
+
+        //then
+        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Test end-point activating legal act. User without the required authorities.")
+    void activate_withoutAuthorities() throws Exception {
+        //given
+        String url = URL + LegalActController.ACTIVATE + "/" + 1;
+        String email = "testowy_a@testowy_a";
+        String pass = "password_a";
+        Authority correctAuthority = Authority.LEGAL_ACTS_WRITE;
+
+        //when
+        testUserUtil.createUserExcludedAuthority(email, pass, correctAuthority);
+        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
+        MockHttpServletRequestBuilder request = put(url).session(session);
+
+        //then
+        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+    }
+
+    @Test
+    @Transactional
     @DisplayName("Test end-point creating legal act. User without the required authorities.")
     void create_withoutAuthorities() throws Exception {
         //given

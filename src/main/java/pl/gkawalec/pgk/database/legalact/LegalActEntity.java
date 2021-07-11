@@ -40,6 +40,14 @@ public class LegalActEntity extends AuditingEntity {
 
     private String description;
 
+    public void deactivate() {
+        this.isActive = false;
+    }
+
+    public void activate() {
+        this.isActive = true;
+    }
+
     void setName(String name) {
         this.name = StringUtil.trimAndRemoveMultipleWhiteSpace(name);
     }

@@ -135,11 +135,13 @@
     "tab-legal-acts": "Akty prawne",
     "legal-acts": {
       "add": "Dodaj akty prawny",
+      "date-of-greater-than-or-equals": "Data większa lub równa od",
+      "date-of-less-than-or-equals": "Data mniejsza lub równa od",
       "inactive": "Nieaktywne",
       "open-link": "Otwórz link w nowej karcie",
       "search-legal-act-by": "Wpisz nazwę lub opis",
-      "date-of-greater-than-or-equals": "Data większa lub równa od",
-      "date-of-less-than-or-equals": "Data mniejsza lub równa od",
+      "want-to-activate-legal-act": "Chcesz aktywować akt prawny?",
+      "want-to-deactivate-legal-act": "Chcesz deaktywować prawny?",
       "columns": {
         "name": "Nazwa",
         "date-of": "Obowiązuje od",

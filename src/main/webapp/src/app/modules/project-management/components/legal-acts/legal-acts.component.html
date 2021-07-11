@@ -56,7 +56,28 @@
       <td mat-cell *matCellDef="let row">
         <mat-icon svgIcon="link" class="cell-icon"
                   (click)="clickLink(row)"
-                  matTooltip="{{prefixTranslateMessage + 'open-link' | translate}}"></mat-icon>
+                  matTooltip="{{prefixTranslateMessage + 'open-link' | translate}}">
+        </mat-icon>
+        <mat-icon *ngIf="requiredReadDetailsAuthorities | checkAccess"
+                  svgIcon="info" class="cell-icon"
+                  (click)="clickDetails(row)"
+                  matTooltip="{{'common.details' | translate}}">
+        </mat-icon>
+        <mat-icon *ngIf="requiredUpsertAuthorities | checkAccess"
+                  svgIcon="edit" class="cell-icon"
+                  (click)="clickEdit(row)"
+                  matTooltip="{{'common.edit' | translate}}">
+        </mat-icon>
+        <mat-icon *ngIf="criteria.isActive && (requiredUpsertAuthorities | checkAccess)"
+                  svgIcon="legal_act_deactivate" class="cell-icon"
+                  (click)="clickDeactivate(row)"
+                  matTooltip="{{'common.deactivate' | translate}}">
+        </mat-icon>
+        <mat-icon *ngIf="!criteria.isActive && (requiredUpsertAuthorities | checkAccess)"
+                  svgIcon="restore" class="cell-icon"
+                  (click)="clickActivate(row)"
+                  matTooltip="{{'common.activate' | translate}}">
+        </mat-icon>
       </td>
     </ng-container>
 

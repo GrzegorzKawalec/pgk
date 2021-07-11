@@ -1,23 +1,28 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 import {debounceTime, finalize, takeUntil} from 'rxjs/operators';
-import {Authority, LegalActCriteria, LegalActDTO} from '../../../../common/api/api-models';
+import {Authority, LegalActCriteria, LegalActDTO, UserDTO} from '../../../../common/api/api-models';
 import {Page} from '../../../../common/api/api-pagination.models';
 import {BaseComponent} from '../../../../common/components/base.component';
+import {ModalConfirmComponent} from '../../../../common/components/modal-confirm/modal-confirm.component';
+import {ModalConfirmModel} from '../../../../common/components/modal-confirm/modal-confirm.model';
 import {RouteProjectManagement} from '../../../../common/const/routes';
 import {LocalStorageKey} from '../../../../common/services/local-storage/local-storage-key';
 import {PaginatorService} from '../../../../common/services/paginator.service';
 import {CriteriaBuilder, DirectionMapper} from '../../../../common/utils/criteria.util';
 import {DateTimeUtils} from '../../../../common/utils/date-time.utils';
+import {AuthHelper} from '../../../../core/auth/auth.helper';
 import {LegalActService} from '../../services/legal-act.service';
 import {LegalActDescriptionModalComponent} from './legal-act-description-modal.component';
+import {LegalActDetailsModalComponent} from './legal-act-details-modal/legal-act-details-modal.component';
 
 @Component({
   selector: 'pgk-legal-acts',
@@ -27,6 +32,7 @@ import {LegalActDescriptionModalComponent} from './legal-act-description-modal.c
 export class LegalActsComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   readonly requiredUpsertAuthorities: Authority[] = [Authority.LEGAL_ACTS_WRITE];
+  readonly requiredReadDetailsAuthorities: Authority[] = [...this.requiredUpsertAuthorities, Authority.LEGAL_ACTS_READ];
 
   readonly prefixTranslateMessage: string = 'project-management.legal-acts.';
   readonly prefixTranslateColumn: string = this.prefixTranslateMessage + 'columns.';
@@ -44,7 +50,7 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
 
   loading: boolean = false;
 
-  private criteria: LegalActCriteria = CriteriaBuilder.init(this.clnName, {isActive: true});
+  criteria: LegalActCriteria = CriteriaBuilder.init(this.clnName, {isActive: true});
 
   filterText: string;
   filterDateOfLessOrEqual: Date;
@@ -54,7 +60,9 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
   constructor(
     private router: Router,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
+    private authHelper: AuthHelper,
     private legalActService: LegalActService,
     private translateService: TranslateService,
     private paginatorService: PaginatorService,
@@ -85,6 +93,24 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
 
   clickLink(legalAct: LegalActDTO): void {
     window.open(legalAct.link, '_blank');
+  }
+
+  clickDetails(legalAct: LegalActDTO): void {
+    this.dialog.open(LegalActDetailsModalComponent, {data: legalAct, minWidth: '750px'});
+  }
+
+  clickEdit(legalAct: LegalActDTO): void {
+    if (this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
+      this.router.navigate([...RouteProjectManagement.LEGAL_ACTS_UPSERT_COMMANDS, legalAct.id]);
+    }
+  }
+
+  clickDeactivate(legalAct: LegalActDTO): void {
+    this.changeLegalActStatus(legalAct, true);
+  }
+
+  clickActivate(legalAct: LegalActDTO): void {
+    this.changeLegalActStatus(legalAct, false);
   }
 
   clearFilter(): void {
@@ -184,7 +210,59 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
           this.tableData = new MatTableDataSource(page.content);
           this.paginator.length = page.totalElements;
         }
-      })
+      });
+  }
+
+  private changeLegalActStatus(legalAct: LegalActDTO, forDeactivate: boolean): void {
+    if (!this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
+      return;
+    }
+    const confirmModel: ModalConfirmModel = forDeactivate ?
+      this.prepareModelForConfirmDeactivateModal(legalAct) :
+      this.prepareModelForConfirmActivateModal(legalAct);
+    const dialogRef: MatDialogRef<ModalConfirmComponent> = this.dialog.open(ModalConfirmComponent, {data: confirmModel});
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(confirmed => {
+        if (confirmed === true) {
+          forDeactivate ? this.deactivateLegalAct(legalAct.id) : this.activateLegalAct(legalAct.id);
+        }
+      });
+  }
+
+  private prepareModelForConfirmDeactivateModal(user: UserDTO): ModalConfirmModel {
+    return this.prepareModelForConfirmForChangeLegalActStatus(user, 'want-to-deactivate-legal-act');
+  }
+
+  private prepareModelForConfirmActivateModal(user: UserDTO): ModalConfirmModel {
+    return this.prepareModelForConfirmForChangeLegalActStatus(user, 'want-to-activate-legal-act');
+  }
+
+  private prepareModelForConfirmForChangeLegalActStatus(legalAct: LegalActDTO, suffixTitleKey: string): ModalConfirmModel {
+    const content: string = legalAct.name + ' (' + legalAct.dateOfStr + ')';
+    return {
+      titleTranslateKey: this.prefixTranslateMessage + suffixTitleKey,
+      showDefaultContent: false,
+      content: content
+    };
+  }
+
+  private deactivateLegalAct(legalActId: number): void {
+    this.loading = true;
+    this.legalActService.deactivate(legalActId)
+      .subscribe(() => this.showSnackBarAfterChangeUserStatus('common.deactivated'));
+  }
+
+  private activateLegalAct(legalActId: number): void {
+    this.loading = true;
+    this.legalActService.activate(legalActId)
+      .subscribe(() => this.showSnackBarAfterChangeUserStatus('common.activated'));
+  }
+
+  private showSnackBarAfterChangeUserStatus(messageKey: string): void {
+    const message: string = this.translateService.instant(messageKey);
+    this.snackBar.open(message, 'OK', {duration: 2000});
+    this.searchLegalAct();
   }
 
 }
