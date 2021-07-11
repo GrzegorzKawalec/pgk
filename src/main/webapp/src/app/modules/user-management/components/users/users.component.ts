@@ -283,14 +283,12 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
   private deactivateUser(userId: number): void {
     this.loading = true;
     this.userManagementService.deactivate(userId)
-      .pipe(finalize(() => this.loading = false))
       .subscribe(() => this.showSnackBarAfterChangeUserStatus('common.deactivated'));
   }
 
   private activateUser(userId: number): void {
     this.loading = true;
     this.userManagementService.activate(userId)
-      .pipe(finalize(() => this.loading = false))
       .subscribe(() => this.showSnackBarAfterChangeUserStatus('common.activated'))
   }
 
