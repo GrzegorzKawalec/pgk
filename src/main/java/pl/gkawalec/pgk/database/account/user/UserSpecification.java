@@ -38,15 +38,15 @@ public record UserSpecification(UserCriteria criteria) implements Specification<
     }
 
     private void isActive(Root<UserSearchEntity> root, CriteriaBuilder criteriaBuilder, List<Predicate> predicates) {
-        Path<Boolean> isActivePath = root.get(UserSearchEntity_.isActive);
-        Predicate isActivePredicate = criteria.getIsActive() ?
+        Path<Boolean> isActivePath = root.get(BaseUserEntity_.isActive);
+        Predicate isActivePredicate = Boolean.TRUE.equals(criteria.getIsActive()) ?
                 criteriaBuilder.isTrue(isActivePath) :
                 criteriaBuilder.isFalse(isActivePath);
         predicates.add(isActivePredicate);
     }
 
     private void excludedUsers(Root<UserSearchEntity> root, CriteriaBuilder criteriaBuilder, List<Predicate> predicates) {
-        Path<String> emailPath = root.get(UserSearchEntity_.email);
+        Path<String> emailPath = root.get(BaseUserEntity_.email);
         Predicate anonymousUserPredicate = criteriaBuilder.notLike(emailPath, AnonymousUserAccessor.IDENTIFIER);
         Predicate systemUserPredicate = criteriaBuilder.notLike(emailPath, SystemUserAccessor.IDENTIFIER);
         predicates.add(anonymousUserPredicate);
@@ -57,13 +57,13 @@ public record UserSpecification(UserCriteria criteria) implements Specification<
         if (StringUtil.isBlank(criteria.getSearchBy())) {
             return;
         }
-        predicates.add(searchLikeBy(root, criteriaBuilder, UserSearchEntity_.email));
-        predicates.add(searchLikeBy(root, criteriaBuilder, UserSearchEntity_.firstName));
-        predicates.add(searchLikeBy(root, criteriaBuilder, UserSearchEntity_.lastName));
-        predicates.add(searchLikeBy(root, criteriaBuilder, UserSearchEntity_.phoneNumber));
+        predicates.add(searchLikeBy(root, criteriaBuilder, BaseUserEntity_.email));
+        predicates.add(searchLikeBy(root, criteriaBuilder, BaseUserEntity_.firstName));
+        predicates.add(searchLikeBy(root, criteriaBuilder, BaseUserEntity_.lastName));
+        predicates.add(searchLikeBy(root, criteriaBuilder, BaseUserEntity_.phoneNumber));
     }
 
-    private Predicate searchLikeBy(Root<UserSearchEntity> root, CriteriaBuilder criteriaBuilder, SingularAttribute<UserSearchEntity, String> column) {
+    private Predicate searchLikeBy(Root<UserSearchEntity> root, CriteriaBuilder criteriaBuilder, SingularAttribute<BaseUserEntity, String> column) {
         Path<String> path = root.get(column);
         return PredicateUtil.like(criteria.getSearchBy(), path, criteriaBuilder);
     }

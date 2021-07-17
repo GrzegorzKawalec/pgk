@@ -2,7 +2,6 @@ package pl.gkawalec.pgk.database.account.user;
 
 import lombok.experimental.UtilityClass;
 import pl.gkawalec.pgk.api.dto.account.user.UserDTO;
-import pl.gkawalec.pgk.database.account.role.RoleEntity;
 
 @UtilityClass
 public class UserEntityMapper {
@@ -14,7 +13,7 @@ public class UserEntityMapper {
         entity.setLastName(dto.getLastName());
         entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setDescription(dto.getDescription());
-        entity.setActive(true);
+        entity.activate();
         return entity;
     }
 
