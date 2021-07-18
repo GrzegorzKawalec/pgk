@@ -79,7 +79,7 @@ export class ManageLegalActsModalComponent {
     this.filterLegalActs();
   }
 
-  listSelectionChanged(changedSelectionElement: MatSelectionListChange) {
+  listSelectionChanged(changedSelectionElement: MatSelectionListChange): void {
     const clickedElement: MatListOption = changedSelectionElement.options[0];
     const legalAct: LegalActModel = clickedElement.value;
     if (!this.findMatSelectElement(legalAct)) {

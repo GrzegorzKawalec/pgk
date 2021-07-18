@@ -81,7 +81,7 @@ export class ManageParticipantsModalComponent extends BaseComponent implements O
     this.dialogRef.close(confirmModel);
   }
 
-  listSelectionChanged(changedSelectionElement: MatSelectionListChange) {
+  listSelectionChanged(changedSelectionElement: MatSelectionListChange): void {
     const clickedElement: MatListOption = changedSelectionElement.options[0];
     const participant: ParticipantModel = clickedElement.value;
     if (!this.findMatSelectElement(participant)) {
@@ -125,17 +125,17 @@ export class ManageParticipantsModalComponent extends BaseComponent implements O
     this.applyTextFilter$.next(filterValue);
   }
 
-  applyOnlyNonOverlappingProjectsFilter(change: MatCheckboxChange) {
+  applyOnlyNonOverlappingProjectsFilter(change: MatCheckboxChange): void {
     this.filterOnlyNonOverlappingProjects = change.checked;
     this.filterParticipantView();
   }
 
-  applyOnlyActiveParticipantsFilter(change: MatCheckboxChange) {
+  applyOnlyActiveParticipantsFilter(change: MatCheckboxChange): void {
     this.filterOnlyActiveParticipants = change.checked;
     this.filterParticipantView();
   }
 
-  applyOnlySelectedParticipantsFilter(change: MatCheckboxChange) {
+  applyOnlySelectedParticipantsFilter(change: MatCheckboxChange): void {
     this.filterOnlySelectedParticipants = change.checked;
     this.filterParticipantView();
   }
