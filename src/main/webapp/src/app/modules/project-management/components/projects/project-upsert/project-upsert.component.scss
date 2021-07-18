@@ -1,0 +1,26 @@
+.manage-participants-button {
+
+  margin-top: -10px;
+  margin-right: -10px;
+
+  &.enabled {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .manage-participant-icon {
+    left: 1px;
+    bottom: 1px;
+    position: relative;
+  }
+
+}
+
+.custom-selected-row {
+  height: 40px;
+}

@@ -2,6 +2,7 @@ package pl.gkawalec.pgk.api.dto.account.user;
 
 import lombok.Builder;
 import lombok.Value;
+import lombok.experimental.FieldNameConstants;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.database.account.user.BaseUserEntity;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Value
 @Builder
+@FieldNameConstants
 public class UserDTO {
 
     Integer id;

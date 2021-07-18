@@ -19,6 +19,8 @@ export class RouteProjectManagement {
   static readonly LEGAL_ACTS_COMMANDS: string[] = [RouteProjectManagement.ROUTE, RouteProjectManagement.LEGAL_ACTS];
 
   static readonly UPSERT: string = 'upsert';
+  static readonly PROJECTS_UPSERT_COMMANDS: string[] = [...RouteProjectManagement.PROJECTS_COMMANDS, RouteProjectManagement.UPSERT];
+  static readonly PROJECTS_UPSERT_ID_PARAM: string = 'projectId';
   static readonly LEGAL_ACTS_UPSERT_COMMANDS: string[] = [...RouteProjectManagement.LEGAL_ACTS_COMMANDS, RouteProjectManagement.UPSERT];
   static readonly LEGAL_ACTS_UPSERT_ID_PARAM: string = 'legalActsId';
 }

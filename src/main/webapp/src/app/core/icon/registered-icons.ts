@@ -17,6 +17,8 @@ export const REGISTERED_ICONS: IconSvgModel[] = [
   register('link'),
   register('login'),
   register('logout'),
+  register('manage_participants'),
+  register('menage_legal_acts'),
   register('password'),
   register('project_add'),
   register('project_management'),
@@ -26,7 +28,8 @@ export const REGISTERED_ICONS: IconSvgModel[] = [
   register('user_deactivate'),
   register('user_management'),
   register('visibility'),
-  register('visibility_off')
+  register('visibility_off'),
+  register('zoom_in')
 
 ];
 

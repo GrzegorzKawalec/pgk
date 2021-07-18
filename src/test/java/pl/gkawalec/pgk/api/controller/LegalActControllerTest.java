@@ -58,6 +58,25 @@ class LegalActControllerTest {
 
     @Test
     @Transactional
+    @DisplayName("Test end-point that returns all legal act information. User without the required authorities.")
+    void getAll_withoutAuthorities() throws Exception {
+        //given
+        String url = URL + LegalActController.ALL;
+        String email = "testowy_a@testowy_a";
+        String pass = "password_a";
+        Set<Authority> correctAuthorities = Set.of(Authority.PROJECT_WRITE, Authority.LEGAL_ACTS_READ, Authority.LEGAL_ACTS_WRITE);
+
+        //when
+        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
+        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
+        MockHttpServletRequestBuilder request = get(url).session(session);
+
+        //then
+        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+    }
+
+    @Test
+    @Transactional
     @DisplayName("Test end-point that returns audited legal act information. User without the required authorities.")
     void getAuditingInfo_withoutAuthorities() throws Exception {
         //given

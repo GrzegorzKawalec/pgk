@@ -55,6 +55,32 @@ export interface LegalActDTO {
     name?: string;
 }
 
+export interface ParticipantDTO {
+    projects?: ProjectBaseDTO[];
+    user?: UserDTO;
+}
+
+export interface ProjectBaseDTO {
+    dateEndStr?: string;
+    dateStartStr?: string;
+    id?: number;
+    name?: string;
+}
+
+export interface ProjectDTO extends ProjectBaseDTO {
+    active?: boolean;
+    description?: string;
+    entityVersion?: number;
+    legalActs?: LegalActDTO[];
+    participants?: UserDTO[];
+    projectManager?: UserDTO;
+}
+
+export interface ProjectDataForUpsertDTO {
+    participantsProjects?: ProjectBaseDTO[];
+    project?: ProjectDTO;
+}
+
 export interface RestExceptionDTO {
     errorUUID?: string;
     httpStatus?: number;
@@ -103,6 +129,7 @@ export interface UserCriteria extends BaseCriteria {
 }
 
 export interface UserDTO {
+    active?: boolean;
     authorities?: Authority[];
     description?: string;
     email?: string;
@@ -154,6 +181,19 @@ export enum ResponseExceptionType {
     LEGAL_ACT_LINK_EXISTS = "LEGAL_ACT_LINK_EXISTS",
     LEGAL_ACT_NAME_WITH_DATE_OF_EXISTS = "LEGAL_ACT_NAME_WITH_DATE_OF_EXISTS",
     LEGAL_ACT_NOT_FOUND = "LEGAL_ACT_NOT_FOUND",
+    PROJECT_BLANK_NAME = "PROJECT_BLANK_NAME",
+    PROJECT_BLANK_DATE_END = "PROJECT_BLANK_DATE_END",
+    PROJECT_BLANK_DATE_START = "PROJECT_BLANK_DATE_START",
+    PROJECT_BLANK_DESCRIPTION = "PROJECT_BLANK_DESCRIPTION",
+    PROJECT_BLANK_ID = "PROJECT_BLANK_ID",
+    PROJECT_BLANK_LEGAL_ACTS = "PROJECT_BLANK_LEGAL_ACTS",
+    PROJECT_BLANK_PARTICIPANTS = "PROJECT_BLANK_PARTICIPANTS",
+    PROJECT_BLANK_PROJECT_MANAGER = "PROJECT_BLANK_PROJECT_MANAGER",
+    PROJECT_DATE_START_IS_BEFORE_END = "PROJECT_DATE_START_IS_BEFORE_END",
+    PROJECT_INCORRECT_LEGAL_ACTS = "PROJECT_INCORRECT_LEGAL_ACTS",
+    PROJECT_INCORRECT_PARTICIPANTS = "PROJECT_INCORRECT_PARTICIPANTS",
+    PROJECT_INCORRECT_PROJECT_MANAGER = "PROJECT_INCORRECT_PROJECT_MANAGER",
+    PROJECT_NOT_FOUND = "PROJECT_NOT_FOUND",
     ROLE_BLANK_ID = "ROLE_BLANK_ID",
     ROLE_BLANK_NAME = "ROLE_BLANK_NAME",
     ROLE_CANNOT_DELETE_ADMIN = "ROLE_CANNOT_DELETE_ADMIN",

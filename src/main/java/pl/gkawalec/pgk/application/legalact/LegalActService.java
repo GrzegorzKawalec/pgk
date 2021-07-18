@@ -17,7 +17,9 @@ import pl.gkawalec.pgk.database.legalact.LegalActRepository;
 import pl.gkawalec.pgk.database.legalact.LegalActSpecification;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +34,12 @@ public class LegalActService {
     public LegalActDTO findById(Long legalActId) {
         LegalActEntity legalActEntity = findEntityById(legalActId);
         return LegalActDTO.of(legalActEntity);
+    }
+
+    public List<LegalActDTO> getAll() {
+        return legalActRepository.findAll().stream()
+                .map(LegalActDTO::of)
+                .collect(Collectors.toList());
     }
 
     @Transactional

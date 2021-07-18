@@ -6,7 +6,7 @@
     <ng-content></ng-content>
   </form>
 
-  <button mat-raised-button color="primary" (click)="clickSave()" [disabled]="loading || !formGroup.valid">
+  <button mat-raised-button color="primary" (click)="clickSave()" [disabled]="disableSave || loading || !formGroup.valid">
     {{'common.save' | translate}}
   </button>
 

@@ -3,6 +3,7 @@ package pl.gkawalec.pgk.database.legalact;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 import org.hibernate.envers.Audited;
 import pl.gkawalec.pgk.common.util.StringUtil;
 import pl.gkawalec.pgk.infrastructure.audit.database.AuditingEntity;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 @Getter
 @Entity
 @Audited
+@FieldNameConstants
 @Setter(AccessLevel.PACKAGE)
 @Table(
         name = "pgk_legal_act",

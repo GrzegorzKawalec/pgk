@@ -15,6 +15,8 @@ export class UpsertFormComponent implements OnChanges {
   @Input() loading: boolean;
   @Output() loadingChange: EventEmitter<boolean> = new EventEmitter();
 
+  @Input() disableSave: boolean = false;
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('loading')) {
       this.changeLoadingState(changes.loading.currentValue);
@@ -22,7 +24,7 @@ export class UpsertFormComponent implements OnChanges {
   }
 
   clickSave(): void {
-    if (this.loading || !this.formGroup.valid) {
+    if (this.disableSave || this.loading || !this.formGroup.valid) {
       return;
     }
     this.changeLoadingState(true);

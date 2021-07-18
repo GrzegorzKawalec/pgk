@@ -12,14 +12,17 @@ import pl.gkawalec.pgk.common.annotation.security.AuthGuard;
 import pl.gkawalec.pgk.common.type.Authority;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(AppSetting.API_PREFIX + LegalActController.URL)
 public class LegalActController {
 
     public static final String URL = "/legal-act";
-    public static final String AUDITING_INFO = "/auditing-info";
     public static final String ACTIVATE = "/activate";
+    public static final String ALL = "/all";
+    public static final String AUDITING_INFO = "/auditing-info";
     public static final String DEACTIVATE = "/deactivate";
     public static final String FIND = "/find";
 
@@ -29,6 +32,12 @@ public class LegalActController {
     @AuthGuard({Authority.LEGAL_ACTS_READ, Authority.LEGAL_ACTS_WRITE})
     public LegalActDTO findById(@PathVariable("id") Long legalActId) {
         return legalActService.findById(legalActId);
+    }
+
+    @GetMapping(ALL)
+    @AuthGuard({Authority.PROJECT_WRITE, Authority.LEGAL_ACTS_READ, Authority.LEGAL_ACTS_WRITE})
+    public List<LegalActDTO> getAll() {
+        return legalActService.getAll();
     }
 
     @PostMapping

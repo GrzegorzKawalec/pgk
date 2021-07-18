@@ -19,6 +19,10 @@ export class LegalActService {
     return this.http.get(LegalActAPI.url + '/' + legalActId);
   }
 
+  getAll(): Observable<LegalActDTO[]> {
+    return this.http.get<LegalActDTO[]>(LegalActAPI.all);
+  }
+
   create(dto: LegalActDTO): Observable<LegalActDTO> {
     return this.http.post(LegalActAPI.url, dto);
   }

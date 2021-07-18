@@ -1,0 +1,58 @@
+<div *ngIf="!loading; else loader">
+
+  <mat-form-field class="filter-text-container">
+    <mat-label>{{prefixTranslateMessage + 'filter-participant' | translate}}</mat-label>
+    <input matInput type="text" name="pgk-manage-participants-modal" autocomplete="off" autofocus (keyup)="applyTextFilter($event)">
+    <button *ngIf="filterText" matSuffix mat-icon-button (click)="applyTextFilter(null)">
+      <mat-icon svgIcon="clear"></mat-icon>
+    </button>
+  </mat-form-field>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="row-filter-container">
+    <mat-checkbox [checked]="filterOnlyNonOverlappingProjects" (change)="applyOnlyNonOverlappingProjectsFilter($event)">
+      {{prefixTranslateMessage + 'only-non-overlapping-projects' | translate}}
+    </mat-checkbox>
+    <mat-checkbox [checked]="filterOnlyActiveParticipants" (change)="applyOnlyActiveParticipantsFilter($event)">
+      {{prefixTranslateMessage + 'only-active-user' | translate}}
+    </mat-checkbox>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="row-filter-container">
+    <mat-checkbox [checked]="filterOnlySelectedParticipants" (change)="applyOnlySelectedParticipantsFilter($event)">
+      {{prefixTranslateMessage + 'only-selected-participants' | translate}}
+    </mat-checkbox>
+    <button mat-stroked-button color="accent" (click)="clickUnselect()">
+      {{prefixTranslateMessage + 'unselect-selected-participants' | translate}}
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="list-container">
+    <mat-selection-list (selectionChange)="listSelectionChanged($event)" [(ngModel)]="selectedParticipants" #participantList>
+      <mat-list-option *ngFor="let participant of participantsForView" [selected]="participant.initialSelected" [value]="participant"
+                       [disabled]="!participant.user.active && !participant.initialSelected">
+        <p class="list-row-container" [style.opacity]="!participant.user.active && '0.5'"
+           [ngClass]="participant.user.active && participant.hasOverlappingDates && 'pgk-warning'">
+          <span [matTooltip]="getTooltipForParticipant(participant)" fxFlex="grow">
+            {{participant.user.lastName}} {{participant.user.firstName}}
+          </span>
+          <span class="overlapping-icon-container" (click)="clickShowOverlappingProjects(participant)"
+                matTooltip="{{prefixTranslateMessage + 'show-overlapping-projects' | translate}}"
+                [style.visibility]="participant.user.active && !participant.hasOverlappingDates && 'hidden'">
+            <mat-icon svgIcon="zoom_in" class="overlapping-icon"></mat-icon>
+          </span>
+        </p>
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+
+  <button mat-raised-button [color]="getColorConfirmButton()" class="confirm-button" (click)="clickConfirm()">
+    {{prefixTranslateMessage + 'confirm-selected-participants' | translate: {amount: selectedParticipants.length} }}
+  </button>
+
+</div>
+
+<ng-template #loader>
+  <pgk-loader></pgk-loader>
+</ng-template>

@@ -14,9 +14,16 @@ export class InfoAPI {
 export class LegalActAPI {
   static readonly url: string = PREFIX + '/legal-act';
   static readonly activate: string = LegalActAPI.url + '/activate';
+  static readonly all: string = LegalActAPI.url + '/all';
   static readonly auditingInfo: string = LegalActAPI.url + '/auditing-info';
   static readonly deactivate: string = LegalActAPI.url + '/deactivate';
   static readonly find: string = LegalActAPI.url + '/find';
+}
+
+export class ProjectAPI {
+  static readonly url: string = PREFIX + '/project';
+  static readonly dataForUpsert: string = ProjectAPI.url + '/data-for-upsert';
+  static readonly participants: string = ProjectAPI.url + '/participants';
 }
 
 export class RoleAPI {

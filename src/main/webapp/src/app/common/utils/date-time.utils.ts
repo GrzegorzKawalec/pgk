@@ -66,4 +66,30 @@ export class DateTimeUtils {
     return prefix + val;
   }
 
+  static isAfterDate(isAfterDate: Date, baseDate: Date): boolean {
+    return DateTimeUtils.convertDateForCompare(isAfterDate) > DateTimeUtils.convertDateForCompare(baseDate);
+  }
+
+  static isAfterOrEqualsDate(isAfterOrEqualsDate: Date, baseDate: Date): boolean {
+    return DateTimeUtils.convertDateForCompare(isAfterOrEqualsDate) >= DateTimeUtils.convertDateForCompare(baseDate);
+  }
+
+  static isBeforeDate(isBeforeDate: Date, baseDate: Date): boolean {
+    return DateTimeUtils.convertDateForCompare(isBeforeDate) < DateTimeUtils.convertDateForCompare(baseDate);
+  }
+
+  static isBeforeOrEqualsDate(isBeforeOrEqualsDate: Date, baseDate: Date): boolean {
+    return DateTimeUtils.convertDateForCompare(isBeforeOrEqualsDate) <= DateTimeUtils.convertDateForCompare(baseDate);
+  }
+
+  static isEqualsDate(date1: Date, date2: Date): boolean {
+    return DateTimeUtils.convertDateForCompare(date1) == DateTimeUtils.convertDateForCompare(date2);
+  }
+
+  private static convertDateForCompare(date: Date): string {
+    const dateStr: string = DateTimeUtils.dateToString(date);
+    const dateSplit: string[] = dateStr.split(DateTimeUtils.DATE_SEPARATOR);
+    return dateSplit[2] + '.' + dateSplit[1] + '.' + dateSplit[0];
+  }
+
 }

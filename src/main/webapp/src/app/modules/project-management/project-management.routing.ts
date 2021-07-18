@@ -5,6 +5,7 @@ import {RouteProjectManagement} from '../../common/const/routes';
 import {AuthGuard} from '../../core/auth/auth.guard';
 import {LegalActsUpsertComponent} from './components/legal-acts/legal-acts-upsert/legal-acts-upsert.component';
 import {ProjectManagementComponent} from './components/project-management.component';
+import {ProjectUpsertComponent} from './components/projects/project-upsert/project-upsert.component';
 
 const routes: Routes = [
   {
@@ -17,8 +18,27 @@ const routes: Routes = [
       },
       {
         path: RouteProjectManagement.PROJECTS,
-        component: ProjectManagementComponent,
-        canActivate: [AuthGuard]
+        children: [
+          {
+            path: '',
+            component: ProjectManagementComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: RouteProjectManagement.UPSERT,
+            data: {authorities: [Authority.PROJECT_WRITE]},
+            children: [
+              {
+                path: '',
+                component: ProjectUpsertComponent
+              },
+              {
+                path: ':' + RouteProjectManagement.PROJECTS_UPSERT_ID_PARAM,
+                component: ProjectUpsertComponent
+              }
+            ]
+          }
+        ]
       },
       {
         path: RouteProjectManagement.LEGAL_ACTS,

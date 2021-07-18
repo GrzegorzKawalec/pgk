@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 import {Authority} from '../../../../common/api/api-models';
+import {RouteProjectManagement} from '../../../../common/const/routes';
 
 @Component({
   selector: 'pgk-projects',
@@ -12,8 +14,13 @@ export class ProjectsComponent {
 
   readonly prefixTranslateMessage: string = 'project-management.projects.';
 
-  clickAddProject(): void {
+  constructor(
+    private router: Router
+  ) {
+  }
 
+  clickAddProject(): void {
+    this.router.navigate(RouteProjectManagement.PROJECTS_UPSERT_COMMANDS);
   }
 
 }
