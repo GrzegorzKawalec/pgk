@@ -23,7 +23,10 @@ export class LegalActAPI {
 export class ProjectAPI {
   static readonly url: string = PREFIX + '/project';
   static readonly dataForUpsert: string = ProjectAPI.url + '/data-for-upsert';
+  static readonly find: string = ProjectAPI.url + '/find';
   static readonly participants: string = ProjectAPI.url + '/participants';
+  static readonly selectLegalActs: string = ProjectAPI.url + '/select-legal-acts';
+  static readonly selectParticipants: string = ProjectAPI.url + '/select-participants';
 }
 
 export class RoleAPI {

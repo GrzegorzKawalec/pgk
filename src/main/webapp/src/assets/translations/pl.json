@@ -176,7 +176,18 @@
       }
     },
     "projects": {
-      "add": "Dodaj projekt"
+      "add": "Dodaj projekt",
+      "date-of": "Obowiązuje od: {{dateOf}}",
+      "inactive": "Nieaktywne",
+      "search-project-by": "Wpisz nazwę projektu lub jego opis",
+      "select-legal-act": "Wybierz akt prawny",
+      "select-participant": "Wybierz uczestnika",
+      "columns": {
+        "date-start": "Data rozpoczęcia",
+        "date-end": "Data zakończenia",
+        "project-manager": "Kierownik",
+        "name": "Nazwa projektu"
+      }
     },
     "projects-upsert": {
       "confirm-selected-legal-acts": "Potwierdź wybór, akty prawne: {{amount}}",

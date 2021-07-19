@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import pl.gkawalec.pgk.api.dto.common.SelectDTO;
 import pl.gkawalec.pgk.api.dto.common.auditing.AuditingInfoDTO;
 import pl.gkawalec.pgk.api.dto.legalact.LegalActAuditingDTO;
 import pl.gkawalec.pgk.api.dto.legalact.LegalActCriteria;
@@ -39,6 +40,12 @@ public class LegalActService {
     public List<LegalActDTO> getAll() {
         return legalActRepository.findAll().stream()
                 .map(LegalActDTO::of)
+                .collect(Collectors.toList());
+    }
+
+    public List<SelectDTO> getSelectLegalActs() {
+        return legalActRepository.findAllByIsActiveTrue().stream()
+                .map(SelectDTO::of)
                 .collect(Collectors.toList());
     }
 

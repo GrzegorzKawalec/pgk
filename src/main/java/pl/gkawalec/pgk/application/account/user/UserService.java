@@ -5,16 +5,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.gkawalec.pgk.api.dto.account.user.*;
+import pl.gkawalec.pgk.api.dto.common.SelectDTO;
 import pl.gkawalec.pgk.api.dto.common.auditing.AuditingInfoDTO;
 import pl.gkawalec.pgk.common.auditing.AuditingMapper;
 import pl.gkawalec.pgk.common.exception.response.ResponseException;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
+import pl.gkawalec.pgk.common.util.UserUtil;
 import pl.gkawalec.pgk.database.account.role.RoleEntity;
 import pl.gkawalec.pgk.database.account.role.RoleRepository;
 import pl.gkawalec.pgk.database.account.user.*;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +41,13 @@ public class UserService {
     public UserUpsertDTO findUpsertById(Integer userId) {
         UserEntity userEntity = findUserEntityById(userId);
         return prepareUserUpsertDTO(userEntity);
+    }
+
+    public List<SelectDTO> getSelectedUsers() {
+        return userRepository.findAllByIsActiveTrue().stream()
+                .filter(UserUtil::isInternalUser)
+                .map(SelectDTO::of)
+                .collect(Collectors.toList());
     }
 
     @Transactional

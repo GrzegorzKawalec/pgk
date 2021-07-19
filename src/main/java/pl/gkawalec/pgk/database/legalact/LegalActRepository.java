@@ -5,6 +5,7 @@ import org.springframework.data.repository.query.Param;
 import pl.gkawalec.pgk.common.jpa.BaseNumberIDRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface LegalActRepository extends BaseNumberIDRepository<LegalActEntity> {
 
@@ -28,5 +29,7 @@ public interface LegalActRepository extends BaseNumberIDRepository<LegalActEntit
     boolean existsByLinkIgnoreCase(String link);
 
     boolean existsByLinkIgnoreCaseAndIdNot(String link, Long excludedId);
+
+    List<LegalActEntity> findAllByIsActiveTrue();
 
 }

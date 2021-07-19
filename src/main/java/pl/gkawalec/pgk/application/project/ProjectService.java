@@ -1,8 +1,11 @@
 package pl.gkawalec.pgk.application.project;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.gkawalec.pgk.api.dto.project.ParticipantDTO;
+import pl.gkawalec.pgk.api.dto.project.ProjectCriteria;
 import pl.gkawalec.pgk.api.dto.project.ProjectDTO;
 import pl.gkawalec.pgk.api.dto.project.ProjectDataForUpsertDTO;
 import pl.gkawalec.pgk.common.exception.response.ResponseException;
@@ -15,9 +18,11 @@ import pl.gkawalec.pgk.database.legalact.LegalActEntity;
 import pl.gkawalec.pgk.database.project.ProjectEntity;
 import pl.gkawalec.pgk.database.project.ProjectMapper;
 import pl.gkawalec.pgk.database.project.ProjectRepository;
+import pl.gkawalec.pgk.database.project.ProjectSpecification;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -37,6 +42,15 @@ public class ProjectService {
                 .filter(UserUtil::isInternalUser)
                 .map(ParticipantDTO::of)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public Page<ProjectDTO> find(ProjectCriteria criteria) {
+        criteria = Objects.nonNull(criteria) ? criteria : new ProjectCriteria();
+        ProjectSpecification specification = new ProjectSpecification(criteria);
+        PageRequest pageRequest = criteria.getSearchPage().toPageRequest();
+        return projectRepository.findAll(specification, pageRequest)
+                .map(ProjectDTO::of);
     }
 
     @Transactional

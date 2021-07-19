@@ -67,6 +67,14 @@ export interface ProjectBaseDTO {
     name?: string;
 }
 
+export interface ProjectCriteria extends BaseCriteria {
+    isActive?: boolean;
+    legalActId?: number;
+    orderBy?: ProjectOrderByType;
+    orderDirection?: Direction;
+    participantId?: number;
+}
+
 export interface ProjectDTO extends ProjectBaseDTO {
     active?: boolean;
     description?: string;
@@ -109,6 +117,12 @@ export interface SearchPageDTO {
     sorting?: SortDTO[];
 }
 
+export interface SelectDTO {
+    additionalInfo?: string;
+    id?: number;
+    value?: string;
+}
+
 export interface SortDTO {
     direction?: Direction;
     property?: string;
@@ -125,6 +139,8 @@ export interface UserChangePasswordDTO {
 
 export interface UserCriteria extends BaseCriteria {
     isActive?: boolean;
+    orderByRole?: boolean;
+    orderByRoleAsc?: boolean;
     roleIds?: number[];
 }
 
@@ -167,6 +183,13 @@ export enum Authority {
 export enum Direction {
     ASC = "ASC",
     DESC = "DESC",
+}
+
+export enum ProjectOrderByType {
+    name = "name",
+    dateStart = "dateStart",
+    dateEnd = "dateEnd",
+    projectManager = "projectManager",
 }
 
 export enum ResponseExceptionType {
