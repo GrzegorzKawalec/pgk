@@ -3,7 +3,7 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatSort} from '@angular/material/sort';
+import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
@@ -65,7 +65,7 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
     private authHelper: AuthHelper,
     private legalActService: LegalActService,
     private translateService: TranslateService,
-    private paginatorService: PaginatorService,
+    private paginatorService: PaginatorService
   ) {
     super();
   }
@@ -178,10 +178,26 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
   private subscribeSort(): void {
     this.sort.sortChange
       .pipe(takeUntil(this.destroy$))
-      .subscribe((sort) => {
-        this.criteria.searchPage.sorting[0].direction = DirectionMapper.map(sort.direction);
+      .subscribe((sort: Sort) => {
+        const sortProperty: string = this.mapSortProperty(sort);
+        if (!sortProperty) {
+          this.criteria.searchPage.sorting = null;
+        } else {
+          this.criteria.searchPage.sorting[0].direction = DirectionMapper.map(sort.direction);
+          this.criteria.searchPage.sorting[0].property = sortProperty;
+        }
         this.searchLegalAct();
       });
+  }
+
+  private mapSortProperty(sort: Sort): string {
+    if (!sort || !sort.active) {
+      return null;
+    }
+    if (sort.active === this.clnDateOf) {
+      return 'dateOf';
+    }
+    return sort.active;
   }
 
   private subscribePaginator(): void {

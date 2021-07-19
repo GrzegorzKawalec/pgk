@@ -33,7 +33,7 @@ public record UserSpecification(UserCriteria criteria) implements Specification<
             predicates.add(or);
         }
 
-        criteriaQuery.distinct(true);
+        setOrderByRole(root, criteriaQuery, criteriaBuilder);
         return PredicateUtil.togetherAnd(predicates, criteriaBuilder);
     }
 
@@ -78,6 +78,17 @@ public record UserSpecification(UserCriteria criteria) implements Specification<
                 .get(RoleEntity_.id)
                 .in(criteria.getRoleIds());
         predicates.add(inRoleIds);
+    }
+
+    private void setOrderByRole(Root<UserSearchEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+        if (!criteria.getOrderByRole()) {
+            return;
+        }
+        Path<String> roleNamePath = root.join(UserSearchEntity_.credentials)
+                .join(UserCredentialsEntity_.role)
+                .get(RoleEntity_.name);
+        Order order = criteria.getOrderByRoleAsc() ? criteriaBuilder.asc(roleNamePath) : criteriaBuilder.desc(roleNamePath);
+        criteriaQuery.orderBy(order);
     }
 
 }

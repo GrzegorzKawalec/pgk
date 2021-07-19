@@ -4,13 +4,13 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSelectChange} from '@angular/material/select';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatSort} from '@angular/material/sort';
+import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 import {debounceTime, finalize, takeUntil} from 'rxjs/operators';
-import {Authority, RoleDTO, UserCriteria, UserDTO, UserSearchDTO} from '../../../../common/api/api-models';
+import {Authority, Direction, RoleDTO, UserCriteria, UserDTO, UserSearchDTO} from '../../../../common/api/api-models';
 import {Page} from '../../../../common/api/api-pagination.models';
 import {BaseComponent} from '../../../../common/components/base.component';
 import {ModalConfirmComponent} from '../../../../common/components/modal-confirm/modal-confirm.component';
@@ -223,9 +223,40 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
     this.sort.sortChange
       .pipe(takeUntil(this.destroy$))
       .subscribe((sort) => {
-        this.criteria.searchPage.sorting[0].direction = DirectionMapper.map(sort.direction);
+        const sortProperty: string = this.mapSortProperty(sort);
+        if (!sortProperty) {
+          this.criteria.searchPage.sorting = null;
+          if (sort.active === this.clnRole) {
+            this.criteria.orderByRole = true;
+            const orderBy: Direction = DirectionMapper.map(sort.direction);
+            this.criteria.orderByRoleAsc = Direction.ASC === orderBy;
+          }
+        } else {
+          this.criteria.searchPage.sorting[0].direction = DirectionMapper.map(sort.direction);
+          this.criteria.searchPage.sorting[0].property = sortProperty;
+          this.criteria.orderByRole = false;
+        }
         this.searchUser();
       });
+  }
+
+  private mapSortProperty(sort: Sort): string {
+    if (!sort || !sort.active) {
+      return null;
+    }
+    if (sort.active === this.clnFirstName) {
+      return 'firstName';
+    }
+    if (sort.active === this.clnLastName) {
+      return 'lastName';
+    }
+    if (sort.active === this.clnPhoneNumber) {
+      return 'phoneNumber';
+    }
+    if (sort.active === this.clnRole) {
+      return null;
+    }
+    return sort.active;
   }
 
   private subscribePaginator(): void {

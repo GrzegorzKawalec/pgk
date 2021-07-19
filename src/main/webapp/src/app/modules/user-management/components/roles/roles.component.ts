@@ -3,7 +3,7 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSelectChange} from '@angular/material/select';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatSort} from '@angular/material/sort';
+import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
@@ -160,10 +160,23 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
   private subscribeSort(): void {
     this.sort.sortChange
       .pipe(takeUntil(this.destroy$))
-      .subscribe((sort) => {
-        this.criteria.searchPage.sorting[0].direction = DirectionMapper.map(sort.direction);
+      .subscribe((sort: Sort) => {
+        const sortProperty: string = this.mapSortProperty(sort);
+        if (!sortProperty) {
+          this.criteria.searchPage.sorting = null;
+        } else {
+          this.criteria.searchPage.sorting[0].direction = DirectionMapper.map(sort.direction);
+          this.criteria.searchPage.sorting[0].property = sortProperty;
+        }
         this.searchRole();
       });
+  }
+
+  private mapSortProperty(sort: Sort): string {
+    if (!sort || !sort.active) {
+      return null;
+    }
+    return sort.active;
   }
 
   private subscribePaginator(): void {
