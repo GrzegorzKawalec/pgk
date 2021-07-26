@@ -266,16 +266,16 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
   private deactivateLegalAct(legalActId: number): void {
     this.loading = true;
     this.legalActService.deactivate(legalActId)
-      .subscribe(() => this.showSnackBarAfterChangeUserStatus('common.deactivated'));
+      .subscribe(() => this.showSnackBarAfterChangeLegalActStatus('common.deactivated'));
   }
 
   private activateLegalAct(legalActId: number): void {
     this.loading = true;
     this.legalActService.activate(legalActId)
-      .subscribe(() => this.showSnackBarAfterChangeUserStatus('common.activated'));
+      .subscribe(() => this.showSnackBarAfterChangeLegalActStatus('common.activated'));
   }
 
-  private showSnackBarAfterChangeUserStatus(messageKey: string): void {
+  private showSnackBarAfterChangeLegalActStatus(messageKey: string): void {
     const message: string = this.translateService.instant(messageKey);
     this.snackBar.open(message, 'OK', {duration: 2000});
     this.searchLegalAct();
