@@ -3,9 +3,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {Authority} from '../../common/api/api-models';
 import {RouteUserManagement} from '../../common/const/routes';
 import {AuthGuard} from '../../core/auth/auth.guard';
-import {RoleUpsertComponent} from './user-management/roles/role-upsert/role-upsert.component';
-import {UserManagementComponent} from './user-management/user-management.component';
-import {UserUpsertComponent} from './user-management/users/user-upsert/user-upsert.component';
+import {RoleUpsertComponent} from './components/roles/role-upsert/role-upsert.component';
+import {UserManagementComponent} from './components/user-management.component';
+import {UserUpsertComponent} from './components/users/user-upsert/user-upsert.component';
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'users',
+        redirectTo: RouteUserManagement.USERS,
         pathMatch: 'full'
       },
       {

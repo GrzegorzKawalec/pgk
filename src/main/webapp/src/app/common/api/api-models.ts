@@ -35,6 +35,64 @@ export interface InfoBasicDTO {
     version?: string;
 }
 
+export interface LegalActAuditingDTO extends AuditingDTO<LegalActDTO> {
+    dto?: LegalActDTO;
+}
+
+export interface LegalActCriteria extends BaseCriteria {
+    dateOfGreaterThanOrEqual?: string;
+    dateOfLessThanOrEqual?: string;
+    isActive?: boolean;
+}
+
+export interface LegalActDTO {
+    active?: boolean;
+    dateOfStr?: string;
+    description?: string;
+    entityVersion?: number;
+    id?: number;
+    link?: string;
+    name?: string;
+}
+
+export interface ParticipantDTO {
+    projects?: ProjectBaseDTO[];
+    user?: UserDTO;
+}
+
+export interface ProjectAuditingDTO extends AuditingDTO<ProjectDTO> {
+    dto?: ProjectDTO;
+}
+
+export interface ProjectBaseDTO {
+    dateEndStr?: string;
+    dateStartStr?: string;
+    id?: number;
+    name?: string;
+}
+
+export interface ProjectCriteria extends BaseCriteria {
+    isActive?: boolean;
+    legalActId?: number;
+    orderBy?: ProjectOrderByType;
+    orderDirection?: Direction;
+    participantId?: number;
+}
+
+export interface ProjectDTO extends ProjectBaseDTO {
+    active?: boolean;
+    description?: string;
+    entityVersion?: number;
+    legalActs?: LegalActDTO[];
+    participants?: UserDTO[];
+    projectManager?: UserDTO;
+}
+
+export interface ProjectDataForUpsertDTO {
+    participantsProjects?: ProjectBaseDTO[];
+    project?: ProjectDTO;
+}
+
 export interface RestExceptionDTO {
     errorUUID?: string;
     httpStatus?: number;
@@ -63,6 +121,12 @@ export interface SearchPageDTO {
     sorting?: SortDTO[];
 }
 
+export interface SelectDTO {
+    additionalInfo?: string;
+    id?: number;
+    value?: string;
+}
+
 export interface SortDTO {
     direction?: Direction;
     property?: string;
@@ -79,10 +143,13 @@ export interface UserChangePasswordDTO {
 
 export interface UserCriteria extends BaseCriteria {
     isActive?: boolean;
+    orderByRole?: boolean;
+    orderByRoleAsc?: boolean;
     roleIds?: number[];
 }
 
 export interface UserDTO {
+    active?: boolean;
     authorities?: Authority[];
     description?: string;
     email?: string;
@@ -107,6 +174,10 @@ export interface UserUpsertDTO {
 export enum Authority {
     ADMIN = "ADMIN",
     GUEST = "GUEST",
+    LEGAL_ACTS_READ = "LEGAL_ACTS_READ",
+    LEGAL_ACTS_WRITE = "LEGAL_ACTS_WRITE",
+    PROJECT_READ = "PROJECT_READ",
+    PROJECT_WRITE = "PROJECT_WRITE",
     ROLE_READ = "ROLE_READ",
     ROLE_WRITE = "ROLE_WRITE",
     USER_READ = "USER_READ",
@@ -118,11 +189,38 @@ export enum Direction {
     DESC = "DESC",
 }
 
+export enum ProjectOrderByType {
+    name = "name",
+    dateStart = "dateStart",
+    dateEnd = "dateEnd",
+    projectManager = "projectManager",
+}
+
 export enum ResponseExceptionType {
     ACCESS_DENIED = "ACCESS_DENIED",
     DATA_WAS_UPDATED_EARLIER = "DATA_WAS_UPDATED_EARLIER",
     UNEXPECTED = "UNEXPECTED",
     EMPTY_DATA = "EMPTY_DATA",
+    LEGAL_ACT_BLANK_NAME = "LEGAL_ACT_BLANK_NAME",
+    LEGAL_ACT_BLANK_DATE_OF = "LEGAL_ACT_BLANK_DATE_OF",
+    LEGAL_ACT_BLANK_ID = "LEGAL_ACT_BLANK_ID",
+    LEGAL_ACT_BLANK_LINK = "LEGAL_ACT_BLANK_LINK",
+    LEGAL_ACT_LINK_EXISTS = "LEGAL_ACT_LINK_EXISTS",
+    LEGAL_ACT_NAME_WITH_DATE_OF_EXISTS = "LEGAL_ACT_NAME_WITH_DATE_OF_EXISTS",
+    LEGAL_ACT_NOT_FOUND = "LEGAL_ACT_NOT_FOUND",
+    PROJECT_BLANK_NAME = "PROJECT_BLANK_NAME",
+    PROJECT_BLANK_DATE_END = "PROJECT_BLANK_DATE_END",
+    PROJECT_BLANK_DATE_START = "PROJECT_BLANK_DATE_START",
+    PROJECT_BLANK_DESCRIPTION = "PROJECT_BLANK_DESCRIPTION",
+    PROJECT_BLANK_ID = "PROJECT_BLANK_ID",
+    PROJECT_BLANK_LEGAL_ACTS = "PROJECT_BLANK_LEGAL_ACTS",
+    PROJECT_BLANK_PARTICIPANTS = "PROJECT_BLANK_PARTICIPANTS",
+    PROJECT_BLANK_PROJECT_MANAGER = "PROJECT_BLANK_PROJECT_MANAGER",
+    PROJECT_DATE_START_IS_BEFORE_END = "PROJECT_DATE_START_IS_BEFORE_END",
+    PROJECT_INCORRECT_LEGAL_ACTS = "PROJECT_INCORRECT_LEGAL_ACTS",
+    PROJECT_INCORRECT_PARTICIPANTS = "PROJECT_INCORRECT_PARTICIPANTS",
+    PROJECT_INCORRECT_PROJECT_MANAGER = "PROJECT_INCORRECT_PROJECT_MANAGER",
+    PROJECT_NOT_FOUND = "PROJECT_NOT_FOUND",
     ROLE_BLANK_ID = "ROLE_BLANK_ID",
     ROLE_BLANK_NAME = "ROLE_BLANK_NAME",
     ROLE_CANNOT_DELETE_ADMIN = "ROLE_CANNOT_DELETE_ADMIN",

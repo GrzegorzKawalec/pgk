@@ -38,11 +38,11 @@ public class RoleEntity extends AuditingEntity {
     )
     private List<AuthorityEntity> authorities = new ArrayList<>();
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = StringUtil.trimAndRemoveMultipleWhiteSpace(name);
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = StringUtil.trim(description);
     }
 

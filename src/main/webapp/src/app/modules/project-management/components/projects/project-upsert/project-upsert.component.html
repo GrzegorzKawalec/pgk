@@ -1,0 +1,94 @@
+<pgk-upsert-form [(loading)]="loading" [formGroup]="form" (clickSaveEvent)="clickSave()"
+                 [disableSave]="selectedParticipants.length < 1">
+
+  <mat-form-field>
+    <mat-label>{{prefixTranslateMessage + 'name' | translate}}</mat-label>
+    <input matInput formControlName="{{ctrlName}}" name="pgk-project-upsert-name" autocomplete="off" required
+           placeholder="{{prefixTranslateMessage + 'name-placeholder' | translate}}">
+    <mat-error *ngIf="form.get(ctrlName).hasError('requiredTrim')">
+      {{prefixTranslateMessage + 'invalid-form.empty-name' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{prefixTranslateMessage + 'date-start' | translate}}</mat-label>
+    <input matInput formControlName="{{ctrlDateStart}}" [matDatepicker]="dateStartPicker" readonly required
+           [(ngModel)]="dateStart" (ngModelChange)="dateChanged()" [max]="dateEnd"
+           (click)="dateStartPicker.open()" style="cursor: pointer" name="pgk-project-upsert-date-start">
+    <mat-datepicker-toggle matSuffix [for]="dateStartPicker"></mat-datepicker-toggle>
+    <mat-datepicker #dateStartPicker [touchUi]="true"></mat-datepicker>
+    <mat-error *ngIf="form.get(ctrlDateStart).hasError('required')">
+      {{prefixTranslateMessage + 'invalid-form.empty-date-start' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{prefixTranslateMessage + 'date-end' | translate}}</mat-label>
+    <input matInput formControlName="{{ctrlDateEnd}}" [matDatepicker]="dateEndPicker" readonly required
+           [(ngModel)]="dateEnd" (ngModelChange)="dateChanged()" [min]="dateStart"
+           (click)="dateEndPicker.open()" style="cursor: pointer" name="pgk-project-upsert-date-end">
+    <mat-datepicker-toggle matSuffix [for]="dateEndPicker"></mat-datepicker-toggle>
+    <mat-datepicker #dateEndPicker [touchUi]="true"></mat-datepicker>
+    <mat-error *ngIf="form.get(ctrlDateEnd).hasError('required')">
+      {{prefixTranslateMessage + 'invalid-form.empty-date-end' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="custom-selected-row">
+    <div fxLayoutAlign="center center">
+      {{prefixTranslateMessage + 'number-selected-participants' | translate}}:
+      <span [ngClass]="(selectedParticipants.length < 1 && 'pgk-error') || (selectedParticipantsHasOverlappingProject && 'pgk-warning')">
+        &nbsp;{{selectedParticipants.length}}
+      </span>
+      <span *ngIf="selectedParticipants.length < 1" class="pgk-error">&nbsp;*</span>
+    </div>
+    <button mat-icon-button
+            (click)="clickManageParticipants()"
+            [matTooltip]="getManageParticipantButtonTooltip()"
+            [color]="getManageParticipantButtonColor()"
+            class="manage-participants-button" [ngClass]="datesAreSet() ? 'enabled': 'disabled'" [disableRipple]="!datesAreSet()">
+      <mat-icon svgIcon="manage_participants" class="manage-participant-icon"
+                [ngClass]="selectedParticipantsHasOverlappingProject && 'pgk-warning'"></mat-icon>
+    </button>
+  </div>
+
+  <mat-form-field>
+    <mat-label>{{prefixTranslateMessage + 'project-manager' | translate}}</mat-label>
+    <mat-select formControlName="{{ctrlProjectManager}}" [disabled]="selectedParticipants.length < 1"
+                matTooltip="{{prefixTranslateMessage + 'project-manager-need-participants' | translate}}"
+                [matTooltipDisabled]="selectedParticipants.length > 0">
+      <mat-option *ngFor="let participant of selectedParticipants" [value]="participant"
+                  [matTooltip]="participant.email" [matTooltipPosition]="'before'">
+        {{participant.lastName}} {{participant.firstName}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get(ctrlProjectManager).hasError('required')">
+      {{prefixTranslateMessage + 'invalid-form.empty-project-manager' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="custom-selected-row">
+    <div fxLayoutAlign="center center">
+      {{prefixTranslateMessage + 'number-selected-legal-acts' | translate}}:
+      <span [ngClass]="selectedLegalActs.length < 1 && 'pgk-error'">&nbsp;{{selectedLegalActs.length}}</span>
+      <span *ngIf="selectedLegalActs.length < 1" class="pgk-error">&nbsp;*</span>
+    </div>
+    <button mat-icon-button
+            (click)="clickManageLegalActs()"
+            [color]="getManageLegalActsButtonColor()"
+            matTooltip="{{prefixTranslateMessage + 'manage-legal-acts' | translate}}"
+            class="manage-participants-button">
+      <mat-icon svgIcon="menage_legal_acts"></mat-icon>
+    </button>
+  </div>
+
+  <mat-form-field>
+    <mat-label>{{'common.description' | translate}}</mat-label>
+    <textarea matInput formControlName="{{ctrlDescription}}" rows="5" name="pgk-legal-acts-upsert-description" required
+              placeholder="{{prefixTranslateMessage + 'description-placeholder' | translate}}"></textarea>
+    <mat-error *ngIf="form.get(ctrlDescription).hasError('requiredTrim')">
+      {{prefixTranslateMessage + 'invalid-form.empty-description' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+</pgk-upsert-form>

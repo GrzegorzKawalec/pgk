@@ -39,8 +39,8 @@ public class AuditingMapper {
         if (Objects.isNull(userEntity)) {
             return AuditorDTO.builder()
                     .id(userId)
-                    .date(DateTimeUtil.date(auditor.getDate()))
-                    .time(DateTimeUtil.time(auditor.getDate()))
+                    .date(DateTimeUtil.dateToString(auditor.getDate()))
+                    .time(DateTimeUtil.timeToString(auditor.getDate()))
                     .build();
         }
         return AuditorDTO.builder()
@@ -48,8 +48,8 @@ public class AuditingMapper {
                 .email(userEntity.getEmail())
                 .firstName(userEntity.getFirstName())
                 .lastName(userEntity.getLastName())
-                .date(DateTimeUtil.date(auditor.getDate()))
-                .time(DateTimeUtil.time(auditor.getDate()))
+                .date(DateTimeUtil.dateToString(auditor.getDate()))
+                .time(DateTimeUtil.timeToString(auditor.getDate()))
                 .build();
     }
 

@@ -22,6 +22,7 @@
     "role": "Rola",
     "save": "Zapisz",
     "saved": "Zapisano",
+    "show": "Pokaż",
     "updated": "Zaktualizowano"
   },
   "exception": {
@@ -31,6 +32,26 @@
     "DATA_WAS_UPDATED_EARLIER": "Dane zostały zaktualizowane wcześniej. Odśwież stronę.",
     "UNEXPECTED": "Błąd serwera. Skontaktuj się z administratorem.",
     "EMPTY_DATA": "Puste dane.",
+    "LEGAL_ACT_BLANK_NAME": "Pusta nazwa aktu prawnego.",
+    "LEGAL_ACT_BLANK_DATE_OF": "Pusta data obowiązywania aktu prawnego.",
+    "LEGAL_ACT_BLANK_ID": "Pusty identyfikator.",
+    "LEGAL_ACT_BLANK_LINK": "Pusty link do aktu prawnego.",
+    "LEGAL_ACT_LINK_EXISTS": "Podany link do aktu prawnego już istnieje.",
+    "LEGAL_ACT_NAME_WITH_DATE_OF_EXISTS": "Podana nazwa z datą obowiązywania aktu prawnego już istnieje.",
+    "LEGAL_ACT_NOT_FOUND": "Nie odnaleziono aktu prawnego.",
+    "PROJECT_BLANK_NAME": "Pusta nazwa projektu.",
+    "PROJECT_BLANK_DATE_END": "Pusta data zakończenia projektu.",
+    "PROJECT_BLANK_DATE_START": "Pusta data rozpoczęcia projektu.",
+    "PROJECT_BLANK_DESCRIPTION": "Pusty opis projektu.",
+    "PROJECT_BLANK_ID": "Pusty identyfikator.",
+    "PROJECT_BLANK_LEGAL_ACTS": "Brak aktów prawnych projektu.",
+    "PROJECT_BLANK_PARTICIPANTS": "Brak uczestników projektu.",
+    "PROJECT_BLANK_PROJECT_MANAGER": "Brak kierownika projektu.",
+    "PROJECT_DATE_START_IS_BEFORE_END": "Data rozpoczęcia projektu nie może być późniejsza niż zakończenia.",
+    "PROJECT_INCORRECT_LEGAL_ACTS": "Nieprawidłowe akty prawne projektu.",
+    "PROJECT_INCORRECT_PARTICIPANTS": "Nieprawidłowi uczestnicy projektu.",
+    "PROJECT_INCORRECT_PROJECT_MANAGER": "Nieprawidłowy kierownik projektu.",
+    "PROJECT_NOT_FOUND": "Nie odnaleziono projektu.",
     "ROLE_BLANK_ID": "Pusty identyfikator.",
     "ROLE_BLANK_NAME": "Pusta nazwa roli.",
     "ROLE_CANNOT_DELETE_ADMIN": "Nie można usunąć roli Administratora.",
@@ -66,6 +87,22 @@
     "GUEST": {
       "name": "Gość",
       "description": "Minimalne uprawnienia w aplikacji"
+    },
+    "LEGAL_ACTS_READ": {
+      "name": "Odczyt aktów prawnych",
+      "description": "Odczyt szczegółów istniejących aktów prawnych"
+    },
+    "LEGAL_ACTS_WRITE": {
+      "name": "Zapis aktów prawnych",
+      "description": "Zapis nowych lub modyfikacja istniejących aktów prawnych"
+    },
+    "PROJECT_READ": {
+      "name": "Odczyt projektów",
+      "description": "Odczyt szczegółów istniejących projektów"
+    },
+    "PROJECT_WRITE": {
+      "name": "Zapis projektów",
+      "description": "Zapis nowych lub modyfikacja istniejących projektów"
     },
     "ROLE_READ": {
       "name": "Odczyt ról",
@@ -106,6 +143,95 @@
     "name": "Nazwa",
     "version": "Wersja"
   },
+  "project-management": {
+    "project-management": "Zarządzanie projektami",
+    "tab-projects": "Projekty",
+    "tab-legal-acts": "Akty prawne",
+    "legal-acts": {
+      "add": "Dodaj akty prawny",
+      "date-of-greater-than-or-equals": "Data większa lub równa od",
+      "date-of-less-than-or-equals": "Data mniejsza lub równa od",
+      "inactive": "Nieaktywne",
+      "open-link": "Otwórz link w nowej karcie",
+      "search-legal-act-by": "Wpisz nazwę lub opis",
+      "want-to-activate-legal-act": "Chcesz aktywować akt prawny?",
+      "want-to-deactivate-legal-act": "Chcesz deaktywować prawny?",
+      "columns": {
+        "name": "Nazwa",
+        "date-of": "Obowiązuje od",
+        "description": "Opis"
+      }
+    },
+    "legal-acts-upsert": {
+      "date-of": "Obowiązuje od",
+      "description-placeholder": "Podaj opis aktu prawnego",
+      "link": "Link do aktu prawnego (np. ISAP)",
+      "link-placeholder": "Podaj link np. do Internetowego Systemu Aktów Prawnych",
+      "name": "Nazwa aktu prawnego",
+      "name-placeholder": "Podaj nazwę aktu prawnego",
+      "invalid-form": {
+        "empty-date-of": "Data obowiązywania aktu prawnego nie może być pusta",
+        "empty-link": "Link do aktu prawnego nie może być pusty",
+        "empty-name": "Nazwa aktu prawnego nie może być pusta",
+        "incorrect-url": "Nieprawidłowy link (adres URL)"
+      }
+    },
+    "projects": {
+      "add": "Dodaj projekt",
+      "date-of": "Obowiązuje od: {{dateOf}}",
+      "inactive": "Nieaktywne",
+      "search-project-by": "Wpisz nazwę projektu lub jego opis",
+      "select-legal-act": "Wybierz akt prawny",
+      "select-participant": "Wybierz uczestnika",
+      "want-to-deactivate-project": "Chcesz aktywować projekt?",
+      "want-to-activate-project": "Chcesz deaktywować projekt?",
+      "columns": {
+        "date-start": "Data rozpoczęcia",
+        "date-end": "Data zakończenia",
+        "project-manager": "Kierownik",
+        "name": "Nazwa projektu"
+      }
+    },
+    "projects-upsert": {
+      "confirm-selected-legal-acts": "Potwierdź wybór, akty prawne: {{amount}}",
+      "confirm-selected-participants": "Potwierdź wybór, uczestników: {{amount}}",
+      "date-end": "Data zakończenia projektu",
+      "date-of": "Obowiązuje od",
+      "date-start": "Data rozpoczęcia projektu",
+      "filter-legal-act": "Filtruj akty prawne po nazwie lub opisie",
+      "filter-participant": "Filtruj uczestników po adresie e-mail, imieniu lub nazwisku",
+      "inactive": "nieaktywny",
+      "legal-acts": "Akty prawne",
+      "manage-legal-acts": "Zarządzaj aktami prawnymi",
+      "manage-participants": "Zarządzaj uczestnikami",
+      "manage-participants-has-overlapping-projects": "Wybrani uczestnicy uczestniczą w nakładających się projektach",
+      "manage-participants-need-date-ranges": "Aby zarządzać uczestnikami musisz ustawić datę rozpoczęcia oraz datę zakończenia",
+      "name": "Nazwa projektu",
+      "name-placeholder": "Podaj nazwę aktu prawnego",
+      "number-selected-legal-acts": "Ilość wybranych aktów prawnych",
+      "number-selected-participants": "Ilość wybranych uczestników",
+      "only-active-legal-act": "Aktywne",
+      "only-active-user": "Aktywni użytkownicy",
+      "only-non-overlapping-projects": "Bez nachodzących projektów",
+      "only-selected-legal-acts": "Wybrane",
+      "only-selected-participants": "Wybrani uczestnicy",
+      "open-legal-act-in-new-tab": "Otwórz link do aktu prawnego w nowym oknie",
+      "participants": "Uczestnicy",
+      "project-manager": "Kierownik projektu",
+      "project-manager-need-participants": "Wybierz uczestników projektu, aby wybrać jego kierownika",
+      "projects-with-overlapping-dates": "Projekty z nakładającymi się datami",
+      "show-overlapping-projects": "Pokaż projekty z nakładającymi się datami",
+      "unselect-selected-legal-acts": "Odznacz wybrane",
+      "unselect-selected-participants": "Odznacz wybranych uczestników",
+      "invalid-form": {
+        "empty-date-end": "Data zakończenia projektu nie może być pusta",
+        "empty-date-start": "Data rozpoczęcia projektu nie może być pusta",
+        "empty-description": "Opis nie może pozostać pusty",
+        "empty-name": "Nazwa projektu nie może być pusta",
+        "empty-project-manager": "Należy wybrać kierownika projektu"
+      }
+    }
+  },
   "sign-in": {
     "password": "Hasło",
     "sign-in": "Zaloguj",
@@ -137,7 +263,7 @@
     },
     "roles-upsert": {
       "description": "Opis roli",
-      "description-placeholder": "Podaj nazwę roli",
+      "description-placeholder": "Podaj opis roli",
       "name": "Nazwa roli",
       "name-placeholder": "Podaj nazwę roli",
       "select-authorities": "Wybierz uprawnienia",

@@ -2,6 +2,7 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
+import {MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
@@ -25,6 +26,7 @@ import {INTERCEPTORS} from './core/interceptors/interceptors';
 import {PaginatorIntlService} from './core/internationalization/paginator-intl.service';
 import {NavbarComponent} from './layouts/navbar/navbar.component';
 import {AppInfoModule} from './modules/app-info/app-info.module';
+import {ProjectManagementModule} from './modules/project-management/project-management.module';
 import {UserManagementModule} from './modules/user-management/user-management.module';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
@@ -54,6 +56,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     AppRouting,
 
     AppInfoModule,
+    ProjectManagementModule,
     UserManagementModule,
 
     CenterCardModule,
@@ -70,7 +73,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   providers: [
     INTERCEPTORS,
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-    {provide: MatPaginatorIntl, useClass: PaginatorIntlService}
+    {provide: MatPaginatorIntl, useClass: PaginatorIntlService},
+    {provide: MAT_DATE_LOCALE, useValue: 'pl-PL'}
   ],
   bootstrap: [AppComponent]
 })

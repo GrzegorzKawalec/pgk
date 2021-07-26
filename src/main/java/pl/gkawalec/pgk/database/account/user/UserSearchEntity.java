@@ -9,20 +9,7 @@ import javax.persistence.*;
 @Entity
 @Immutable
 @Table(name = "pgk_user")
-public class UserSearchEntity {
-
-    @Id
-    private Integer id;
-
-    private String email;
-
-    private String firstName;
-
-    private String lastName;
-
-    private String phoneNumber;
-
-    private boolean isActive;
+public class UserSearchEntity extends BaseUserEntity {
 
     @OneToOne
     @JoinColumn(

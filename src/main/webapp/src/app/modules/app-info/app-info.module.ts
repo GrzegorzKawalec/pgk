@@ -3,7 +3,7 @@ import {CenterCardModule} from '../../common/components/center-card/center-card.
 import {LoaderModule} from '../../common/components/loader/loader.module';
 import {COMMON_MODULES} from '../../common/const/common-modules';
 import {AppInfoRouting} from './app-info.routing';
-import {AppInfoComponent} from './app-info/app-info.component';
+import {AppInfoComponent} from './components/app-info.component';
 
 @NgModule({
   declarations: [

@@ -1,0 +1,76 @@
+<div>
+  <pgk-filter-panel (clickClearEvent)="clearFilter()">
+
+    <mat-form-field fxFlex="30%">
+      <mat-label>{{prefixTranslateMessage + 'search-role-by' | translate}}</mat-label>
+      <input matInput (keyup)="applyTextFilter($event)" autofocus [(ngModel)]="filterText">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="70%">
+      <mat-label>{{prefixTranslateMessage + 'search-role-by-authorities' | translate}}</mat-label>
+      <mat-select multiple (selectionChange)="changeAuthoritiesFilter($event)" (closed)="applyAuthoritiesFilter()"
+                  [(ngModel)]="selectedAuthorityModels">
+        <mat-option *ngFor="let model of authoritySelectModels" [value]="model.authority">
+          {{model.translate}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </pgk-filter-panel>
+
+  <table [ngStyle]="loading && {'display': 'none'}" mat-table [dataSource]="tableData" class="mat-elevation-z8 pgk-content-container"
+         matSort matSortDisableClear matSortActive="{{clnName}}" matSortDirection="asc">
+
+    <ng-container matColumnDef="{{clnName}}">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{prefixTranslateColumn + clnName | translate}}</th>
+      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="{{clnAuthorities}}">
+      <th mat-header-cell *matHeaderCellDef>{{prefixTranslateColumn + clnAuthorities | translate}}</th>
+      <td mat-cell *matCellDef="let row">
+        <mat-chip-list>
+          <mat-chip *ngFor="let authorityTranslateModel of row.authorityTranslateModels" [matTooltip]="authorityTranslateModel.description">
+            {{authorityTranslateModel.name}}
+          </mat-chip>
+        </mat-chip-list>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="{{clnButtons}}">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <mat-icon svgIcon="info" class="cell-icon"
+                  (click)="clickDetails(row)"
+                  matTooltip="{{'common.details' | translate}}"></mat-icon>
+        <mat-icon *ngIf="!hasUnmodifiableAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
+                  svgIcon="edit" class="cell-icon"
+                  (click)="clickEdit(row)"
+                  matTooltip="{{'common.edit' | translate}}"></mat-icon>
+        <mat-icon *ngIf="!hasUnmodifiableAuthority(row) && (requiredUpsertAuthorities | checkAccess)"
+                  svgIcon="delete" class="cell-icon"
+                  (click)="clickDelete(row)"
+                  matTooltip="{{'common.delete' | translate}}"></mat-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" [colSpan]="displayedColumns.length">{{'common.no-data' | translate}}</td>
+    </tr>
+
+  </table>
+
+  <div class="pgk-paginator-container">
+    <mat-paginator showFirstLastButtons [pageSizeOptions]="pageSizeOptions" [ngStyle]="loading && {'display': 'none'}"></mat-paginator>
+  </div>
+
+  <pgk-loader *ngIf="loading"></pgk-loader>
+
+</div>
+
+<pgk-add-button [requiredAuthorities]="requiredUpsertAuthorities"
+                tooltipTranslateKey="{{prefixTranslateMessage + 'roles-add'}}" svg="role_add"
+                (clickEvent)="clickAddRole()"></pgk-add-button>

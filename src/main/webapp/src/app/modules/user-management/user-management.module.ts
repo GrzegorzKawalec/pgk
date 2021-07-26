@@ -20,14 +20,14 @@ import {ProgressModule} from '../../common/components/progress/progress.module';
 import {UpsertFormModule} from '../../common/components/upsert-form/upsert-form.module';
 import {COMMON_MODULES} from '../../common/const/common-modules';
 import {UserManagementRouting} from './user-management.routing';
-import {RoleDetailsModalComponent} from './user-management/roles/role-details-modal/role-details-modal.component';
-import {RoleUpsertComponent} from './user-management/roles/role-upsert/role-upsert.component';
-import {RolesComponent} from './user-management/roles/roles.component';
-import {UserManagementComponent} from './user-management/user-management.component';
-import {UserChangePasswordModalComponent} from './user-management/users/user-change-password-modal/user-change-password-modal.component';
-import {UserDetailsModalComponent} from './user-management/users/user-details-modal/user-details-modal.component';
-import {UserUpsertComponent} from './user-management/users/user-upsert/user-upsert.component';
-import {UsersComponent} from './user-management/users/users.component';
+import {RoleDetailsModalComponent} from './components/roles/role-details-modal/role-details-modal.component';
+import {RoleUpsertComponent} from './components/roles/role-upsert/role-upsert.component';
+import {RolesComponent} from './components/roles/roles.component';
+import {UserManagementComponent} from './components/user-management.component';
+import {UserChangePasswordModalComponent} from './components/users/user-change-password-modal/user-change-password-modal.component';
+import {UserDetailsModalComponent} from './components/users/user-details-modal/user-details-modal.component';
+import {UserUpsertComponent} from './components/users/user-upsert/user-upsert.component';
+import {UsersComponent} from './components/users/users.component';
 
 @NgModule({
   declarations: [

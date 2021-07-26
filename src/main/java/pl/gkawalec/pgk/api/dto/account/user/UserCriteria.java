@@ -16,4 +16,7 @@ public class UserCriteria extends BaseCriteria {
     Boolean isActive = true;
     Set<Integer> roleIds = new HashSet<>();
 
+    Boolean orderByRole = false;
+    Boolean orderByRoleAsc = true;
+
 }

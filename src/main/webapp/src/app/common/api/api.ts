@@ -11,8 +11,26 @@ export class InfoAPI {
   static readonly basicInfo: string = InfoAPI.url + '/basic';
 }
 
-// ---    START    ---
-// ---   account   ---
+export class LegalActAPI {
+  static readonly url: string = PREFIX + '/legal-act';
+  static readonly activate: string = LegalActAPI.url + '/activate';
+  static readonly all: string = LegalActAPI.url + '/all';
+  static readonly auditingInfo: string = LegalActAPI.url + '/auditing-info';
+  static readonly deactivate: string = LegalActAPI.url + '/deactivate';
+  static readonly find: string = LegalActAPI.url + '/find';
+}
+
+export class ProjectAPI {
+  static readonly url: string = PREFIX + '/project';
+  static readonly activate: string = ProjectAPI.url + '/activate';
+  static readonly auditingInfo: string = ProjectAPI.url + '/auditing-info';
+  static readonly dataForUpsert: string = ProjectAPI.url + '/data-for-upsert';
+  static readonly deactivate: string = ProjectAPI.url + '/deactivate';
+  static readonly find: string = ProjectAPI.url + '/find';
+  static readonly participants: string = ProjectAPI.url + '/participants';
+  static readonly selectLegalActs: string = ProjectAPI.url + '/select-legal-acts';
+  static readonly selectParticipants: string = ProjectAPI.url + '/select-participants';
+}
 
 export class RoleAPI {
   static readonly url: string = PREFIX + '/role';
@@ -38,6 +56,3 @@ export class UserAPI {
   static readonly find: string = UserAPI.url + '/find'
   static readonly findUserUpsert: string = UserAPI.url + '/find-upsert'
 }
-
-// ---   account   ---
-// ---     END     ---

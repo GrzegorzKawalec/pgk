@@ -1,0 +1,41 @@
+<pgk-upsert-form [(loading)]="loading" [formGroup]="form" (clickSaveEvent)="clickSave()">
+
+  <mat-form-field>
+    <mat-label>{{prefixTranslateMessage + 'name' | translate}}</mat-label>
+    <input matInput formControlName="{{ctrlName}}" name="pgk-legal-acts-upsert-name" autocomplete="off" required
+           placeholder="{{prefixTranslateMessage + 'name-placeholder' | translate}}">
+    <mat-error *ngIf="form.get(ctrlName).hasError('requiredTrim')">
+      {{prefixTranslateMessage + 'invalid-form.empty-name' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{prefixTranslateMessage + 'date-of' | translate}}</mat-label>
+    <input matInput formControlName="{{ctrlDateOf}}" [matDatepicker]="dateOfPicker" readonly required
+           (click)="dateOfPicker.open()" style="cursor: pointer" name="pgk-legal-acts-upsert-date-of">
+    <mat-datepicker-toggle matSuffix [for]="dateOfPicker"></mat-datepicker-toggle>
+    <mat-datepicker #dateOfPicker [touchUi]="true"></mat-datepicker>
+    <mat-error *ngIf="form.get(ctrlDateOf).hasError('required')">
+      {{prefixTranslateMessage + 'invalid-form.empty-date-of' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{prefixTranslateMessage + 'link' | translate}}</mat-label>
+    <input matInput formControlName="{{ctrlLink}}" name="pgk-legal-acts-upsert-link" autocomplete="off" required
+           placeholder="{{prefixTranslateMessage + 'link-placeholder' | translate}}">
+    <mat-error *ngIf="form.get(ctrlLink).hasError('requiredTrim')">
+      {{prefixTranslateMessage + 'invalid-form.empty-link' | translate}}
+    </mat-error>
+    <mat-error *ngIf="form.get(ctrlLink).hasError('url')">
+      {{prefixTranslateMessage + 'invalid-form.incorrect-url' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{'common.description' | translate}}</mat-label>
+    <textarea matInput formControlName="{{ctrlDescription}}" rows="5" name="pgk-legal-acts-upsert-description"
+              placeholder="{{prefixTranslateMessage + 'description-placeholder' | translate}}"></textarea>
+  </mat-form-field>
+
+</pgk-upsert-form>

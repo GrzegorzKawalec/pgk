@@ -1,0 +1,51 @@
+<div *ngIf="!loading; else loader">
+
+  <mat-form-field class="filter-text-container">
+    <mat-label>{{prefixTranslateMessage + 'filter-legal-act' | translate}}</mat-label>
+    <input matInput type="text" name="pgk-manage-legal-acts-modal" autocomplete="off" autofocus (keyup)="applyTextFilter($event)">
+    <button *ngIf="filterText" matSuffix mat-icon-button (click)="applyTextFilter(null)">
+      <mat-icon svgIcon="clear"></mat-icon>
+    </button>
+  </mat-form-field>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="row-filter-container">
+    <mat-checkbox [checked]="filterOnlyActiveLegalActs" (change)="applyOnlyActiveLegalActsFilter($event)">
+      {{prefixTranslateMessage + 'only-active-legal-act' | translate}}
+    </mat-checkbox>
+    <mat-checkbox [checked]="filterOnlySelectedLegalActs" (change)="applyOnlySelectedLegalActsFilter($event)">
+      {{prefixTranslateMessage + 'only-selected-legal-acts' | translate}}
+    </mat-checkbox>
+    <button mat-stroked-button color="accent" (click)="clickUnselect()">
+      {{prefixTranslateMessage + 'unselect-selected-legal-acts' | translate}}
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="list-container">
+    <mat-selection-list (selectionChange)="listSelectionChanged($event)" [(ngModel)]="selectedLegalActs" #legalActList>
+      <mat-list-option *ngFor="let legalAct of legalActsForView" [selected]="legalAct.initialSelected" [value]="legalAct"
+                       [disabled]="!legalAct.active && !legalAct.initialSelected">
+        <p class="list-row-container" [style.opacity]="!legalAct.active && '0.5'">
+          <span [matTooltip]="getTooltipForParticipant(legalAct)" fxFlex="grow">
+            {{legalAct.name}}
+          </span>
+          <span class="link-icon-container" (click)="clickLink(legalAct)"
+                matTooltip="{{prefixTranslateMessage + 'open-legal-act-in-new-tab' | translate}}"
+                [style.visibility]="!legalAct.active">
+            <mat-icon svgIcon="link" class="link-icon"></mat-icon>
+          </span>
+        </p>
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+
+  <button mat-raised-button [color]="getColorConfirmButton()" class="confirm-button" (click)="clickConfirm()">
+    {{prefixTranslateMessage + 'confirm-selected-legal-acts' | translate: {amount: selectedLegalActs.length} }}
+  </button>
+
+</div>
+
+<ng-template #loader>
+  <pgk-loader></pgk-loader>
+</ng-template>

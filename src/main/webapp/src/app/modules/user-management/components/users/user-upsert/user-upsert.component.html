@@ -1,0 +1,96 @@
+<pgk-upsert-form [(loading)]="loading" [formGroup]="form" (clickSaveEvent)="clickSave()">
+
+  <mat-form-field>
+    <mat-label>{{'common.email' | translate}}</mat-label>
+    <input matInput formControlName="{{ctrlEmail}}" name="pgk-user-upsert-email" type="email" autocomplete="off" required
+           [readonly]="!!userUpsert?.user?.id"
+           placeholder="{{prefixTranslateMessage + 'email-placeholder' | translate}}">
+    <mat-error *ngIf="form.get(ctrlEmail).hasError('requiredTrim')">
+      {{prefixTranslateMessage + 'invalid-form.empty-email' | translate}}
+    </mat-error>
+    <mat-error *ngIf="form.get(ctrlEmail).hasError('email')">
+      {{prefixTranslateMessage + 'invalid-form.incorrect-email' | translate}}
+    </mat-error>
+    <mat-error *ngIf="form.get(ctrlEmail).hasError('notUnique')">
+      {{prefixTranslateMessage + '.invalid-form.not-unique-email' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{'common.first-name' | translate}}</mat-label>
+    <input matInput formControlName="{{ctrlFirstName}}" name="pgk-user-upsert-first-name" autocomplete="off" required
+           placeholder="{{prefixTranslateMessage + 'first-name-placeholder' | translate}}">
+    <mat-error *ngIf="form.get(ctrlFirstName).hasError('requiredTrim')">
+      {{prefixTranslateMessage + 'invalid-form.empty-first-name' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{'common.last-name' | translate}}</mat-label>
+    <input matInput formControlName="{{ctrlLastName}}" name="pgk-user-upsert-last-name" autocomplete="off" required
+           placeholder="{{prefixTranslateMessage + 'last-name-placeholder' | translate}}">
+    <mat-error *ngIf="form.get(ctrlLastName).hasError('requiredTrim')">
+      {{prefixTranslateMessage + 'invalid-form.empty-last-name' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{'common.role' | translate}}</mat-label>
+    <mat-select formControlName="{{ctrlRole}}" required>
+      <mat-option *ngFor="let role of availableRoles" [value]="role"
+                  [matTooltip]="role.description" matTooltipPosition="before" [matTooltipDisabled]="!role.description">
+        {{role.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get(ctrlLastName).hasError('requiredTrim')">
+      {{prefixTranslateMessage + 'invalid-form.empty-role' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field [ngStyle]="userUpsert?.user?.id && {'display': 'none'}">
+    <mat-label>{{prefixTranslateMessage + 'password' | translate}}</mat-label>
+    <input matInput formControlName="{{ctrlPassword}}" (blur)="blurPassword()"
+           [type]="hidePassword ? 'password' : 'text'" autocomplete="off" name="pgk-user-upsert-password"
+           placeholder="{{prefixTranslateMessage + 'password-placeholder' | translate}}">
+    <button matSuffix mat-icon-button>
+      <mat-icon (click)="hidePassword = !hidePassword" [svgIcon]="hidePassword ? 'visibility_off' : 'visibility'"></mat-icon>
+    </button>
+    <mat-error *ngIf="form.get(ctrlPassword).hasError('required')">
+      {{prefixTranslateMessage + 'invalid-form.empty-password' | translate}}
+    </mat-error>
+    <mat-error *ngIf="form.get(ctrlPassword).hasError('passwordsDoNotMatch')">
+      {{prefixTranslateMessage + 'invalid-form.passwords-do-not-match' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field [ngStyle]="userUpsert?.user?.id && {'display': 'none'}">
+    <mat-label>{{prefixTranslateMessage + 'password-repeat' | translate}}</mat-label>
+    <input matInput formControlName="{{ctrlPasswordRepeat}}" (blur)="blurPassword()"
+           [type]="hidePassword ? 'password' : 'text'" autocomplete="off" name="pgk-user-upsert-password-repeat"
+           placeholder="{{prefixTranslateMessage + 'password-repeat-placeholder' | translate}}">
+    <button matSuffix mat-icon-button>
+      <mat-icon (click)="hidePasswordRepeat = !hidePasswordRepeat"
+                [svgIcon]="hidePasswordRepeat ? 'visibility_off' : 'visibility'"></mat-icon>
+    </button>
+    <mat-error *ngIf="form.get(ctrlPasswordRepeat).hasError('required')">
+      {{prefixTranslateMessage + 'invalid-form.empty-password-repeat' | translate}}
+    </mat-error>
+    <mat-error *ngIf="form.get(ctrlPasswordRepeat).hasError('passwordsDoNotMatch')">
+      {{prefixTranslateMessage + 'invalid-form.passwords-do-not-match' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{'common.phone-number' | translate}}</mat-label>
+    <span matPrefix>{{prefixNumberPhone}}&nbsp;</span>
+    <input matInput formControlName="{{ctrlPhoneNumber}}" name="pgk-user-upsert-phone-number" type="tel" autocomplete="off"
+           placeholder="{{prefixTranslateMessage + 'phone-number-placeholder' | translate}}">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{'common.description' | translate}}</mat-label>
+    <textarea matInput formControlName="{{ctrlDescription}}" rows="5" name="pgk-user-upsert-description"
+              placeholder="{{prefixTranslateMessage + 'description-placeholder' | translate}}"></textarea>
+  </mat-form-field>
+
+</pgk-upsert-form>

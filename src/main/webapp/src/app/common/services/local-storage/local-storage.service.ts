@@ -36,6 +36,12 @@ class Keys {
       case LocalStorageKey.LANG:
         lsKey = 'lang';
         break;
+      case LocalStorageKey.LEGAL_ACTS_PER_PAGE:
+        lsKey = 'legal-acts-per-page';
+        break;
+      case LocalStorageKey.PROJECTS_PER_PAGE:
+        lsKey = 'projects-per-page';
+        break;
       case LocalStorageKey.ROLES_ITEM_PER_PAGE:
         lsKey = 'roles-item-per-page';
         break;

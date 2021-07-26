@@ -13,10 +13,7 @@ import pl.gkawalec.pgk.database.account.role.RoleRepository;
 import pl.gkawalec.pgk.database.account.user.*;
 import pl.gkawalec.pgk.test.annotation.PGKTestProfiles;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Component
 @PGKTestProfiles
@@ -60,6 +57,11 @@ public class TestUserUtil {
         UserEntity userEntity = insertUser(email);
         insertCredentials(roleEntity, userEntity, password);
         return userEntity;
+    }
+
+    public UserEntity insertUser() {
+        String email = UUID.randomUUID() + "@gmail.com";
+        return insertUser(email);
     }
 
     public UserEntity insertUser(String email) {

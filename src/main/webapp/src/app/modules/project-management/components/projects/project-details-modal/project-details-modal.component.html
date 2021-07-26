@@ -1,0 +1,58 @@
+<div mat-dialog-content>
+
+  <div *ngIf="!loading; else loader" fxLayout="column">
+
+    <mat-form-field>
+      <mat-label>{{prefixTranslateMessage + 'name' | translate}}</mat-label>
+      <input matInput readonly [value]="project?.name || ''">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{prefixTranslateMessage + 'date-end' | translate}}</mat-label>
+      <input matInput readonly [value]="project?.dateEndStr || ''">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{prefixTranslateMessage + 'date-start' | translate}}</mat-label>
+      <input matInput readonly [value]="project?.dateStartStr || ''">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{prefixTranslateMessage + 'project-manager' | translate}}</mat-label>
+      <input matInput readonly [value]="getProjectManagerName()">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{prefixTranslateMessage + 'number-selected-participants' | translate}}</mat-label>
+      <input matInput readonly [value]="'' + project?.participants?.length || '0'">
+      <button mat-icon-button matSuffix
+              *ngIf="project?.participants?.length > 0" (click)="clickShowParticipants()"
+              matTooltip="{{'common.show' | translate}}" matTooltipPosition="before">
+        <mat-icon svgIcon="visibility"></mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{prefixTranslateMessage + 'number-selected-legal-acts' | translate}}</mat-label>
+      <input matInput readonly [value]="'' + project?.legalActs?.length || '0'">
+      <button mat-icon-button matSuffix
+              *ngIf="project?.legalActs?.length > 0" (click)="clickShowLegalActs()"
+              matTooltip="{{'common.show' | translate}}" matTooltipPosition="before">
+        <mat-icon svgIcon="visibility"></mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{'common.description' | translate}}</mat-label>
+      <textarea matInput readonly rows="5" [value]="project?.description || ''"></textarea>
+    </mat-form-field>
+
+    <pgk-auditing-info *ngIf="withAuditingDetails" [auditing]="auditingInfo" fxLayout="column"></pgk-auditing-info>
+
+  </div>
+
+  <ng-template #loader>
+    <pgk-loader></pgk-loader>
+  </ng-template>
+
+</div>

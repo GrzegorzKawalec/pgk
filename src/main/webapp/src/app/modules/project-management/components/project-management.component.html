@@ -1,0 +1,13 @@
+<mat-tab-group mat-align-tabs="center"
+               [(selectedIndex)]="activeTabIndex"
+               (selectedTabChange)="onTabChange($event)">
+
+  <mat-tab *ngFor="let tab of tabs"
+           label="{{tab.translateKey | translate}}">
+
+    <pgk-projects *ngIf="tab.index === projectsTabIndex"></pgk-projects>
+    <pgk-legal-acts *ngIf="tab.index === legalActsTabIndex"></pgk-legal-acts>
+
+  </mat-tab>
+
+</mat-tab-group>

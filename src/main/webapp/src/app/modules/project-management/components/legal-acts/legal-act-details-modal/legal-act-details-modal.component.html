@@ -1,0 +1,33 @@
+<div mat-dialog-content>
+
+  <div *ngIf="!loading; else loader" fxLayout="column">
+
+    <mat-form-field>
+      <mat-label>{{prefixTranslateMessage + 'name' | translate}}</mat-label>
+      <input matInput readonly [value]="auditingInfo?.dto?.name || ''">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{prefixTranslateMessage + 'date-of' | translate}}</mat-label>
+      <input matInput readonly [value]="auditingInfo?.dto?.dateOfStr || ''">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{prefixTranslateMessage + 'link' | translate}}</mat-label>
+      <input matInput readonly [value]="auditingInfo?.dto?.link || ''" style="cursor: pointer" (click)="clickLink()">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{'common.description' | translate}}</mat-label>
+      <textarea matInput readonly rows="5" [value]="auditingInfo?.dto?.description || ''"></textarea>
+    </mat-form-field>
+
+    <pgk-auditing-info [auditing]="auditingInfo" fxLayout="column"></pgk-auditing-info>
+
+  </div>
+
+  <ng-template #loader>
+    <pgk-loader></pgk-loader>
+  </ng-template>
+
+</div>

@@ -1,0 +1,34 @@
+<pgk-upsert-form [(loading)]="loading" [formGroup]="form" (clickSaveEvent)="clickSave()">
+
+  <mat-form-field>
+    <mat-label>{{prefixTranslateMessage + 'name' | translate}}</mat-label>
+    <input matInput formControlName="{{ctrlName}}" name="pgk-roles-upsert-name" autocomplete="off" required
+           placeholder="{{prefixTranslateMessage + 'name-placeholder' | translate}}">
+    <mat-error *ngIf="form.get(ctrlName).hasError('requiredTrim')">
+      {{prefixTranslateMessage + 'invalid-form.empty-name' | translate}}
+    </mat-error>
+    <mat-error *ngIf="form.get(ctrlName).hasError('notUnique')">
+      {{prefixTranslateMessage + 'invalid-form.not-unique-name' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{prefixTranslateMessage + 'select-authorities' | translate}}</mat-label>
+    <mat-select formControlName="{{ctrlAuthorities}}" multiple required>
+      <mat-option *ngFor="let model of selectAuthorityModels" [value]="model" [disabled]="model.disabled"
+                  [matTooltip]="model.translateModel.description" matTooltipPosition="before">
+        {{model.translateModel.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get(ctrlAuthorities).hasError('required')">
+      {{prefixTranslateMessage + 'invalid-form.empty-authority' | translate}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{prefixTranslateMessage + 'description' | translate}}</mat-label>
+    <textarea matInput formControlName="{{ctrlDescription}}" rows="5" name="pgk-roles-upsert-description"
+              placeholder="{{prefixTranslateMessage + 'description-placeholder' | translate}}"></textarea>
+  </mat-form-field>
+
+</pgk-upsert-form>
