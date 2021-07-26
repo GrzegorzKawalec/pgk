@@ -27,6 +27,9 @@ import {LegalActDetailsModalComponent} from './components/legal-acts/legal-act-d
 import {LegalActsUpsertComponent} from './components/legal-acts/legal-acts-upsert/legal-acts-upsert.component';
 import {LegalActsComponent} from './components/legal-acts/legal-acts.component';
 import {ProjectManagementComponent} from './components/project-management.component';
+import {ProjectDetailsModalComponent} from './components/projects/project-details-modal/project-details-modal.component';
+import {ProjectLegalActsDetailsModalComponent} from './components/projects/project-details-modal/selected-elements-modal/project-legal-acts-details-modal.component';
+import {ProjectParticipantsDetailsModalComponent} from './components/projects/project-details-modal/selected-elements-modal/project-participants-details-modal.component';
 import {ManageLegalActsModalComponent} from './components/projects/project-upsert/manage-legal-acts-modal/manage-legal-acts-modal.component';
 import {ManageParticipantsModalComponent} from './components/projects/project-upsert/manage-participants-modal/manage-participants-modal.component';
 import {OverlappingProjectModalComponent} from './components/projects/project-upsert/manage-participants-modal/overlapping-project-modal/overlapping-project-modal.component';
@@ -45,6 +48,9 @@ import {ProjectManagementRouting} from './project-management.routing';
 
     ProjectsComponent,
     ProjectUpsertComponent,
+    ProjectDetailsModalComponent,
+    ProjectLegalActsDetailsModalComponent,
+    ProjectParticipantsDetailsModalComponent,
     ManageLegalActsModalComponent,
     ManageParticipantsModalComponent,
     OverlappingProjectModalComponent

@@ -1,20 +1,27 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 import {debounceTime, finalize, takeUntil} from 'rxjs/operators';
 import {Authority, ProjectCriteria, ProjectDTO, ProjectOrderByType, SelectDTO} from '../../../../common/api/api-models';
 import {Page} from '../../../../common/api/api-pagination.models';
 import {BaseComponent} from '../../../../common/components/base.component';
+import {ModalConfirmComponent} from '../../../../common/components/modal-confirm/modal-confirm.component';
+import {ModalConfirmModel} from '../../../../common/components/modal-confirm/modal-confirm.model';
 import {RouteProjectManagement} from '../../../../common/const/routes';
 import {LocalStorageKey} from '../../../../common/services/local-storage/local-storage-key';
 import {PaginatorService} from '../../../../common/services/paginator.service';
 import {CriteriaBuilder, DirectionMapper} from '../../../../common/utils/criteria.util';
 import {StringUtils} from '../../../../common/utils/string.utils';
+import {AuthHelper} from '../../../../core/auth/auth.helper';
 import {ProjectService} from '../../services/project.service';
+import {ProjectDetailsModalComponent} from './project-details-modal/project-details-modal.component';
 
 @Component({
   selector: 'pgk-projects',
@@ -31,10 +38,11 @@ export class ProjectsComponent extends BaseComponent implements OnInit, AfterVie
   readonly pageSizeOptions: number[] = this.paginatorService.pageSizeOptions;
 
   readonly clnName: string = 'name';
+  readonly clnProjectManager: string = 'project-manager';
   readonly clnDateStart: string = 'date-start';
   readonly clnDateEnd: string = 'date-end';
-  readonly clnProjectManager: string = 'project-manager';
-  readonly displayedColumns: string[] = [this.clnName, this.clnDateStart, this.clnDateEnd, this.clnProjectManager];
+  readonly clnButtons: string = 'buttons';
+  readonly displayedColumns: string[] = [this.clnName, this.clnProjectManager, this.clnDateStart, this.clnDateEnd, this.clnButtons];
   tableData: MatTableDataSource<ProjectDTO>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -58,8 +66,12 @@ export class ProjectsComponent extends BaseComponent implements OnInit, AfterVie
 
   constructor(
     private router: Router,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
+    private authHelper: AuthHelper,
     private projectService: ProjectService,
+    private translateService: TranslateService,
     private paginatorService: PaginatorService
   ) {
     super();
@@ -78,6 +90,24 @@ export class ProjectsComponent extends BaseComponent implements OnInit, AfterVie
 
   clickAddProject(): void {
     this.router.navigate(RouteProjectManagement.PROJECTS_UPSERT_COMMANDS);
+  }
+
+  clickDetails(project: ProjectDTO): void {
+    this.dialog.open(ProjectDetailsModalComponent, {data: project, minWidth: '750px'});
+  }
+
+  clickEdit(project: ProjectDTO): void {
+    if (this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
+      this.router.navigate([...RouteProjectManagement.PROJECTS_UPSERT_COMMANDS, project.id]);
+    }
+  }
+
+  clickDeactivate(project: ProjectDTO): void {
+    this.changeProjectStatus(project, true);
+  }
+
+  clickActivate(project: ProjectDTO): void {
+    this.changeProjectStatus(project, false);
   }
 
   clearFilter(): void {
@@ -229,6 +259,58 @@ export class ProjectsComponent extends BaseComponent implements OnInit, AfterVie
           this.paginator.length = page.totalElements;
         }
       });
+  }
+
+  private changeProjectStatus(project: ProjectDTO, forDeactivate: boolean): void {
+    if (!this.authHelper.hasAuthorities(this.requiredUpsertAuthorities)) {
+      return;
+    }
+    const confirmModel: ModalConfirmModel = forDeactivate ?
+      this.prepareModelForConfirmDeactivateModal(project) :
+      this.prepareModelForConfirmActivateModal(project);
+    const dialogRef: MatDialogRef<ModalConfirmComponent> = this.dialog.open(ModalConfirmComponent, {data: confirmModel});
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(confirmed => {
+        if (confirmed === true) {
+          forDeactivate ? this.deactivateProject(project.id) : this.activateProject(project.id);
+        }
+      });
+  }
+
+  private prepareModelForConfirmDeactivateModal(project: ProjectDTO): ModalConfirmModel {
+    return this.prepareModelForConfirmForChangeProjectStatus(project, 'want-to-deactivate-project');
+  }
+
+  private prepareModelForConfirmActivateModal(project: ProjectDTO): ModalConfirmModel {
+    return this.prepareModelForConfirmForChangeProjectStatus(project, 'want-to-activate-project');
+  }
+
+  private prepareModelForConfirmForChangeProjectStatus(project: ProjectDTO, suffixTitleKey: string): ModalConfirmModel {
+    const content: string = project.name;
+    return {
+      titleTranslateKey: this.prefixTranslateMessage + suffixTitleKey,
+      showDefaultContent: false,
+      content: content
+    };
+  }
+
+  private deactivateProject(projectId: number): void {
+    this.loading = true;
+    this.projectService.deactivate(projectId)
+      .subscribe(() => this.showSnackBarAfterChangeProjectStatus('common.deactivated'));
+  }
+
+  private activateProject(projectId: number): void {
+    this.loading = true;
+    this.projectService.activate(projectId)
+      .subscribe(() => this.showSnackBarAfterChangeProjectStatus('common.activated'));
+  }
+
+  private showSnackBarAfterChangeProjectStatus(messageKey: string): void {
+    const message: string = this.translateService.instant(messageKey);
+    this.snackBar.open(message, 'OK', {duration: 2000});
+    this.searchProjects();
   }
 
 }

@@ -21,6 +21,8 @@ import pl.gkawalec.pgk.test.util.TestUserUtil;
 
 import javax.transaction.Transactional;
 
+import java.util.Set;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @PGKSpringMockMvcTest
@@ -49,6 +51,63 @@ class ProjectControllerTest {
 
         //when
         testUserUtil.createUserExcludedAuthority(email, pass, correctAuthority);
+        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
+        MockHttpServletRequestBuilder request = get(url).session(session);
+
+        //then
+        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Test end-point deactivating project. User without the required authorities.")
+    void deactivate_withoutAuthorities() throws Exception {
+        //given
+        String url = URL + ProjectController.DEACTIVATE + "/" + 1;
+        String email = "testowy_a@testowy_a";
+        String pass = "password_a";
+        Set<Authority> correctAuthorities = Set.of(Authority.PROJECT_WRITE, Authority.LEGAL_ACTS_WRITE);
+
+        //when
+        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
+        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
+        MockHttpServletRequestBuilder request = put(url).session(session);
+
+        //then
+        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Test end-point activating project. User without the required authorities.")
+    void activate_withoutAuthorities() throws Exception {
+        //given
+        String url = URL + ProjectController.ACTIVATE + "/" + 1;
+        String email = "testowy_a@testowy_a";
+        String pass = "password_a";
+        Set<Authority> correctAuthorities = Set.of(Authority.PROJECT_WRITE, Authority.LEGAL_ACTS_WRITE);
+
+        //when
+        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
+        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
+        MockHttpServletRequestBuilder request = put(url).session(session);
+
+        //then
+        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("Test end-point that returns audited project information. User without the required authorities.")
+    void getAuditingInfo_withoutAuthorities() throws Exception {
+        //given
+        String url = URL + ProjectController.AUDITING_INFO + "/" + 1;
+        String email = "testowy_a@testowy_a";
+        String pass = "password_a";
+        Set<Authority> correctAuthorities = Set.of(Authority.PROJECT_WRITE, Authority.PROJECT_READ, Authority.LEGAL_ACTS_WRITE);
+
+        //when
+        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
         MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
         MockHttpServletRequestBuilder request = get(url).session(session);
 

@@ -4,10 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import pl.gkawalec.pgk.api.dto.project.ParticipantDTO;
-import pl.gkawalec.pgk.api.dto.project.ProjectCriteria;
-import pl.gkawalec.pgk.api.dto.project.ProjectDTO;
-import pl.gkawalec.pgk.api.dto.project.ProjectDataForUpsertDTO;
+import pl.gkawalec.pgk.api.dto.common.auditing.AuditingInfoDTO;
+import pl.gkawalec.pgk.api.dto.project.*;
+import pl.gkawalec.pgk.common.auditing.AuditingMapper;
 import pl.gkawalec.pgk.common.exception.response.ResponseException;
 import pl.gkawalec.pgk.common.type.ResponseExceptionType;
 import pl.gkawalec.pgk.common.util.UserUtil;
@@ -33,6 +32,8 @@ public class ProjectService {
     private final ProjectHelper helper;
     private final ProjectUpdater updater;
     private final ProjectValidator validator;
+
+    private final AuditingMapper auditingMapper;
 
     private final UserProjectRepository userRepository;
     private final ProjectRepository projectRepository;
@@ -82,6 +83,25 @@ public class ProjectService {
         updater.update(projectEntity, dto);
         projectEntity = projectRepository.saveAndFlush(projectEntity);
         return ProjectDTO.of(projectEntity);
+    }
+
+    @Transactional
+    public void deactivate(Long projectId) {
+        ProjectEntity projectEntity = findEntityById(projectId);
+        projectEntity.deactivate();
+    }
+
+    @Transactional
+    public void activate(Long projectId) {
+        ProjectEntity projectEntity = findEntityById(projectId);
+        projectEntity.activate();
+    }
+
+    @Transactional
+    public ProjectAuditingDTO getAuditingInfo(Long projectId) {
+        ProjectEntity projectEntity = findEntityById(projectId);
+        AuditingInfoDTO auditingInfoDTO = auditingMapper.map(projectEntity);
+        return ProjectAuditingDTO.of(projectEntity, auditingInfoDTO);
     }
 
     private ProjectEntity findEntityById(Long projectId) {

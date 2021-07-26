@@ -60,6 +60,10 @@ export interface ParticipantDTO {
     user?: UserDTO;
 }
 
+export interface ProjectAuditingDTO extends AuditingDTO<ProjectDTO> {
+    dto?: ProjectDTO;
+}
+
 export interface ProjectBaseDTO {
     dateEndStr?: string;
     dateStartStr?: string;

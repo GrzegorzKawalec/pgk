@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import pl.gkawalec.pgk.api.dto.common.SelectDTO;
-import pl.gkawalec.pgk.api.dto.project.ParticipantDTO;
-import pl.gkawalec.pgk.api.dto.project.ProjectCriteria;
-import pl.gkawalec.pgk.api.dto.project.ProjectDTO;
-import pl.gkawalec.pgk.api.dto.project.ProjectDataForUpsertDTO;
+import pl.gkawalec.pgk.api.dto.project.*;
 import pl.gkawalec.pgk.application.account.user.UserService;
 import pl.gkawalec.pgk.application.legalact.LegalActService;
 import pl.gkawalec.pgk.application.project.ProjectService;
@@ -24,7 +21,10 @@ import java.util.List;
 public class ProjectController {
 
     public static final String URL = "/project";
+    public static final String ACTIVATE = "/activate";
+    public static final String AUDITING_INFO = "/auditing-info";
     public static final String DATA_FOR_UPSERT = "/data-for-upsert";
+    public static final String DEACTIVATE = "/deactivate";
     public static final String FIND = "/find";
     public static final String PARTICIPANTS = "/participants";
     public static final String SELECT_LEGAL_ACTS = "/select-legal-acts";
@@ -71,6 +71,25 @@ public class ProjectController {
     @AuditedRequest(false)
     public Page<ProjectDTO> find(@RequestBody(required = false) ProjectCriteria criteria) {
         return projectService.find(criteria);
+    }
+
+    @PutMapping(DEACTIVATE + "/{id}")
+    @AuthGuard({Authority.PROJECT_WRITE, Authority.LEGAL_ACTS_WRITE})
+    public void deactivate(@PathVariable("id") Long projectId) {
+        projectService.deactivate(projectId);
+    }
+
+    @PutMapping(ACTIVATE + "/{id}")
+    @AuthGuard({Authority.PROJECT_WRITE, Authority.LEGAL_ACTS_WRITE})
+    public void activate(@PathVariable("id") Long projectId) {
+        projectService.activate(projectId);
+    }
+
+    @AuditedRequest
+    @GetMapping(AUDITING_INFO + "/{id}")
+    @AuthGuard({Authority.PROJECT_WRITE, Authority.PROJECT_READ, Authority.LEGAL_ACTS_WRITE})
+    public ProjectAuditingDTO getAuditingInfo(@PathVariable("id") Long projectId) {
+        return projectService.getAuditingInfo(projectId);
     }
 
 }
