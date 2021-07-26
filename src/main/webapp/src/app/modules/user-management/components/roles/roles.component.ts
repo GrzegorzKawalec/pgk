@@ -161,7 +161,7 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
     this.sort.sortChange
       .pipe(takeUntil(this.destroy$))
       .subscribe((sort: Sort) => {
-        const sortProperty: string = this.mapSortProperty(sort);
+        const sortProperty: string = RolesComponent.mapSortProperty(sort);
         if (!sortProperty) {
           this.criteria.searchPage.sorting = null;
         } else {
@@ -172,7 +172,7 @@ export class RolesComponent extends BaseComponent implements OnInit, AfterViewIn
       });
   }
 
-  private mapSortProperty(sort: Sort): string {
+  private static mapSortProperty(sort: Sort): string {
     if (!sort || !sort.active) {
       return null;
     }

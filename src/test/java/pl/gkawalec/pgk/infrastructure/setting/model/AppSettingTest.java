@@ -27,7 +27,7 @@ class AppSettingTest {
         String version = appSetting.getVersion();
         int port = appSetting.getPort();
         String timeZone = appSetting.getTimeZone();
-        String apiPrefix = appSetting.getApiPrefix();
+        String apiPrefix = AppSetting.API_PREFIX;
         AppDatabaseSetting databaseSetting = appSetting.getDatabase();
         AppSecuritySetting securitySetting = appSetting.getSecurity();
         AppEmailSetting mailSetting = appSetting.getEmail();

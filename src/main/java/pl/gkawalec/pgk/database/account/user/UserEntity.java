@@ -16,11 +16,11 @@ import javax.persistence.Table;
 public class UserEntity extends BaseUserEntity {
 
     public void deactivate() {
-        this.isActive = false;
+        this.active = false;
     }
 
     public void activate() {
-        this.isActive = true;
+        this.active = true;
     }
 
 }

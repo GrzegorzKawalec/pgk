@@ -5,7 +5,6 @@ import lombok.Value;
 import pl.gkawalec.pgk.common.type.Authority;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 @Value

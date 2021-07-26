@@ -12,12 +12,8 @@ public class AsyncConfig {
 
     @Bean("auditRequest")
     public TaskExecutor auditRequestAsync() {
-        return baseTaskExecutor("Audit-Request-Async-");
-    }
-
-    private TaskExecutor baseTaskExecutor(String threadNamePrefix) {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setThreadNamePrefix(threadNamePrefix);
+        executor.setThreadNamePrefix("Audit-Request-Async-");
         executor.setCorePoolSize(4);
         executor.setMaxPoolSize(20);
         executor.setQueueCapacity(400);

@@ -38,7 +38,7 @@ public record UserSpecification(UserCriteria criteria) implements Specification<
     }
 
     private void isActive(Root<UserSearchEntity> root, CriteriaBuilder criteriaBuilder, List<Predicate> predicates) {
-        Path<Boolean> isActivePath = root.get(BaseUserEntity_.isActive);
+        Path<Boolean> isActivePath = root.get(BaseUserEntity_.active);
         Predicate isActivePredicate = Boolean.TRUE.equals(criteria.getIsActive()) ?
                 criteriaBuilder.isTrue(isActivePath) :
                 criteriaBuilder.isFalse(isActivePath);

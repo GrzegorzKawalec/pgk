@@ -22,8 +22,4 @@ public class AppSetting {
     private AppSecuritySetting security = new AppSecuritySetting();
     private AppEmailSetting email = new AppEmailSetting();
 
-    public String getApiPrefix() {
-        return API_PREFIX;
-    }
-
 }

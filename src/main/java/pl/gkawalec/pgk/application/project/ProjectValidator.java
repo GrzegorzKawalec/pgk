@@ -94,19 +94,13 @@ class ProjectValidator {
     private boolean isNotValidUser(UserDTO dto, boolean mustBeActive) {
         UserEntity userEntity = Objects.isNull(dto.getId()) ? null :
                 userRepository.findOneById(dto.getId());
-        if (Objects.isNull(userEntity) || (mustBeActive && !userEntity.isActive())) {
-            return true;
-        }
-        return false;
+        return Objects.isNull(userEntity) || (mustBeActive && !userEntity.isActive());
     }
 
     private boolean isNotValidLegalAct(LegalActDTO dto, boolean mustBeActive) {
         LegalActEntity legalActEntity = Objects.isNull(dto.getId()) ? null :
                 legalActRepository.findOneById(dto.getId());
-        if (Objects.isNull(legalActEntity) || (mustBeActive && !legalActEntity.isActive())) {
-            return true;
-        }
-        return false;
+        return Objects.isNull(legalActEntity) || (mustBeActive && !legalActEntity.isActive());
     }
 
 }

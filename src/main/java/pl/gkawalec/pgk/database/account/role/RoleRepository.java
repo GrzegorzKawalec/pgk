@@ -25,6 +25,7 @@ public interface RoleRepository extends BaseNumberIDRepository<RoleEntity> {
     @Query(SQL_EXISTS_WITHOUT_MULTIPLE_WHITE_SPACE_AND_IGNORE_CASE)
     boolean existsByNameWithoutMultipleWhiteSpaceAndIgnoreCase(@Param("name") String name);
 
+    @SuppressWarnings("SyntaxError")
     @Query(SQL_EXISTS_WITHOUT_MULTIPLE_WHITE_SPACE_AND_IGNORE_CASE + " and r.id != :excludedId")
     boolean existsByNameWithoutMultipleWhiteSpaceAndIgnoreCaseExcludedId(@Param("name") String name,
                                                                          @Param("excludedId") Integer excludedId);

@@ -44,7 +44,7 @@ public class LegalActService {
     }
 
     public List<SelectDTO> getSelectLegalActs() {
-        return legalActRepository.findAllByIsActiveTrue().stream()
+        return legalActRepository.findAllByActiveIsTrue().stream()
                 .map(SelectDTO::of)
                 .collect(Collectors.toList());
     }

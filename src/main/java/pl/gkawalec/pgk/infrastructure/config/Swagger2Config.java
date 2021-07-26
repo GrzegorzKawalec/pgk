@@ -35,7 +35,7 @@ public class Swagger2Config {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(BASE_PACKAGE))
-                .paths(PathSelectors.regex(appSetting.getApiPrefix() + "/.*"))
+                .paths(PathSelectors.regex(AppSetting.API_PREFIX + "/.*"))
                 .build()
                 .apiInfo(apiInfo());
     }

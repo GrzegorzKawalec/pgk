@@ -37,7 +37,7 @@ public record LegalActSpecification(LegalActCriteria criteria) implements Specif
     }
 
     private void isActive(Root<LegalActEntity> root, CriteriaBuilder criteriaBuilder, List<Predicate> predicates) {
-        Path<Boolean> isActivePath = root.get(LegalActEntity_.isActive);
+        Path<Boolean> isActivePath = root.get(LegalActEntity_.active);
         Predicate isActivePredicate = criteria.getIsActive() ?
                 criteriaBuilder.isTrue(isActivePath) :
                 criteriaBuilder.isFalse(isActivePath);

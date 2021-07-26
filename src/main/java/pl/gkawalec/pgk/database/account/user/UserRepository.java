@@ -12,6 +12,6 @@ public interface UserRepository extends BaseNumberIDRepository<UserEntity> {
 
     UserEntity findByEmail(String email);
 
-    List<UserEntity> findAllByIsActiveTrue();
+    List<UserEntity> findAllByActiveIsTrue();
 
 }
