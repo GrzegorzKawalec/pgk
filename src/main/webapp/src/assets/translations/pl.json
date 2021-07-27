@@ -143,6 +143,18 @@
     "name": "Nazwa",
     "version": "Wersja"
   },
+  "dashboard": {
+    "dashboard": "Panel z aktywnymi projektami",
+    "description": "Opis",
+    "interval": "Przedział czasu",
+    "legal-acts": "Akty prawne",
+    "name": "Nazwa projektu",
+    "no-active-project": "Brak aktywnego projektu",
+    "open-link": "Otwórz link w nowej karcie",
+    "page-of": "z",
+    "participants": "Uczestnicy",
+    "project-manager": "Kierownik projektu"
+  },
   "project-management": {
     "project-management": "Zarządzanie projektami",
     "tab-projects": "Projekty",

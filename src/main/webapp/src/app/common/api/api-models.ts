@@ -29,6 +29,10 @@ export interface BaseCriteria {
     searchPage?: SearchPageDTO;
 }
 
+export interface DashboardDTO {
+    projects?: ProjectDTO[];
+}
+
 export interface InfoBasicDTO {
     author?: string;
     name?: string;

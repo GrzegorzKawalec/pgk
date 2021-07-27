@@ -76,7 +76,7 @@ class TestProjectEntityCreator {
         ReflectionTestUtils.setField(entity, LegalActEntity.Fields.name, UUID.randomUUID().toString());
         ReflectionTestUtils.setField(entity, LegalActEntity.Fields.dateOf, LocalDate.now());
         ReflectionTestUtils.setField(entity, LegalActEntity.Fields.link, UUID.randomUUID().toString());
-        ReflectionTestUtils.setField(entity, LegalActEntity.Fields.isActive, true);
+        ReflectionTestUtils.setField(entity, LegalActEntity.Fields.active, true);
         return entity;
     }
 

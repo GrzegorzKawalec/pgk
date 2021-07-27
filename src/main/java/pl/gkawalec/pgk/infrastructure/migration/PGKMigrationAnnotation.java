@@ -1,6 +1,5 @@
 package pl.gkawalec.pgk.infrastructure.migration;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.*;

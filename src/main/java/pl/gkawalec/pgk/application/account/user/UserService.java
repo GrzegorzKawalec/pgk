@@ -44,7 +44,7 @@ public class UserService {
     }
 
     public List<SelectDTO> getSelectedUsers() {
-        return userRepository.findAllByIsActiveTrue().stream()
+        return userRepository.findAllByActiveIsTrue().stream()
                 .filter(UserUtil::isInternalUser)
                 .map(SelectDTO::of)
                 .collect(Collectors.toList());

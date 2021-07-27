@@ -4,6 +4,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +15,11 @@ import java.util.Objects;
 @Component
 class AuthenticatedHeaderAdder extends OncePerRequestFilter {
 
+    @SuppressWarnings("UastIncorrectHttpHeaderInspection")
     private static final String HEADER_NAME = "Authenticated";
 
     @Override
+    @ParametersAreNonnullByDefault
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain fc) throws ServletException, IOException {
         String authenticatedUsername = getAuthenticatedUserName();
         res.addHeader(HEADER_NAME, authenticatedUsername);

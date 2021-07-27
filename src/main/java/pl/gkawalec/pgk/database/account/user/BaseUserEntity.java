@@ -35,7 +35,8 @@ public abstract class BaseUserEntity extends AuditingEntity {
     protected String description;
 
     @NotNull
-    protected boolean isActive = true;
+    @Column(name = "is_active")
+    protected boolean active = true;
 
     protected void setEmail(String email) {
         this.email = StringUtil.trim(email);

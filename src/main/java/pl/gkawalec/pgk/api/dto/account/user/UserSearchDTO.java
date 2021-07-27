@@ -4,13 +4,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Value;
 import pl.gkawalec.pgk.api.dto.account.role.RoleDTO;
-import pl.gkawalec.pgk.common.type.Authority;
-import pl.gkawalec.pgk.database.account.authority.AuthorityEntity;
 import pl.gkawalec.pgk.database.account.role.RoleEntity;
 import pl.gkawalec.pgk.database.account.user.UserSearchEntity;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Value
 @Builder(access = AccessLevel.PRIVATE)

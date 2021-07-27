@@ -26,6 +26,7 @@ import {INTERCEPTORS} from './core/interceptors/interceptors';
 import {PaginatorIntlService} from './core/internationalization/paginator-intl.service';
 import {NavbarComponent} from './layouts/navbar/navbar.component';
 import {AppInfoModule} from './modules/app-info/app-info.module';
+import {DashboardModule} from './modules/dashboard/dashboard.module';
 import {ProjectManagementModule} from './modules/project-management/project-management.module';
 import {UserManagementModule} from './modules/user-management/user-management.module';
 
@@ -56,6 +57,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     AppRouting,
 
     AppInfoModule,
+    DashboardModule,
     ProjectManagementModule,
     UserManagementModule,
 

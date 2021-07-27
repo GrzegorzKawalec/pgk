@@ -1,18 +1,24 @@
 <mat-toolbar color="primary" class="navbar">
 
   <div *ngIf="loggedUser">
+    <button mat-icon-button (click)="clickDashboard()">
+      <mat-icon svgIcon="dashboard" matTooltip="{{'dashboard.dashboard' | translate}}"></mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="loggedUser">
     <button mat-icon-button (click)="clickProjectManagement()">
-      <mat-icon svgIcon="project_management" [matTooltip]="'project-management.project-management' | translate"></mat-icon>
+      <mat-icon svgIcon="project_management" matTooltip="{{'project-management.project-management' | translate}}"></mat-icon>
     </button>
   </div>
 
   <div *ngIf="loggedUser">
     <button mat-icon-button (click)="clickUserManagement()">
-      <mat-icon svgIcon="user_management" [matTooltip]="'user-management.user-management' | translate"></mat-icon>
+      <mat-icon svgIcon="user_management" matTooltip="{{'user-management.user-management' | translate}}"></mat-icon>
     </button>
 
     <button mat-icon-button (click)="clickInfo()">
-      <mat-icon svgIcon="info" [matTooltip]="'app-info.app-info' | translate" matTooltipPosition="after"></mat-icon>
+      <mat-icon svgIcon="info" matTooltip="{{'app-info.app-info' | translate}}"></mat-icon>
     </button>
   </div>
 
@@ -23,7 +29,7 @@
       {{loggedUser.firstName}} {{loggedUser.lastName}}
     </span>
     <button mat-icon-button (click)="clickSignOut()">
-      <mat-icon svgIcon="logout" [matTooltip]="'sign-in.sign-out' | translate"></mat-icon>
+      <mat-icon svgIcon="logout" matTooltip="{{'sign-in.sign-out' | translate}}"></mat-icon>
     </button>
   </div>
 

@@ -36,6 +36,9 @@ class Keys {
       case LocalStorageKey.LANG:
         lsKey = 'lang';
         break;
+      case LocalStorageKey.DASHBOARD_LAST_VISIBLE_PROJECT_ID:
+        lsKey = 'dashboard-last-visible-project-id';
+        break;
       case LocalStorageKey.LEGAL_ACTS_PER_PAGE:
         lsKey = 'legal-acts-per-page';
         break;

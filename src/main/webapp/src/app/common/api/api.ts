@@ -6,6 +6,10 @@ export class AuthAPI {
   static readonly signOut: string = AuthAPI.url + '-out';
 }
 
+export class DashboardAPI {
+  static readonly url: string = PREFIX + '/dashboard';
+}
+
 export class InfoAPI {
   static readonly url: string = PREFIX + '/info';
   static readonly basicInfo: string = InfoAPI.url + '/basic';

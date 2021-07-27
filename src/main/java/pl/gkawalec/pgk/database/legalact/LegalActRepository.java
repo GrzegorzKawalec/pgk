@@ -21,6 +21,7 @@ public interface LegalActRepository extends BaseNumberIDRepository<LegalActEntit
     boolean existsByDateOfAndNameWithoutMultipleWhitespaceIgnoreCase(@Param("dateOf") LocalDate dateOf,
                                                                      @Param("name") String name);
 
+    @SuppressWarnings("SyntaxError")
     @Query(SQL_EXISTS_DATE_OF_AND_NAME_WITHOUT_MULTIPLE_SPACE_IGNORE_CASE + " and la.id != :excludedId")
     boolean existsByDateOfAndNameWithoutMultipleWhitespaceIgnoreCaseExcludedId(@Param("dateOf") LocalDate dateOf,
                                                                                @Param("name") String name,
@@ -30,6 +31,6 @@ public interface LegalActRepository extends BaseNumberIDRepository<LegalActEntit
 
     boolean existsByLinkIgnoreCaseAndIdNot(String link, Long excludedId);
 
-    List<LegalActEntity> findAllByIsActiveTrue();
+    List<LegalActEntity> findAllByActiveIsTrue();
 
 }

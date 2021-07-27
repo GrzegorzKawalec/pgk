@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @Setter(AccessLevel.PACKAGE)
 @Table(
         name = "pgk_legal_act",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"name", "dateOf"})
+        uniqueConstraints = @UniqueConstraint(columnNames = {"name", "date_of"})
 )
 public class LegalActEntity extends AuditingEntity {
 
@@ -31,6 +31,7 @@ public class LegalActEntity extends AuditingEntity {
     private String name;
 
     @NotNull
+    @Column(name = "date_of")
     private LocalDate dateOf;
 
     @NotNull
@@ -38,16 +39,17 @@ public class LegalActEntity extends AuditingEntity {
     private String link;
 
     @NotNull
-    private boolean isActive = true;
+    @Column(name = "is_active")
+    private boolean active = true;
 
     private String description;
 
     public void deactivate() {
-        this.isActive = false;
+        this.active = false;
     }
 
     public void activate() {
-        this.isActive = true;
+        this.active = true;
     }
 
     void setName(String name) {
