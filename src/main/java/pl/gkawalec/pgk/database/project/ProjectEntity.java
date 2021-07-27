@@ -38,7 +38,8 @@ public class ProjectEntity extends AuditingEntity {
     private LocalDate dateEnd;
 
     @NotNull
-    private boolean isActive = true;
+    @Column(name = "is_active")
+    private boolean active = true;
 
     @NotNull
     private String description;
@@ -67,11 +68,11 @@ public class ProjectEntity extends AuditingEntity {
     private List<LegalActEntity> legalActs = new ArrayList<>();
 
     public void deactivate() {
-        this.isActive = false;
+        this.active = false;
     }
 
     public void activate() {
-        this.isActive = true;
+        this.active = true;
     }
 
     void setName(String name) {

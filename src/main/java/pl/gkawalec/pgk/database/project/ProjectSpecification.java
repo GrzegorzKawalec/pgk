@@ -33,7 +33,7 @@ public record ProjectSpecification(ProjectCriteria criteria) implements Specific
     }
 
     private void isActive(Root<ProjectEntity> root, CriteriaBuilder criteriaBuilder, List<Predicate> predicates) {
-        Path<Boolean> isActivePath = root.get(ProjectEntity_.isActive);
+        Path<Boolean> isActivePath = root.get(ProjectEntity_.active);
         Predicate isActivePredicate = criteria.getIsActive() ?
                 criteriaBuilder.isTrue(isActivePath) :
                 criteriaBuilder.isFalse(isActivePath);
