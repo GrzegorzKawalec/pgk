@@ -1,6 +1,12 @@
 <mat-toolbar color="primary" class="navbar">
 
   <div *ngIf="loggedUser">
+    <button mat-icon-button (click)="clickDashboard()">
+      <mat-icon svgIcon="dashboard" matTooltip="{{'dashboard.dashboard' | translate}}"></mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="loggedUser">
     <button mat-icon-button (click)="clickProjectManagement()">
       <mat-icon svgIcon="project_management" matTooltip="{{'project-management.project-management' | translate}}"></mat-icon>
     </button>

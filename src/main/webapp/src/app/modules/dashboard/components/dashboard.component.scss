@@ -1,0 +1,60 @@
+.dashboard-container {
+  text-align: left;
+  width: calc(100vw - 12.5em);
+  height: calc(100vh - 15em);
+}
+
+mat-card {
+  overflow: auto;
+}
+
+.header-container {
+  margin-bottom: 1em;
+}
+
+.header-name {
+  padding-bottom: 0.1em;
+  font-size: 1.5em;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  text-overflow: ellipsis;
+}
+
+.pagin-container {
+  .pagin-info {
+    margin-right: 0.5em;
+    min-width: 5em;
+    text-align: right;
+  }
+
+  mat-icon {
+    position: relative;
+    bottom: 1px;
+    cursor: pointer;
+
+    &.disable {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+}
+
+.content-container {
+  margin-top: 2em;
+}
+
+.no-active-project {
+  margin: 1em;
+}
+
+mat-list-item {
+  height: 1.5em !important;
+}
+
+.link-icon {
+  cursor: pointer;
+  position: relative;
+  bottom: 0.1em;
+}

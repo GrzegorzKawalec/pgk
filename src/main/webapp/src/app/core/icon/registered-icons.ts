@@ -9,6 +9,7 @@ export const REGISTERED_ICONS: IconSvgModel[] = [
 
   register('add'),
   register('clear'),
+  register('dashboard'),
   register('delete'),
   register('edit'),
   register('info'),
@@ -20,6 +21,8 @@ export const REGISTERED_ICONS: IconSvgModel[] = [
   register('manage_participants'),
   register('menage_legal_acts'),
   register('password'),
+  register('navigate_before'),
+  register('navigate_next'),
   register('project_add'),
   register('project_deactivate'),
   register('project_management'),

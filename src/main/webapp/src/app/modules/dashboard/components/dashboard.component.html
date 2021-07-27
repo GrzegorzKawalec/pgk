@@ -1,0 +1,126 @@
+<pgk-canter-card elevation="12">
+
+  <div class="dashboard-container" *ngIf="!loading; else loader">
+
+    <div fxLayout="row" fxLayoutAlign="center center" class="header-container">
+      <div fxFlex="grow" class="header-name">{{currentProject ? currentProject.name : ''}}</div>
+      <div fxLayout="row" fxLayoutAlign="center center" class="pagin-container">
+        <span class="pagin-info">{{getPaginInfo()}}</span>
+        <mat-icon svgIcon="navigate_before" (click)="clickPreviousPage()"
+                  matRipple [matRippleDisabled]="needDisablePreviousPage()"
+                  [ngClass]="needDisablePreviousPage() && 'disable'"></mat-icon>
+        <mat-icon svgIcon="navigate_next" (click)="clickNextPage()"
+                  matRipple [matRippleDisabled]="needDisableNextPage()"
+                  [ngClass]="needDisableNextPage() && 'disable'"></mat-icon>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout="row" fxLayoutGap="1em" class="content-container" *ngIf="currentProject; else noActiveProject">
+
+      <div fxFlex="33" fxLayout="column" fxLayoutGap="1em">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{prefixTranslateMessage + 'project-manager' | translate}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list>
+              <mat-list-item>
+                <div fxFlex="row" fxLayoutGap="1em">
+                  <span fxFlex="grow">{{currentProject.projectManager.lastName}} {{currentProject.projectManager.firstName}}</span>
+                  <span>{{currentProject.projectManager.email}}</span>
+                </div>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{prefixTranslateMessage + 'participants' | translate}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list>
+              <mat-list-item *ngFor="let participant of currentProject.participants">
+                <div fxFlex="row" fxLayoutGap="1em">
+                  <span fxFlex="grow">{{participant.lastName}} {{participant.firstName}}</span>
+                  <span>{{participant.email}}</span>
+                </div>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div fxFlex="33" fxLayout="column" fxLayoutGap="1em">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{prefixTranslateMessage + 'interval' | translate}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list>
+              <mat-list-item>
+                <span>{{currentProject.dateStartStr}} — {{currentProject.dateEndStr}}</span>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{prefixTranslateMessage + 'legal-acts' | translate}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list>
+              <mat-list-item *ngFor="let legalAct of currentProject.legalActs">
+                <div fxFlex="row" fxLayoutGap="0.5em" fxLayoutAlign="center center">
+                  <span fxFlex="grow">{{legalAct.name}}</span>
+                  <span>{{legalAct.dateOfStr}}</span>
+                  <mat-icon svgIcon="link" class="link-icon" (click)="clickLegalActLink(legalAct)"
+                            matTooltipPosition="before" matTooltip="{{prefixTranslateMessage + 'open-link' | translate}}"></mat-icon>
+                </div>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div fxFlex fxLayout="column" fxLayoutGap="1em">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{prefixTranslateMessage + 'name' | translate}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list>
+              <mat-list-item>
+                <p>{{currentProject.name}}</p>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{prefixTranslateMessage + 'description' | translate}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-list>
+              <mat-list-item>
+                <p>{{currentProject.description}}</p>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </div>
+
+    <ng-template #noActiveProject>
+      <h3 class="no-active-project">{{prefixTranslateMessage + 'no-active-project' | translate}}</h3>
+    </ng-template>
+
+  </div>
+
+  <ng-template #loader>
+    <pgk-loader></pgk-loader>
+  </ng-template>
+
+</pgk-canter-card>
