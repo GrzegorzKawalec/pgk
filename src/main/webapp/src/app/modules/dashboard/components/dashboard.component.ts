@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit {
     }
     const lastVisibleProjectId: number = this.localStorageService.read(LocalStorageKey.DASHBOARD_LAST_VISIBLE_PROJECT_ID);
     const projects: ProjectDTO[] = dashboard.projects.sort((a, b) => StringUtils.compareString(a.name, b.name));
-    for (let i = 0; i < projects.length; i++) {
+    for (let i: number = 0; i < projects.length; i++) {
       this.projects.set(i, projects[i]);
       if (lastVisibleProjectId !== null && lastVisibleProjectId === projects[i].id) {
         this.visibleProjectIndex = i;
