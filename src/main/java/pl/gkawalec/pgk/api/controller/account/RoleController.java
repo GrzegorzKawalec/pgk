@@ -20,13 +20,13 @@ import java.util.Set;
 @RequestMapping(AppSetting.API_PREFIX + RoleController.URL)
 public class RoleController {
 
-    public static final String URL = "/role";
-    public static final String ALL = "/all";
-    public static final String ALL_AVAILABLE = "/available";
-    public static final String AUDITING_INFO = "/auditing-info";
-    public static final String AUTHORITIES = "/authorities";
-    public static final String EXISTS_NAME = "/exists-name";
-    public static final String FIND = "/find";
+    static final String URL = "/role";
+    static final String ALL = "/all";
+    static final String ALL_AVAILABLE = "/available";
+    static final String AUDITING_INFO = "/auditing-info";
+    static final String AUTHORITIES = "/authorities";
+    static final String EXISTS_NAME = "/exists-name";
+    static final String FIND = "/find";
 
     private final RoleService service;
 

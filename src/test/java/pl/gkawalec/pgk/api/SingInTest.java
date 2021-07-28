@@ -14,8 +14,6 @@ import pl.gkawalec.pgk.test.annotation.PGKSpringMockMvcTest;
 import pl.gkawalec.pgk.test.util.TestLoginUtil;
 import pl.gkawalec.pgk.test.util.TestUserUtil;
 
-import javax.transaction.Transactional;
-
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

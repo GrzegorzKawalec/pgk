@@ -13,8 +13,8 @@ import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 @RequestMapping(AppSetting.API_PREFIX + InfoController.URL)
 public class InfoController {
 
-    public static final String URL = "/info";
-    public static final String URL_BASIC = "/basic";
+    static final String URL = "/info";
+    static final String URL_BASIC = "/basic";
 
     private final InfoService infoService;
 

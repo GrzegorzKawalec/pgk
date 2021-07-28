@@ -20,15 +20,15 @@ import java.util.List;
 @RequestMapping(AppSetting.API_PREFIX + ProjectController.URL)
 public class ProjectController {
 
-    public static final String URL = "/project";
-    public static final String ACTIVATE = "/activate";
-    public static final String AUDITING_INFO = "/auditing-info";
-    public static final String DATA_FOR_UPSERT = "/data-for-upsert";
-    public static final String DEACTIVATE = "/deactivate";
-    public static final String FIND = "/find";
-    public static final String PARTICIPANTS = "/participants";
-    public static final String SELECT_LEGAL_ACTS = "/select-legal-acts";
-    public static final String SELECT_PARTICIPANTS = "/select-participants";
+    static final String URL = "/project";
+    static final String ACTIVATE = "/activate";
+    static final String AUDITING_INFO = "/auditing-info";
+    static final String DATA_FOR_UPSERT = "/data-for-upsert";
+    static final String DEACTIVATE = "/deactivate";
+    static final String FIND = "/find";
+    static final String PARTICIPANTS = "/participants";
+    static final String SELECT_LEGAL_ACTS = "/select-legal-acts";
+    static final String SELECT_PARTICIPANTS = "/select-participants";
 
     private final UserService userService;
     private final ProjectService projectService;

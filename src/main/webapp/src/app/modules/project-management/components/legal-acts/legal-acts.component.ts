@@ -1,17 +1,15 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {Subject} from 'rxjs';
-import {debounceTime, finalize, takeUntil} from 'rxjs/operators';
+import {finalize, takeUntil} from 'rxjs/operators';
 import {Authority, LegalActCriteria, LegalActDTO, UserDTO} from '../../../../common/api/api-models';
 import {Page} from '../../../../common/api/api-pagination.models';
-import {BaseComponent} from '../../../../common/components/base.component';
+import {BaseTableComponent} from '../../../../common/components/base/base-table.component';
 import {ModalConfirmComponent} from '../../../../common/components/modal-confirm/modal-confirm.component';
 import {ModalConfirmModel} from '../../../../common/components/modal-confirm/modal-confirm.model';
 import {RouteProjectManagement} from '../../../../common/const/routes';
@@ -29,7 +27,7 @@ import {LegalActDetailsModalComponent} from './legal-act-details-modal/legal-act
   templateUrl: './legal-acts.component.html',
   styleUrls: ['./legal-acts.component.scss']
 })
-export class LegalActsComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class LegalActsComponent extends BaseTableComponent<LegalActCriteria> implements OnInit, AfterViewInit {
 
   readonly requiredUpsertAuthorities: Authority[] = [Authority.LEGAL_ACTS_WRITE];
   readonly requiredReadDetailsAuthorities: Authority[] = [...this.requiredUpsertAuthorities, Authority.LEGAL_ACTS_READ];
@@ -37,42 +35,35 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
   readonly prefixTranslateMessage: string = 'project-management.legal-acts.';
   readonly prefixTranslateColumn: string = this.prefixTranslateMessage + 'columns.';
 
-  readonly pageSizeOptions: number[] = this.paginatorService.pageSizeOptions;
-
   readonly clnName: string = 'name';
   readonly clnDateOf: string = 'date-of';
   readonly clnDescription: string = 'description';
   readonly clnButtons: string = 'buttons';
   readonly displayedColumns: string[] = [this.clnName, this.clnDateOf, this.clnDescription, this.clnButtons];
   tableData: MatTableDataSource<LegalActDTO>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
-  loading: boolean = false;
 
   criteria: LegalActCriteria = CriteriaBuilder.init(this.clnName, {isActive: true});
 
-  filterText: string;
   filterDateOfLessOrEqual: Date;
   filterDateOfGreaterOrEqual: Date;
-  private applyTextFilter$: Subject<string> = new Subject();
 
   constructor(
     private router: Router,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar,
-    private cdr: ChangeDetectorRef,
     private authHelper: AuthHelper,
     private legalActService: LegalActService,
-    private translateService: TranslateService,
-    private paginatorService: PaginatorService
+    translateService: TranslateService,
+    paginatorService: PaginatorService,
+    snackBar: MatSnackBar,
+    cdr: ChangeDetectorRef
   ) {
-    super();
+    super(translateService, snackBar, cdr, paginatorService, LocalStorageKey.LEGAL_ACTS_PER_PAGE);
   }
 
   ngOnInit(): void {
     this.subscribeTextFilter();
-    this.searchLegalAct();
+    this.search();
   }
 
   ngAfterViewInit(): void {
@@ -126,7 +117,7 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
     this.criteria.dateOfLessThanOrEqual = null;
     this.criteria.dateOfGreaterThanOrEqual = null;
 
-    this.searchLegalAct();
+    this.search();
   }
 
   applyDateOfGreaterOrEqualFilter(): void {
@@ -135,7 +126,7 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
       return;
     }
     this.criteria.dateOfGreaterThanOrEqual = date;
-    this.searchLegalAct();
+    this.search();
   }
 
   applyDateOfLessOrEqualFilter(): void {
@@ -144,35 +135,12 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
       return;
     }
     this.criteria.dateOfLessThanOrEqual = date;
-    this.searchLegalAct();
+    this.search();
   }
 
   applyInactiveFilter(inactive: MatSlideToggleChange): void {
     this.criteria.isActive = !inactive.checked;
-    this.searchLegalAct();
-  }
-
-  applyTextFilter(event: KeyboardEvent): void {
-    const filterValue: string = (event.target as HTMLInputElement).value;
-    this.applyTextFilter$.next(filterValue);
-  }
-
-  private subscribeTextFilter(): void {
-    this.applyTextFilter$
-      .pipe(
-        takeUntil(this.destroy$),
-        debounceTime(300)
-      ).subscribe((filterText: string) => {
-        this.criteria.searchBy = filterText;
-        this.searchLegalAct();
-    });
-  }
-
-  private initPageSize(): void {
-    const pageSize: number = this.paginatorService.lastPageSize(LocalStorageKey.LEGAL_ACTS_PER_PAGE);
-    this.criteria.searchPage.pageSize = pageSize;
-    this.paginator.pageSize = pageSize;
-    this.cdr.detectChanges();
+    this.search();
   }
 
   private subscribeSort(): void {
@@ -186,7 +154,7 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
           this.criteria.searchPage.sorting[0].direction = DirectionMapper.map(sort.direction);
           this.criteria.searchPage.sorting[0].property = sortProperty;
         }
-        this.searchLegalAct();
+        this.search();
       });
   }
 
@@ -200,24 +168,7 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
     return sort.active;
   }
 
-  private subscribePaginator(): void {
-    this.paginator.page
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((pageEvent: PageEvent) => this.afterChangePaginatorFields(pageEvent));
-  }
-
-  private afterChangePaginatorFields(pageEvent: PageEvent): void {
-    const pageSize: number = pageEvent.pageSize;
-    const pageIndex: number = pageEvent.pageIndex;
-    if (pageSize !== this.criteria.searchPage.pageSize || pageIndex !== this.criteria.searchPage.pageNumber) {
-      this.paginatorService.changeLastPageSize(LocalStorageKey.LEGAL_ACTS_PER_PAGE, pageSize);
-      this.criteria.searchPage.pageSize = pageSize;
-      this.criteria.searchPage.pageNumber = pageIndex;
-      this.searchLegalAct();
-    }
-  }
-
-  private searchLegalAct(): void {
+  protected search(): void {
     this.loading = true;
     this.legalActService.find(this.criteria)
       .pipe(finalize(() => this.loading = false))
@@ -266,19 +217,13 @@ export class LegalActsComponent extends BaseComponent implements OnInit, AfterVi
   private deactivateLegalAct(legalActId: number): void {
     this.loading = true;
     this.legalActService.deactivate(legalActId)
-      .subscribe(() => this.showSnackBarAfterChangeLegalActStatus('common.deactivated'));
+      .subscribe(() => this.showSnackBarAfterChangeStatus('common.deactivated'));
   }
 
   private activateLegalAct(legalActId: number): void {
     this.loading = true;
     this.legalActService.activate(legalActId)
-      .subscribe(() => this.showSnackBarAfterChangeLegalActStatus('common.activated'));
-  }
-
-  private showSnackBarAfterChangeLegalActStatus(messageKey: string): void {
-    const message: string = this.translateService.instant(messageKey);
-    this.snackBar.open(message, 'OK', {duration: 2000});
-    this.searchLegalAct();
+      .subscribe(() => this.showSnackBarAfterChangeStatus('common.activated'));
   }
 
 }
