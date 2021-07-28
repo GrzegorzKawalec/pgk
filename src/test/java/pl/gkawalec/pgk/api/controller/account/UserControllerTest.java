@@ -3,7 +3,6 @@ package pl.gkawalec.pgk.api.controller.account;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -13,16 +12,14 @@ import pl.gkawalec.pgk.database.account.user.UserEntity;
 import pl.gkawalec.pgk.database.account.user.UserRepository;
 import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 import pl.gkawalec.pgk.test.annotation.PGKSpringMockMvcTest;
+import pl.gkawalec.pgk.test.util.TestControllerUtil;
 import pl.gkawalec.pgk.test.util.TestConverterJSONUtil;
 import pl.gkawalec.pgk.test.util.TestLoginUtil;
-import pl.gkawalec.pgk.test.util.TestRequestPerformerUtil;
-import pl.gkawalec.pgk.test.util.TestUserUtil;
 
 import javax.transaction.Transactional;
-import java.util.Set;
 
 import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,10 +35,10 @@ class UserControllerTest {
     private AppSetting appSetting;
 
     @Autowired
-    private TestUserUtil testUserUtil;
+    private TestLoginUtil testLoginUtil;
 
     @Autowired
-    private TestLoginUtil testLoginUtil;
+    private TestControllerUtil testControllerUtil;
 
     @Autowired
     private UserRepository userRepository;
@@ -91,101 +88,63 @@ class UserControllerTest {
     @Transactional
     @DisplayName("Test end-point creating a user. User without the required authorities.")
     void create_withoutAuthorities() throws Exception {
-        //given
-        String url = URL;
-        String email = "testowy_a@testowy_a";
-        String pass = "password_a";
-        Set<Authority> correctAuthorities = Set.of(Authority.USER_WRITE, Authority.ROLE_WRITE);
         UserUpsertDTO dto = UserUpsertDTO.builder().build();
-        String bodyRequest = TestConverterJSONUtil.convert(dto);
+        String requestBody = TestConverterJSONUtil.convert(dto);
 
-        //when
-        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
-        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
-        MockHttpServletRequestBuilder request = post(url).session(session)
-                .content(bodyRequest).contentType(MediaType.APPLICATION_JSON);
-
-        //then
-        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+        testControllerUtil.postWithoutAuthorities(
+                mockMvc,
+                URL,
+                requestBody,
+                Authority.USER_WRITE, Authority.ROLE_WRITE
+        );
     }
 
     @Test
     @Transactional
     @DisplayName("Test end-point updating user. User without the required authorities.")
     void update_withoutAuthorities() throws Exception {
-        //given
-        String url = URL;
-        String email = "testowy_a@testowy_a";
-        String pass = "password_a";
-        Set<Authority> correctAuthorities = Set.of(Authority.USER_WRITE, Authority.ROLE_WRITE);
         UserUpsertDTO dto = UserUpsertDTO.builder().build();
-        String bodyRequest = TestConverterJSONUtil.convert(dto);
+        String requestBody = TestConverterJSONUtil.convert(dto);
 
-        //when
-        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
-        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
-        MockHttpServletRequestBuilder request = put(url, dto).session(session)
-                .content(bodyRequest).contentType(MediaType.APPLICATION_JSON);
-
-        //then
-        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+        testControllerUtil.putWithoutAuthorities(
+                mockMvc,
+                URL,
+                requestBody,
+                Authority.USER_WRITE, Authority.ROLE_WRITE
+        );
     }
 
     @Test
     @Transactional
     @DisplayName("Test end-point that returns audited user information. User without the required authorities.")
     void getAuditingInfo_withoutAuthorities() throws Exception {
-        //given
-        String url = URL + UserController.AUDITING_INFO + "/" + 1;
-        String email = "testowy_a@testowy_a";
-        String pass = "password_a";
-        Set<Authority> correctAuthorities = Set.of(Authority.USER_READ, Authority.USER_WRITE, Authority.ROLE_READ, Authority.ROLE_WRITE);
-
-        //when
-        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
-        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
-        MockHttpServletRequestBuilder request = get(url).session(session);
-
-        //then
-        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+        testControllerUtil.getWithoutAuthorities(
+                mockMvc,
+                URL + UserController.AUDITING_INFO + "/" + 1,
+                Authority.USER_READ, Authority.USER_WRITE, Authority.ROLE_READ, Authority.ROLE_WRITE
+        );
     }
 
     @Test
     @Transactional
     @DisplayName("Test end-point deactivating user. User without the required authorities.")
     void deactivate_withoutAuthorities() throws Exception {
-        //given
-        String url = URL + UserController.DEACTIVATE + "/" + 1;
-        String email = "testowy_a@testowy_a";
-        String pass = "password_a";
-        Set<Authority> correctAuthorities = Set.of(Authority.USER_WRITE, Authority.ROLE_WRITE);
-
-        //when
-        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
-        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
-        MockHttpServletRequestBuilder request = put(url).session(session);
-
-        //then
-        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+        testControllerUtil.putWithoutAuthorities(
+                mockMvc,
+                URL + UserController.DEACTIVATE + "/" + 1,
+                Authority.USER_WRITE, Authority.ROLE_WRITE
+        );
     }
 
     @Test
     @Transactional
     @DisplayName("Test end-point activating user. User without the required authorities.")
     void activate_withoutAuthorities() throws Exception {
-        //given
-        String url = URL + UserController.ACTIVATE + "/" + 1;
-        String email = "testowy_a@testowy_a";
-        String pass = "password_a";
-        Set<Authority> correctAuthorities = Set.of(Authority.USER_WRITE, Authority.ROLE_WRITE);
-
-        //when
-        testUserUtil.createUserExcludedAuthorities(email, pass, correctAuthorities);
-        MockHttpSession session = testLoginUtil.loginSession(mockMvc, email, pass);
-        MockHttpServletRequestBuilder request = put(url).session(session);
-
-        //then
-        TestRequestPerformerUtil.performWithoutAuthority(mockMvc, request);
+        testControllerUtil.putWithoutAuthorities(
+                mockMvc,
+                URL + UserController.ACTIVATE + "/" + 1,
+                Authority.USER_WRITE, Authority.ROLE_WRITE
+        );
     }
 
 }

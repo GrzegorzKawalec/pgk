@@ -19,12 +19,12 @@ import java.util.List;
 @RequestMapping(AppSetting.API_PREFIX + LegalActController.URL)
 public class LegalActController {
 
-    public static final String URL = "/legal-act";
-    public static final String ACTIVATE = "/activate";
-    public static final String ALL = "/all";
-    public static final String AUDITING_INFO = "/auditing-info";
-    public static final String DEACTIVATE = "/deactivate";
-    public static final String FIND = "/find";
+    static final String URL = "/legal-act";
+    static final String ACTIVATE = "/activate";
+    static final String ALL = "/all";
+    static final String AUDITING_INFO = "/auditing-info";
+    static final String DEACTIVATE = "/deactivate";
+    static final String FIND = "/find";
 
     private final LegalActService legalActService;
 

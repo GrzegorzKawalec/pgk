@@ -16,15 +16,15 @@ import pl.gkawalec.pgk.infrastructure.setting.model.AppSetting;
 @RequestMapping(AppSetting.API_PREFIX + UserController.URL)
 public class UserController {
 
-    public static final String URL = "/user";
-    public static final String URL_ME = "/me";
-    public static final String ACTIVATE = "/activate";
-    public static final String AUDITING_INFO = "/auditing-info";
-    public static final String CHANGE_PASSWORD = "/change-password";
-    public static final String DEACTIVATE = "/deactivate";
-    public static final String EXISTS_EMAIL = "/exists-email";
-    public static final String FIND = "/find";
-    public static final String FIND_UPSERT = "/find-upsert";
+    static final String URL = "/user";
+    static final String URL_ME = "/me";
+    static final String ACTIVATE = "/activate";
+    static final String AUDITING_INFO = "/auditing-info";
+    static final String CHANGE_PASSWORD = "/change-password";
+    static final String DEACTIVATE = "/deactivate";
+    static final String EXISTS_EMAIL = "/exists-email";
+    static final String FIND = "/find";
+    static final String FIND_UPSERT = "/find-upsert";
 
     private final UserService userService;
     private final LoggedUserAccessor loggedUserAccessor;

@@ -19,7 +19,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @PGKSpringBootTest
 class ProjectValidatorTest {

@@ -1,6 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSelectChange} from '@angular/material/select';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -8,11 +7,10 @@ import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {Subject} from 'rxjs';
-import {debounceTime, finalize, takeUntil} from 'rxjs/operators';
+import {finalize, takeUntil} from 'rxjs/operators';
 import {Authority, Direction, RoleDTO, UserCriteria, UserDTO, UserSearchDTO} from '../../../../common/api/api-models';
 import {Page} from '../../../../common/api/api-pagination.models';
-import {BaseComponent} from '../../../../common/components/base.component';
+import {BaseTableComponent} from '../../../../common/components/base/base-table.component';
 import {ModalConfirmComponent} from '../../../../common/components/modal-confirm/modal-confirm.component';
 import {ModalConfirmModel} from '../../../../common/components/modal-confirm/modal-confirm.model';
 import {RouteUserManagement} from '../../../../common/const/routes';
@@ -32,15 +30,13 @@ import {UserDetailsModalComponent} from './user-details-modal/user-details-modal
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class UsersComponent extends BaseTableComponent<UserCriteria> implements OnInit, AfterViewInit {
 
   readonly requiredUpsertAuthorities: Authority[] = [Authority.ROLE_WRITE, Authority.USER_WRITE];
   readonly requiredReadUserDetailsAuthorities: Authority[] = [...this.requiredUpsertAuthorities, Authority.USER_READ];
 
   readonly prefixTranslateMessage: string = 'user-management.user.';
   readonly prefixTranslateColumn: string = this.prefixTranslateMessage + 'columns.';
-
-  readonly pageSizeOptions: number[] = this.paginatorService.pageSizeOptions;
 
   readonly clnEmail: string = 'email';
   readonly clnFirstName: string = 'first-name';
@@ -52,10 +48,7 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
     this.clnEmail, this.clnFirstName, this.clnLastName, this.clnPhoneNumber, this.clnRole, this.clnButtons
   ];
   tableData: MatTableDataSource<UserSearchDTO>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
-  loading: boolean = false;
 
   criteria: UserCriteria = CriteriaBuilder.init(this.clnEmail, {isActive: true});
 
@@ -63,28 +56,24 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
   selectedRoles: RoleDTO[] = [];
   private roleIdsFilters: number[] = undefined;
 
-  filterText: string;
-  private applyTextFilter$: Subject<string> = new Subject();
-
-
   constructor(
     private router: Router,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar,
-    private cdr: ChangeDetectorRef,
     private authHelper: AuthHelper,
     private roleService: RoleService,
     private userService: UserService,
-    private translateService: TranslateService,
     private userManagementService: UserManagementService,
-    private paginatorService: PaginatorService
+    translateService: TranslateService,
+    paginatorService: PaginatorService,
+    snackBar: MatSnackBar,
+    cdr: ChangeDetectorRef
   ) {
-    super();
+    super(translateService, snackBar, cdr, paginatorService, LocalStorageKey.USERS_ITEM_PER_PAGE);
   }
 
   ngOnInit(): void {
     this.loadRoles();
-    this.searchUser();
+    this.search();
     this.subscribeTextFilter();
   }
 
@@ -159,17 +148,12 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
     this.criteria.searchBy = null;
     this.criteria.roleIds = null;
 
-    this.searchUser();
+    this.search();
   }
 
   applyInactiveFilter(inactive: MatSlideToggleChange): void {
     this.criteria.isActive = !inactive.checked;
-    this.searchUser();
-  }
-
-  applyTextFilter(event: KeyboardEvent): void {
-    const filterValue: string = (event.target as HTMLInputElement).value;
-    this.applyTextFilter$.next(filterValue);
+    this.search();
   }
 
   changeRolesFilter(matSelect: MatSelectChange): void {
@@ -182,14 +166,14 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
       return;
     }
     this.criteria.roleIds = this.roleIdsFilters;
-    this.searchUser();
+    this.search();
   }
 
   private loadRoles(): void {
     this.roleService.all().subscribe((roles: RoleDTO[]) => this.roles = roles || []);
   }
 
-  private searchUser(): void {
+  protected search(): void {
     this.loading = true;
     this.userManagementService.find(this.criteria)
       .pipe(finalize(() => this.loading = false))
@@ -199,24 +183,6 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
           this.paginator.length = page.totalElements;
         }
       });
-  }
-
-  private subscribeTextFilter(): void {
-    this.applyTextFilter$
-      .pipe(
-        takeUntil(this.destroy$),
-        debounceTime(300)
-      ).subscribe((filterText: string) => {
-      this.criteria.searchBy = filterText;
-      this.searchUser();
-    });
-  }
-
-  private initPageSize(): void {
-    const pageSize: number = this.paginatorService.lastPageSize(LocalStorageKey.USERS_ITEM_PER_PAGE);
-    this.criteria.searchPage.pageSize = pageSize;
-    this.paginator.pageSize = pageSize;
-    this.cdr.detectChanges();
   }
 
   private subscribeSort(): void {
@@ -236,7 +202,7 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
           this.criteria.searchPage.sorting[0].property = sortProperty;
           this.criteria.orderByRole = false;
         }
-        this.searchUser();
+        this.search();
       });
   }
 
@@ -257,23 +223,6 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
       return null;
     }
     return sort.active;
-  }
-
-  private subscribePaginator(): void {
-    this.paginator.page
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((pageEvent: PageEvent) => this.afterChangePaginatorFields(pageEvent));
-  }
-
-  private afterChangePaginatorFields(pageEvent: PageEvent): void {
-    const pageSize: number = pageEvent.pageSize;
-    const pageIndex: number = pageEvent.pageIndex;
-    if (pageSize !== this.criteria.searchPage.pageSize || pageIndex !== this.criteria.searchPage.pageNumber) {
-      this.paginatorService.changeLastPageSize(LocalStorageKey.USERS_ITEM_PER_PAGE, pageSize);
-      this.criteria.searchPage.pageSize = pageSize;
-      this.criteria.searchPage.pageNumber = pageIndex;
-      this.searchUser();
-    }
   }
 
   private changeUserStatus(user: UserDTO, forDeactivate: boolean): void {
@@ -314,23 +263,13 @@ export class UsersComponent extends BaseComponent implements OnInit, AfterViewIn
   private deactivateUser(userId: number): void {
     this.loading = true;
     this.userManagementService.deactivate(userId)
-      .subscribe(() => this.showSnackBarAfterChangeUserStatus('common.deactivated'));
+      .subscribe(() => this.showSnackBarAfterChangeStatus('common.deactivated'));
   }
 
   private activateUser(userId: number): void {
     this.loading = true;
     this.userManagementService.activate(userId)
-      .subscribe(() => this.showSnackBarAfterChangeUserStatus('common.activated'))
-  }
-
-  private showSnackBarAfterChangeUserStatus(messageKey: string): void {
-    this.showSnackBar(messageKey);
-    this.searchUser();
-  }
-
-  private showSnackBar(messageKey: string): void {
-    const message: string = this.translateService.instant(messageKey);
-    this.snackBar.open(message, 'OK', {duration: 2000});
+      .subscribe(() => this.showSnackBarAfterChangeStatus('common.activated'))
   }
 
 }

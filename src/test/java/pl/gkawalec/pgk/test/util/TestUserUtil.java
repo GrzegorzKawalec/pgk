@@ -33,10 +33,6 @@ public class TestUserUtil {
     @Autowired
     private AuthorityRepository authorityRepository;
 
-    public void createUserExcludedAuthority(String email, String password, Authority excludedAuthority) {
-        createUserExcludedAuthorities(email, password, Set.of(excludedAuthority));
-    }
-
     public void createUserExcludedAuthorities(String email, String password, Set<Authority> excludedAuthorities) {
         Set<Object> excludedAuthoritiesWithAdmin = new HashSet<>(excludedAuthorities);
         excludedAuthoritiesWithAdmin.add(Authority.ADMIN);

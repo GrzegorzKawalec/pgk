@@ -44,8 +44,10 @@ public record ProjectSpecification(ProjectCriteria criteria) implements Specific
         if (StringUtil.isBlank(criteria.getSearchBy())) {
             return;
         }
-        predicates.add(searchLikeBy(root, criteriaBuilder, ProjectEntity_.name));
-        predicates.add(searchLikeBy(root, criteriaBuilder, ProjectEntity_.description));
+        List<Predicate> predicatesOr = new ArrayList<>();
+        predicatesOr.add(searchLikeBy(root, criteriaBuilder, ProjectEntity_.name));
+        predicatesOr.add(searchLikeBy(root, criteriaBuilder, ProjectEntity_.description));
+        predicates.add(PredicateUtil.togetherOr(predicatesOr, criteriaBuilder));
     }
 
     private Predicate searchLikeBy(Root<ProjectEntity> root, CriteriaBuilder criteriaBuilder, SingularAttribute<ProjectEntity, String> column) {
