@@ -13,6 +13,7 @@ import {Page} from '../../../../common/api/api-pagination.models';
 import {BaseTableComponent} from '../../../../common/components/base/base-table.component';
 import {ModalConfirmComponent} from '../../../../common/components/modal-confirm/modal-confirm.component';
 import {ModalConfirmModel} from '../../../../common/components/modal-confirm/modal-confirm.model';
+import {PREFIX_NUMBER_PHONE} from '../../../../common/const/const';
 import {RouteUserManagement} from '../../../../common/const/routes';
 import {LocalStorageKey} from '../../../../common/services/local-storage/local-storage-key';
 import {PaginatorService} from '../../../../common/services/paginator.service';
@@ -96,6 +97,19 @@ export class UsersComponent extends BaseTableComponent<UserCriteria> implements 
       return true;
     }
     return this.authHelper.hasAuthorities([Authority.ADMIN]);
+  }
+
+  preparePhoneNumberForDisplay(user: UserDTO): string {
+    if (!user || !user.phoneNumber) {
+      return '';
+    }
+    if (user.phoneNumber.startsWith(PREFIX_NUMBER_PHONE)) {
+      const numberWithoutPrefix: string = user.phoneNumber.slice(PREFIX_NUMBER_PHONE.length);
+      if (!numberWithoutPrefix.startsWith(' ')) {
+        return PREFIX_NUMBER_PHONE + ' ' + numberWithoutPrefix;
+      }
+    }
+    return user.phoneNumber;
   }
 
   clickAddUser(): void {

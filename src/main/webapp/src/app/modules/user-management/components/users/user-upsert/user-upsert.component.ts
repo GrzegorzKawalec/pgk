@@ -5,6 +5,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {finalize} from 'rxjs/operators';
 import {RoleDTO, UserDTO, UserUpsertDTO} from '../../../../../common/api/api-models';
+import {PREFIX_NUMBER_PHONE} from '../../../../../common/const/const';
 import {RouteUserManagement} from '../../../../../common/const/routes';
 import {EmailValidator} from '../../../../../common/validators/email.validator';
 import {RequiredValidator} from '../../../../../common/validators/required.validator';
@@ -29,7 +30,7 @@ export class UserUpsertComponent implements OnInit {
   readonly ctrlPhoneNumber: string = 'phoneNumber';
   readonly ctrlDescription: string = 'description';
 
-  readonly prefixNumberPhone: string = '+48';
+  readonly prefixNumberPhone: string = PREFIX_NUMBER_PHONE;
 
   userUpsert: UserUpsertDTO;
   availableRoles: RoleDTO[] = [];

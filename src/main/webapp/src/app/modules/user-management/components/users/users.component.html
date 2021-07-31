@@ -45,7 +45,7 @@
 
     <ng-container matColumnDef="{{clnPhoneNumber}}">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{prefixTranslateColumn + clnPhoneNumber | translate}}</th>
-      <td mat-cell *matCellDef="let row">{{row?.user?.phoneNumber}}</td>
+      <td mat-cell *matCellDef="let row">{{preparePhoneNumberForDisplay(row?.user)}}</td>
     </ng-container>
 
     <ng-container matColumnDef="{{clnRole}}">
