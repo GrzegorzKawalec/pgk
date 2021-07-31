@@ -11,7 +11,7 @@
     <properties>
         <activatedProfile>dev</activatedProfile>
         <java.version>16</java.version>
-        <node.version>v14.17.0</node.version>
+        <node.version>v14.17.4</node.version>
         <frontend-maven-plugin.version>1.12.0</frontend-maven-plugin.version>
         <front-source-dir>${basedir}/src/main/webapp</front-source-dir>
         <front-dist-dir>${front-source-dir}/dist</front-dist-dir>
