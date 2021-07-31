@@ -167,11 +167,21 @@ export class UserUpsertComponent implements OnInit {
     this.userManagementService.findUpsertById(userId)
       .pipe(finalize(() => this.loading = false))
       .subscribe((userUpsert: UserUpsertDTO) => {
+        this.removePrefixPhoneAfterLoadDataFromServer(userUpsert);
         this.userUpsert = userUpsert;
         this.patchFormValue(userUpsert);
         this.removeValidatorsFromPassword();
         this.setExistsUserEmailAsyncValidator();
       });
+  }
+
+  private removePrefixPhoneAfterLoadDataFromServer(userUpsert: UserUpsertDTO): void {
+    if (!userUpsert || !userUpsert.user || !userUpsert.user.phoneNumber) {
+      return;
+    }
+    if (userUpsert.user.phoneNumber.startsWith(this.prefixNumberPhone)) {
+      userUpsert.user.phoneNumber = userUpsert.user.phoneNumber.slice(this.prefixNumberPhone.length);
+    }
   }
 
   private patchFormValue(userUpsert: UserUpsertDTO): void {
