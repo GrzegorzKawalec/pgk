@@ -179,7 +179,7 @@ class RoleServiceTest {
         //then
         UserUpsertDTO userWithGuestRole = userService.findUpsertById(createdUser.getUser().getId());
         assertEquals(1, userWithGuestRole.getUser().getAuthorities().size());
-        assertEquals(Authority.GUEST, userWithGuestRole.getUser().getAuthorities().get(0));
+        assertEquals(Authority.EMPLOYEE, userWithGuestRole.getUser().getAuthorities().get(0));
     }
 
 }
