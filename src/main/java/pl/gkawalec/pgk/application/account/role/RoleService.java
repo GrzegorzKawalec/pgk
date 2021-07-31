@@ -85,17 +85,17 @@ public class RoleService {
     public void delete(Integer roleId) {
         validator.validateDelete(roleId);
         RoleEntity roleToDeleted = roleRepository.findOneById(roleId);
-        setGuestRoleIfSomeoneHasRoleToDeleted(roleToDeleted);
+        setEmployeeRoleIfSomeoneHasRoleToDeleted(roleToDeleted);
         roleRepository.delete(roleToDeleted);
     }
 
-    private void setGuestRoleIfSomeoneHasRoleToDeleted(RoleEntity roleToDeleted) {
+    private void setEmployeeRoleIfSomeoneHasRoleToDeleted(RoleEntity roleToDeleted) {
         List<UserCredentialsEntity> usersWithRoleToDeleted = userCredentialsRepository.findAllByRole(roleToDeleted);
         if (CollectionUtil.isEmpty(usersWithRoleToDeleted)) {
             return;
         }
-        RoleEntity guestRole = roleRepository.findAllByAuthorities_authority(Authority.GUEST).get(0);
-        usersWithRoleToDeleted.forEach(uc -> UserCredentialsEntityMapper.update(uc, guestRole));
+        RoleEntity employeeRole = roleRepository.findAllByAuthorities_authority(Authority.EMPLOYEE).get(0);
+        usersWithRoleToDeleted.forEach(uc -> UserCredentialsEntityMapper.update(uc, employeeRole));
         userCredentialsRepository.saveAll(usersWithRoleToDeleted);
     }
 

@@ -2,7 +2,7 @@ package pl.gkawalec.pgk.common.type;
 
 public enum Authority {
     ADMIN,
-    GUEST,
+    EMPLOYEE,
 
     LEGAL_ACTS_READ,
     LEGAL_ACTS_WRITE,

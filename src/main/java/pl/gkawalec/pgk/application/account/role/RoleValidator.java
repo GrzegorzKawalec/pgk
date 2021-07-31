@@ -38,8 +38,8 @@ class RoleValidator {
         if (hasAdminAuthority(roleEntity)) {
             throw new ValidateResponseException(ResponseExceptionType.ROLE_CANNOT_UPDATE_ADMIN);
         }
-        if (hasGuestAuthority(roleEntity)) {
-            throw new ValidateResponseException(ResponseExceptionType.ROLE_CANNOT_UPDATE_GUEST);
+        if (hasEmployeeAuthority(roleEntity)) {
+            throw new ValidateResponseException(ResponseExceptionType.ROLE_CANNOT_UPDATE_EMPLOYEE);
         }
         validateFieldDTO(dto);
         if (roleUniqueNameChecker.existsTrimName(dto.getName(), dto.getId())) {
@@ -56,8 +56,8 @@ class RoleValidator {
         if (hasAdminAuthority(roleEntity)) {
             throw new ValidateResponseException(ResponseExceptionType.ROLE_CANNOT_DELETE_ADMIN);
         }
-        if (hasGuestAuthority(roleEntity)) {
-            throw new ValidateResponseException(ResponseExceptionType.ROLE_CANNOT_DELETE_GUEST);
+        if (hasEmployeeAuthority(roleEntity)) {
+            throw new ValidateResponseException(ResponseExceptionType.ROLE_CANNOT_DELETE_EMPLOYEE);
         }
     }
 
@@ -65,8 +65,8 @@ class RoleValidator {
         return hasAuthority(roleEntity, Authority.ADMIN);
     }
 
-    private boolean hasGuestAuthority(RoleEntity roleEntity) {
-        return hasAuthority(roleEntity, Authority.GUEST);
+    private boolean hasEmployeeAuthority(RoleEntity roleEntity) {
+        return hasAuthority(roleEntity, Authority.EMPLOYEE);
     }
 
     private boolean hasAuthority(RoleEntity roleEntity, Authority authority) {
@@ -88,8 +88,8 @@ class RoleValidator {
         if (dto.getAuthorities().contains(Authority.ADMIN)) {
             throw new ValidateResponseException(ResponseExceptionType.ROLE_SET_ADMIN_AUTHORITY);
         }
-        if (dto.getAuthorities().contains(Authority.GUEST)) {
-            throw new ValidateResponseException(ResponseExceptionType.ROLE_SET_GUEST_AUTHORITY);
+        if (dto.getAuthorities().contains(Authority.EMPLOYEE)) {
+            throw new ValidateResponseException(ResponseExceptionType.ROLE_SET_EMPLOYEE_AUTHORITY);
         }
     }
 
